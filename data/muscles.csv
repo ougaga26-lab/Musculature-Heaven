@@ -1,0 +1,216 @@
+no,picture file,name (CN),name (EN),Origin,起始點,Insertion,結束點,Action,動作,Nerve,神經支配
+1,trapezius.jpg,斜方肌,Trapezius,"Occipital protuberance
+Ligamentum nuchae
+Spinous processes of C7-T12","枕外隆凸
+項韌帶
+第七頸椎至第十二胸椎棘突","Lateral clavicle
+Spine of scapula
+Root of spine of scapula","鎖骨外側三分之一
+肩胛骨棘
+肩胛骨棘根部","Elevation of scapula
+Upward rotation of scapula
+Retraction of scapula
+Depression of scapula","肩胛骨上提
+肩胛骨上旋
+肩胛骨內收
+肩胛骨下沉",Spinal accessory nerve (Cranial nerve XI),脊髓副神經（第十一對腦神經）
+2,rhomboid_minor.jpg,小菱形肌,Rhomboid Minor,Spinous processes of C7-T1,第七頸椎至第一胸椎棘突,Root of spine of scapula,肩胛棘根部,"Retraction of scapula
+Downward rotation of scapula","肩胛骨內收
+肩胛骨下旋",Dorsal scapular nerve,肩胛背神經
+3,rhomboid_major.jpg,大菱形肌,Rhomboid Major,Spinous processes of T2-T5,第二至第五胸椎棘突,Vertebral border of scapula inferior to root of spine,肩胛骨內側緣肩胛棘根部以下,"Retraction of scapula
+Downward rotation of scapula","肩胛骨內收
+肩胛骨下旋",Dorsal scapular nerve,肩胛背神經
+4,levator_scapulae.jpg,提肩胛肌,Levator Scapulae,Transverse processes of C1-C4,第一至第四頸椎橫突,Vertebral border of scapula superior to root of spine,肩胛骨內側緣肩胛棘根部上方,"Elevation of scapula
+Downward rotation of scapula","肩胛骨上提
+肩胛骨下旋",Dorsal scapular nerve,肩胛背神經
+5,latissimus_dorsi.jpg,闊背肌,Latissimus Dorsi,"Spinous processes of T7-T12
+Lower ribs
+Thoracolumbar aponeurosis
+Iliac crest","第7-12胸椎棘突
+下肋骨
+胸腰筋膜
+髂嵴",Bicipital groove of humerus,肱骨結節間溝,"Extension of shoulder
+Internal rotation of shoulder
+Adduction of shoulder","肩關節伸展
+肩關節內旋
+肩關節內收",Thoracodorsal nerve,胸背神經
+6,serratus_posterior_superior.jpg,後上鋸肌,Serratus Posterior Superior,"Ligamentum nuchae
+Spinous processes of C7-T3","項韌帶
+第七頸椎至第三胸椎棘突",Superior border of ribs 2-4,第二至第四肋骨上緣,Elevates ribs,肋骨上提,Intercostal nerves T1-T4,第一至第四胸椎肋間神經
+7,serratus_posterior_inferior.jpg,後下鋸肌,Serratus Posterior Inferior,Spinous processes of T11-L2,第11胸椎至第2腰椎棘突,Inferior border of ribs 9-12,第9至12肋骨下緣,Depresses ribs,肋骨下沉,Intercostal nerves T9-T12,第9至12胸椎肋間神經
+8,iliocostalis.jpg,髂肋肌,Iliocostalis,"Posterior ribs
+Thoracolumbar aponeurosis
+Iliac crest
+Sacrum","後肋骨
+胸腰筋膜
+髂骨嵴
+薦骨","Transverse processes of cervical vertebrae
+Posterior ribs","頸椎橫突
+後肋骨","Extension of vertebral column
+Lateral flexion of vertebral column","脊柱伸展
+脊柱側彎",Posterior rami of spinal nerves,脊神經後支
+9,longissimus.jpg,最長肌,Longissimus,"Transverse processes of cervical and thoracic vertebrae
+Thoracolumbar aponeurosis
+Iliac crest
+Sacrum","頸椎及胸椎橫突
+胸腰筋膜
+髂骨嵴
+薦骨","Mastoid process
+Transverse processes of cervical and thoracic vertebrae","乳突
+頸椎及胸椎橫突","Extension of vertebral column
+Lateral flexion of vertebral column","脊柱伸展
+脊柱側屈",Posterior rami of spinal nerves,脊神經後支
+10,spinalis.jpg,棘肌,Spinalis,"Ligamentum nuchae
+Spinous processes of cervical/thoracic/lumbar vertebrae","項韌帶
+頸椎/胸椎/腰椎棘突","Occipital bone
+Spinous processes of cervical & thoracic vertebrae","枕骨
+頸椎及胸椎棘突","Extension of vertebral column
+Lateral flexion of vertebral column","脊柱伸展
+脊柱側屈",Posterior rami of spinal nerves,脊神經後支
+11,splenius_capitis.jpg,頭夾肌,Splenius Capitis,"Spinous process of the C7-T3
+Ligamentum nuchae","第七頸椎至第三胸椎棘突
+項韌帶","Occipital bone
+Mastoid Process","枕骨
+乳突","Extension of head and neck
+Lateral flexion of head
+Rotation of head","頭頸部伸展
+頭部側屈
+頭部旋轉",Posterior rami of spinal nerves C2-3,第二至第三頸神經後支
+12,rectus_capitis_posterior_major.jpg,頭後大直肌,Rectus Capitis Posterior Major,Spinous process of axis,樞椎棘突,Occipital bone,枕骨,"Extension of atlanto-occipital joint
+Ipsilateral rotation at the atlanto-axial joint","寰枕關節伸展
+寰樞關節同側旋轉",Posterior ramus of spinal nerve C1,第一頸神經後支
+13,rectus_capitis_posterior_minor.jpg,頭後小直肌,Rectus Capitis Posterior Minor,Posterior tubercle of atlas,寰椎後結節,Occipital bone,枕骨,Extension of atlanto-occipital joint,"寰枕關節伸展
+",Posterior ramus of spinal nerve C1,第一頸神經後支
+14,obliquus_capitis_superior.jpg,頭上斜肌,Obliquus Capitis Superior,Transverse process of atlas,寰椎橫突,Occipital bone,枕骨,"Extension of atlanto-occipital joint
+Lateral flexion of atlanto-occipital joint","寰枕關節伸展
+寰枕關節側屈",Posterior ramus of spinal nerve C1,第一頸神經後支
+15,obliquus_capitis_inferior.jpg,頭下斜肌,Obliquus Capitis Inferior,Lateral/superior surface spinous process of the axis,第二頸椎棘突外側/上表面,Transverse process of the atlas,第一頸椎橫突,Ipsilateral rotation of the atlanto-axial joint,寰樞關節同側旋轉,Posterior ramus of spinal nerve C1,第一頸神經後支
+16,serratus_anterior.jpg,前鋸肌,Serratus Anterior,Lateral surface of superior ribs,上位肋骨外側面,Medial (vertebral) border of scapula,肩胛骨內側緣（脊椎緣）,"Protraction of scapula
+Upward rotation of scapula
+Holds scapula to thoracic wall","肩胛骨前引
+肩胛骨上迴旋
+固定肩胛骨於胸壁",Long thoracic nerve,胸長神經
+17,pectoralis_major.jpg,胸大肌,Pectoralis Major,"Medial clavicle
+Sternum and costal cartilages of superior ribs","鎖骨內側部
+胸骨及上位肋骨之肋軟骨",Lateral bicipital groove of humerus,肱骨二頭肌溝外側緣,"Adduction/horizontal adduction of shoulder
+Internal rotation of shoulder
+Flexion of shoulder (clavicular head)
+Extension of shoulder to neutral (sternal head)","肩關節內收/水平內收
+肩關節內旋
+肩關節屈曲（鎖骨部）
+肩關節伸展至中立位（胸骨部）","Lateral and medial pectoral nerves (clavicular head), Medial pectoral nerve (sternal head)",胸外側神經及胸內側神經（鎖骨部），胸內側神經（胸骨部）
+18,pectoralis_minor.jpg,胸小肌,Pectoralis Minor,Anterior surface of ribs 3-5,第3-5肋骨前面,Coracoid process of scapula,肩胛骨喙突,"Protraction of scapula
+Depression of scapula
+Downward rotation of scapula","肩胛骨前引
+肩胛骨下沉
+肩胛骨下旋",Medial pectoral nerve,
+19,,,,,,,,,,,
+20,,,,,,,,,,,
+21,,,,,,,,,,,
+22,,,,,,,,,,,
+23,,,,,,,,,,,
+24,,,,,,,,,,,
+25,,,,,,,,,,,
+26,,,,,,,,,,,
+27,,,,,,,,,,,
+28,,,,,,,,,,,
+29,,,,,,,,,,,
+30,,,,,,,,,,,
+31,,,,,,,,,,,
+32,,,,,,,,,,,
+33,,,,,,,,,,,
+34,,,,,,,,,,,
+35,,,,,,,,,,,
+36,,,,,,,,,,,
+37,,,,,,,,,,,
+38,,,,,,,,,,,
+39,,,,,,,,,,,
+40,,,,,,,,,,,
+41,,,,,,,,,,,
+42,,,,,,,,,,,
+43,,,,,,,,,,,
+44,,,,,,,,,,,
+45,,,,,,,,,,,
+46,,,,,,,,,,,
+47,,,,,,,,,,,
+48,,,,,,,,,,,
+49,,,,,,,,,,,
+50,,,,,,,,,,,
+51,,,,,,,,,,,
+52,,,,,,,,,,,
+53,,,,,,,,,,,
+54,,,,,,,,,,,
+55,,,,,,,,,,,
+56,,,,,,,,,,,
+57,,,,,,,,,,,
+58,,,,,,,,,,,
+59,,,,,,,,,,,
+60,,,,,,,,,,,
+61,,,,,,,,,,,
+62,,,,,,,,,,,
+63,,,,,,,,,,,
+64,,,,,,,,,,,
+65,,,,,,,,,,,
+66,,,,,,,,,,,
+67,,,,,,,,,,,
+68,,,,,,,,,,,
+69,,,,,,,,,,,
+70,,,,,,,,,,,
+71,,,,,,,,,,,
+72,,,,,,,,,,,
+73,,,,,,,,,,,
+74,,,,,,,,,,,
+75,,,,,,,,,,,
+76,,,,,,,,,,,
+77,,,,,,,,,,,
+78,,,,,,,,,,,
+79,,,,,,,,,,,
+80,,,,,,,,,,,
+81,,,,,,,,,,,
+82,,,,,,,,,,,
+83,,,,,,,,,,,
+84,,,,,,,,,,,
+85,,,,,,,,,,,
+86,,,,,,,,,,,
+87,,,,,,,,,,,
+88,,,,,,,,,,,
+89,,,,,,,,,,,
+90,,,,,,,,,,,
+91,,,,,,,,,,,
+92,,,,,,,,,,,
+93,,,,,,,,,,,
+94,,,,,,,,,,,
+95,,,,,,,,,,,
+96,,,,,,,,,,,
+97,,,,,,,,,,,
+98,,,,,,,,,,,
+99,,,,,,,,,,,
+100,,,,,,,,,,,
+101,,,,,,,,,,,
+102,,,,,,,,,,,
+103,,,,,,,,,,,
+104,,,,,,,,,,,
+105,,,,,,,,,,,
+106,,,,,,,,,,,
+107,,,,,,,,,,,
+108,,,,,,,,,,,
+109,,,,,,,,,,,
+110,,,,,,,,,,,
+111,,,,,,,,,,,
+112,,,,,,,,,,,
+113,,,,,,,,,,,
+114,,,,,,,,,,,
+115,,,,,,,,,,,
+116,,,,,,,,,,,
+117,,,,,,,,,,,
+118,,,,,,,,,,,
+119,,,,,,,,,,,
+120,,,,,,,,,,,
+121,,,,,,,,,,,
+122,,,,,,,,,,,
+123,,,,,,,,,,,
+124,,,,,,,,,,,
+125,,,,,,,,,,,
+126,,,,,,,,,,,
+127,,,,,,,,,,,
+128,,,,,,,,,,,
