@@ -146,12 +146,12 @@
             max-height: 300px;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
+            object-fit: contain;
         }
 
         .card-title {
             font-family: 'Crimson Pro', serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--primary);
             text-align: center;
@@ -159,7 +159,7 @@
         }
 
         .card-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--secondary);
             text-align: center;
             font-weight: 500;
@@ -169,7 +169,7 @@
             width: 100%;
             text-align: left;
             overflow-y: auto;
-            max-height: 350px;
+            max-height: 200px;
         }
 
         .info-item {
@@ -354,33 +354,40 @@
             <p class="subtitle">解剖學習單字卡系統</p>
         </div>
 
-        <div class="controls">
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="unfamiliar">不熟悉</button>
-                <button class="filter-btn" data-filter="familiar">已熟悉</button>
-            </div>
-            <div class="progress-info">
-                <span>進度：</span>
-                <strong id="familiarCount">0</strong> / <span id="totalCount">0</span>
-            </div>
-        </div>
-
         <div id="loading" class="loading">
             <div class="spinner"></div>
             <p>載入資料中...</p>
         </div>
 
         <div id="app" style="display: none;">
+            <div class="controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="unfamiliar">不熟悉</button>
+                    <button class="filter-btn" data-filter="familiar">已熟悉</button>
+                </div>
+                <div class="progress-info">
+                    <span>進度：</span>
+                    <strong id="familiarCount">0</strong> / <span id="totalCount">0</span>
+                </div>
+            </div>
+
             <div class="card-container">
                 <div class="flashcard" id="flashcard">
                     <div class="card-face card-front">
-                        <img id="cardImage" class="card-image" alt="Muscle">
-                        <h2 class="card-title" id="cardTitleEN">Muscle Name</h2>
-                        <p class="card-subtitle" id="cardTitleZH">肌肉名稱</p>
-                        <div class="flip-hint">👆 點擊翻轉卡片</div>
+                        <img id="cardImage" class="card-image" alt="Muscle" style="max-height: 90%; margin: 0;">
+                        <div class="flip-hint">👆 點擊翻轉查看資訊</div>
                     </div>
                     <div class="card-face card-back">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; justify-content: center;">
+                                <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height: 200px; margin: 0;">
+                            </div>
+                            <div style="display: flex; flex-direction: column; justify-content: center;">
+                                <h2 class="card-title" id="cardTitleEN">Muscle Name</h2>
+                                <p class="card-subtitle" id="cardTitleZH">肌肉名稱</p>
+                            </div>
+                        </div>
                         <div class="card-info" id="cardInfo">
                             <!-- 資訊會動態載入 -->
                         </div>
@@ -429,30 +436,32 @@
             localStorage.setItem('musculature_familiarity', JSON.stringify(familiarityData));
         }
 
-        // 解析 CSV
+        // 改進的 CSV 解析（處理欄位中的換行）
         function parseCSV(text) {
             const lines = text.split('\n');
-            const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+            const headers = parseCSVLine(lines[0]);
             
             const data = [];
-            for (let i = 1; i < lines.length; i++) {
-                if (!lines[i].trim()) continue;
-                
-                const values = [];
-                let current = '';
-                let inQuotes = false;
-                
-                for (let char of lines[i]) {
-                    if (char === '"') {
-                        inQuotes = !inQuotes;
-                    } else if (char === ',' && !inQuotes) {
-                        values.push(current.trim().replace(/^"|"$/g, ''));
-                        current = '';
-                    } else {
-                        current += char;
-                    }
+            let i = 1;
+            
+            while (i < lines.length) {
+                if (!lines[i].trim()) {
+                    i++;
+                    continue;
                 }
-                values.push(current.trim().replace(/^"|"$/g, ''));
+                
+                // 收集完整的一筆資料（可能跨多行）
+                let rowText = lines[i];
+                let quoteCount = (rowText.match(/"/g) || []).length;
+                
+                // 如果引號數量是奇數，表示跨行了
+                while (quoteCount % 2 !== 0 && i + 1 < lines.length) {
+                    i++;
+                    rowText += '\n' + lines[i];
+                    quoteCount = (rowText.match(/"/g) || []).length;
+                }
+                
+                const values = parseCSVLine(rowText);
                 
                 if (values.length === headers.length) {
                     const obj = {};
@@ -461,8 +470,39 @@
                     });
                     data.push(obj);
                 }
+                
+                i++;
             }
+            
             return data;
+        }
+
+        // 解析單行 CSV
+        function parseCSVLine(line) {
+            const values = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                
+                if (char === '"') {
+                    if (inQuotes && line[i + 1] === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    values.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            values.push(current.trim());
+            
+            return values;
         }
 
         // 載入 CSV 資料
@@ -473,6 +513,8 @@
                 const text = await response.text();
                 
                 allCards = parseCSV(text);
+                
+                console.log(`載入 ${allCards.length} 筆資料`);
                 
                 // 初始化熟悉度資料
                 allCards.forEach(card => {
@@ -522,7 +564,19 @@
             const card = filteredCards[index];
             const imageUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${IMAGES_PATH}${card['picture file']}`;
             
+            // 正面圖片
             document.getElementById('cardImage').src = imageUrl;
+            document.getElementById('cardImage').onerror = function() {
+                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
+            };
+            
+            // 背面圖片
+            document.getElementById('cardImageBack').src = imageUrl;
+            document.getElementById('cardImageBack').onerror = function() {
+                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
+            };
+            
+            // 標題
             document.getElementById('cardTitleEN').textContent = card['name (EN)'] || '';
             document.getElementById('cardTitleZH').textContent = card['name (CN)'] || '';
             
@@ -583,7 +637,6 @@
             
             // 翻牌
             document.getElementById('flashcard').addEventListener('click', (e) => {
-                // 避免點擊按鈕時觸發翻牌
                 if (!e.target.classList.contains('action-btn')) {
                     document.getElementById('flashcard').classList.toggle('flipped');
                 }
@@ -606,7 +659,14 @@
                 familiarityData[card['picture file']] = 'unfamiliar';
                 saveFamiliarityData();
                 updateProgress();
-                showCard(currentIndex);
+                
+                // 自動跳到下一張
+                if (currentIndex < filteredCards.length - 1) {
+                    currentIndex++;
+                    showCard(currentIndex);
+                } else {
+                    showCard(currentIndex);
+                }
             });
             
             document.getElementById('btnFamiliar').addEventListener('click', () => {
@@ -614,12 +674,27 @@
                 familiarityData[card['picture file']] = 'familiar';
                 saveFamiliarityData();
                 updateProgress();
-                showCard(currentIndex);
+                
+                // 自動跳到下一張
+                if (currentIndex < filteredCards.length - 1) {
+                    currentIndex++;
+                    showCard(currentIndex);
+                } else {
+                    showCard(currentIndex);
+                }
             });
             
             // 導航
             document.getElementById('btnPrev').addEventListener('click', () => {
                 if (currentIndex > 0) {
+                    // 預設標記為不熟悉
+                    const currentCard = filteredCards[currentIndex];
+                    if (!familiarityData[currentCard['picture file']] || familiarityData[currentCard['picture file']] === 'unfamiliar') {
+                        familiarityData[currentCard['picture file']] = 'unfamiliar';
+                        saveFamiliarityData();
+                        updateProgress();
+                    }
+                    
                     currentIndex--;
                     showCard(currentIndex);
                 }
@@ -627,6 +702,14 @@
             
             document.getElementById('btnNext').addEventListener('click', () => {
                 if (currentIndex < filteredCards.length - 1) {
+                    // 預設標記為不熟悉
+                    const currentCard = filteredCards[currentIndex];
+                    if (!familiarityData[currentCard['picture file']] || familiarityData[currentCard['picture file']] === 'unfamiliar') {
+                        familiarityData[currentCard['picture file']] = 'unfamiliar';
+                        saveFamiliarityData();
+                        updateProgress();
+                    }
+                    
                     currentIndex++;
                     showCard(currentIndex);
                 }
