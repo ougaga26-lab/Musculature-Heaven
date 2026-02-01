@@ -128,7 +128,7 @@
     /* 你要的是「外框留白少一點」→ 主要動 padding，而不是硬縮高度 */
     .flashcard{
       width:100%;
-      height:425px; /* 保留短一點點的高度 */
+      height:400px; /* 保留短一點點的高度 */
       position:relative;
       transform-style:preserve-3d;
       transition:transform .6s;
@@ -187,7 +187,7 @@
       width:100%;
       text-align:left;
       overflow-y:auto;
-      max-height:200px;
+      max-height:220px;
       margin-top:.2rem;
     }
     .info-item{margin-bottom:1.1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border);}
@@ -426,7 +426,7 @@
     /* ───────────────────────── Mobile ───────────────────────── */
     @media (max-width:768px){
       h1{font-size:2rem;}
-      .flashcard{height:390px;}
+      .flashcard{height:375px;}
       .card-face{padding:0.9rem;} /* ✅ 手機外框留白再少一點 */
       .card-image{max-height:260px;}
       .card-title{font-size:1.2rem;}
@@ -521,7 +521,7 @@
             <!-- ✅ 背面上半部：間距縮小（原本 margin-bottom 很大） -->
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem;width:100%;margin-bottom:.55rem;">
               <div style="display:flex;align-items:center;justify-content:center;">
-                <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height:170px;margin:0;">
+                <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height:150px;margin:0;">
               </div>
               <div style="display:flex;flex-direction:column;justify-content:center;">
                 <h2 class="card-title" id="cardTitleEN">Muscle Name</h2>
