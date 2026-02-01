@@ -3,21 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏛️ Musculature Heaven - 解剖學習單字卡</title>
+    <title>Musculature Heaven</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary: #2c5f7c;
             --secondary: #8b4f4b;
             --accent: #d4a373;
             --success: #4caf50;
-            --bg: #f8f6f3;
             --card: #ffffff;
             --text: #2a2a2a;
             --border: #d4cfc4;
@@ -31,917 +26,635 @@
             padding: 1rem;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+        .container { max-width: 800px; margin: 0 auto; }
 
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
+        /* ─── 標題 ─── */
+        .header { text-align: center; margin-bottom: 2rem; }
         h1 {
             font-family: 'Crimson Pro', serif;
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
+        .subtitle { font-size: 1rem; color: var(--secondary); }
 
-        .subtitle {
-            font-size: 1rem;
-            color: var(--secondary);
-        }
-
+        /* ─── 篩選器 ─── */
         .controls {
             background: var(--card);
             border-radius: 15px;
-            padding: 1.5rem;
+            padding: 1.2rem 1.5rem;
             margin-bottom: 2rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .filter-buttons {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: space-between;
+            gap: 0.75rem;
+            width: 100%;
             align-items: center;
         }
 
-        .filter-buttons {
-            display: flex;
-            gap: 0.5rem;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            padding: 0.6rem 1rem;
-            border: 2px solid var(--border);
-            background: white;
-            border-radius: 12px;
+        /* 全部 — 層級高，更顯著 */
+        .filter-btn-all {
+            padding: 0.75rem 1.4rem;
+            border: 2.5px solid var(--primary);
+            background: rgba(44,95,124,0.08);
+            border-radius: 14px;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.3rem;
-            flex: 1;
+            gap: 0.2rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
         }
-
-        .filter-btn .filter-label {
-            font-size: 0.9rem;
-        }
-
-        .filter-btn .filter-count {
-            font-size: 0.75rem;
-            color: #999;
+        .filter-btn-all .filter-count {
+            font-size: 0.72rem;
+            color: rgba(44,95,124,0.55);
             font-weight: 600;
         }
-
-        .filter-btn.active {
+        .filter-btn-all.active {
             background: var(--primary);
             color: white;
-            border-color: var(--primary);
+        }
+        .filter-btn-all.active .filter-count {
+            color: rgba(255,255,255,0.7);
         }
 
-        .filter-btn.active .filter-count {
-            color: rgba(255,255,255,0.8);
-        }
+        /* 子類別 */
+        .filter-sub-group { display: flex; gap: 0.5rem; flex: 1; }
 
-        .progress-info {
-            font-size: 0.95rem;
-            color: var(--text);
+        .filter-btn {
+            padding: 0.5rem 0.4rem;
+            border: 1.5px solid var(--border);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15rem;
+            flex: 1;
+            min-width: 0;
         }
+        .filter-btn .filter-label { font-size: 0.8rem; white-space: nowrap; }
+        .filter-btn .filter-count { font-size: 0.68rem; color: #999; font-weight: 600; }
+        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .filter-btn.active .filter-count { color: rgba(255,255,255,0.7); }
 
-        .progress-info strong {
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        .card-container {
-            perspective: 1000px;
-            margin-bottom: 2rem;
-        }
-
+        /* ─── 卡片 ─── */
+        .card-container { perspective: 1000px; margin-bottom: 2rem; }
         .flashcard {
-            width: 100%;
-            height: 500px;
+            width: 100%; height: 500px;
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.6s;
             cursor: pointer;
         }
-
-        .flashcard.flipped {
-            transform: rotateY(180deg);
-        }
-
+        .flashcard.flipped { transform: rotateY(180deg); }
         .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            position: absolute; width: 100%; height: 100%;
             backface-visibility: hidden;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             padding: 2rem;
             background: var(--card);
         }
-
-        .card-front {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f6f3 100%);
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            background: linear-gradient(135deg, #f8f6f3 0%, #ffffff 100%);
-        }
-
+        .card-front { background: linear-gradient(135deg, #fff 0%, #f8f6f3 100%); }
+        .card-back  { transform: rotateY(180deg); background: linear-gradient(135deg, #f8f6f3 0%, #fff 100%); }
         .card-image {
-            max-width: 100%;
-            max-height: 300px;
+            max-width: 100%; max-height: 300px;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             object-fit: contain;
         }
-
         .card-title {
             font-family: 'Crimson Pro', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 0.5rem;
+            font-size: 2rem; font-weight: 700;
+            color: var(--primary); text-align: center; margin-bottom: 0.5rem;
         }
-
-        .card-subtitle {
-            font-size: 1.3rem;
-            color: var(--secondary);
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .card-info {
-            width: 100%;
-            text-align: left;
-            overflow-y: auto;
-            max-height: 200px;
-        }
-
-        .info-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.3rem;
-            font-size: 0.9rem;
-        }
-
-        .info-content {
-            color: var(--text);
-            line-height: 1.6;
-            white-space: pre-line;
-            font-size: 0.95rem;
-        }
-
+        .card-subtitle { font-size: 1.3rem; color: var(--secondary); text-align: center; font-weight: 500; }
+        .card-info { width: 100%; text-align: left; overflow-y: auto; max-height: 200px; }
+        .info-item { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .info-item:last-child { border-bottom: none; }
+        .info-label { font-weight: 700; color: var(--primary); margin-bottom: 0.3rem; font-size: 0.9rem; }
+        .info-content { color: var(--text); line-height: 1.6; white-space: pre-line; font-size: 0.95rem; }
         .flip-hint {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
+            position: absolute; bottom: 1rem; left: 50%;
             transform: translateX(-50%);
-            font-size: 0.85rem;
-            color: #999;
+            font-size: 0.85rem; color: #999;
             animation: pulse 2s infinite;
         }
+        @keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        .actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
+        /* ─── 熟悲按鈕 ─── */
+        .actions { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
         .action-btn {
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
+            padding: 0.8rem 2rem; border: none; border-radius: 50px;
+            font-weight: 600; font-size: 1rem; cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
+        .btn-unfamiliar { background: var(--secondary); color: white; }
+        .btn-unfamiliar:hover { background: #6d3d39; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139,79,75,0.3); }
+        .btn-familiar  { background: var(--success); color: white; }
+        .btn-familiar:hover  { background: #45a049; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(76,175,80,0.3); }
 
-        .btn-unfamiliar {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-unfamiliar:hover {
-            background: #6d3d39;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139,79,75,0.3);
-        }
-
-        .btn-familiar {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-familiar:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(76,175,80,0.3);
-        }
-
+        /* ─── 導航 ─── */
         .navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card);
-            border-radius: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card); border-radius: 15px;
             padding: 1rem 1.5rem;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
-
         .nav-btn {
-            padding: 0.6rem 1.5rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 0.6rem 1.5rem; background: var(--accent); color: white;
+            border: none; border-radius: 25px; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease;
         }
+        .nav-btn:hover:not(:disabled) { background: #c9956a; transform: translateY(-2px); }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        .nav-btn:hover:not(:disabled) {
-            background: #c9956a;
-            transform: translateY(-2px);
+        /* ─── 學習成效按鈕 ─── */
+        .stats-btn-wrap { text-align: center; margin-top: 1.5rem; }
+        .stats-btn {
+            padding: 0.8rem 2rem; background: var(--primary); color: white;
+            border: none; border-radius: 25px; font-weight: 600; font-size: 1rem;
+            cursor: pointer; transition: all 0.3s ease;
         }
+        .stats-btn:hover { background: #1e4a5f; transform: translateY(-2px); }
 
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .card-counter {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            font-size: 1.2rem;
-            color: var(--primary);
-        }
-
+        /* ─── Loading ─── */
+        .loading { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--primary); }
         .spinner {
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            border: 4px solid var(--border); border-top: 4px solid var(--primary);
+            border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 1s linear infinite; margin: 0 auto 1rem;
         }
+        @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* ─── 空類別訊息 ─── */
+        .empty-msg {
+            display: none; text-align: center;
+            padding: 5rem 2rem;
+            background: var(--card); border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
+        .empty-msg .emoji { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-msg p { font-size: 1.2rem; color: var(--primary); font-weight: 600; }
+        .empty-msg .sub { font-size: 0.9rem; color: #999; margin-top: 0.5rem; font-weight: 400; }
 
-        /* 手機版優化 */
+        /* ─── 學習成效頁面 ─── */
+        .stats-page { display: none; }
+        .stats-page-inner {
+            background: var(--card); border-radius: 20px; padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        .stats-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .stats-header h2 { font-family: 'Crimson Pro', serif; font-size: 2rem; color: var(--primary); margin: 0; }
+        .stats-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
+        .stats-card { color: white; padding: 1.5rem; border-radius: 15px; text-align: center; }
+        .stats-card .num { font-size: 2.5rem; font-weight: 700; }
+        .stats-card .label { font-size: 0.9rem; opacity: 0.9; }
+        .stats-section { margin-bottom: 2.5rem; }
+        .stats-section:last-child { margin-bottom: 0; }
+        .stats-section h3 {
+            font-family: 'Crimson Pro', serif; font-size: 1.5rem;
+            margin-bottom: 1rem; padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        .stats-list-item {
+            display: flex; align-items: center;
+            padding: 0.9rem 1rem; background: white;
+            border-radius: 10px; margin-bottom: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .stats-list-item img {
+            width: 75px; height: 75px; object-fit: cover;
+            border-radius: 8px; margin-right: 1rem; flex-shrink: 0;
+        }
+        .stats-list-item .info { flex: 1; min-width: 0; }
+        .stats-list-item .name-en { font-weight: 600; font-size: 1.05rem; color: var(--primary); }
+        .stats-list-item .name-zh { color: var(--secondary); font-size: 0.9rem; }
+        .stats-list-item .badge {
+            color: white; padding: 0.4rem 0.9rem; border-radius: 20px;
+            font-weight: 600; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0;
+        }
+        .stats-empty { text-align: center; color: #999; padding: 1.5rem; }
+
+        /* ─── 手機版 ─── */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .flashcard {
-                height: 450px;
-            }
-
-            .card-title {
-                font-size: 1.8rem;
-            }
-
-            .card-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .filter-buttons {
-                justify-content: center;
-            }
-
-            .actions {
-                flex-direction: column;
-            }
-
-            .action-btn {
-                width: 100%;
-            }
+            h1 { font-size: 2rem; }
+            .flashcard { height: 450px; }
+            .card-title { font-size: 1.8rem; }
+            .card-subtitle { font-size: 1.2rem; }
+            .filter-buttons { flex-wrap: wrap; }
+            .filter-btn-all { flex: none; }
+            .filter-sub-group { flex: 1; min-width: 100%; }
+            .actions { flex-direction: column; }
+            .action-btn { width: 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🏛️ Musculature Heaven</h1>
-            <p class="subtitle">解剖學習單字卡系統</p>
-            <button id="statsBtn" style="
-                margin-top: 1rem;
-                padding: 0.7rem 1.5rem;
-                background: var(--accent);
-                color: white;
-                border: none;
-                border-radius: 25px;
-                font-weight: 600;
-                cursor: pointer;
-                font-size: 0.95rem;
-            ">📊 我的學習成效</button>
-        </div>
+<div class="container">
 
-        <div id="loading" class="loading">
-            <div class="spinner"></div>
-            <p>載入資料中...</p>
-        </div>
+    <!-- 標題 -->
+    <div class="header">
+        <h1>Musculature Heaven</h1>
+        <p class="subtitle">肌肉解剖學複習小天堂</p>
+    </div>
 
-        <div id="app" style="display: none;">
-            <div class="controls">
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">
-                        <span class="filter-label">全部</span>
-                        <span class="filter-count" id="countAll">0</span>
-                    </button>
+    <!-- Loading -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>載入資料中...</p>
+    </div>
+
+    <!-- 空類別訊息（點進空的篩選器時出現） -->
+    <div id="emptyMsg" class="empty-msg">
+        <div class="emoji">📭</div>
+        <p>你還沒有紀錄喔</p>
+        <p class="sub">3 秒後自動回到全部...</p>
+    </div>
+
+    <!-- 主頁面 -->
+    <div id="app" style="display:none;">
+        <!-- 篩選器 -->
+        <div class="controls">
+            <div class="filter-buttons">
+                <button class="filter-btn-all active" data-filter="all">
+                    <span>全部</span>
+                    <span class="filter-count" id="countAll">0</span>
+                </button>
+                <div class="filter-sub-group">
                     <button class="filter-btn" data-filter="unfamiliar">
-                        <span class="filter-label">不熟悲</span>
+                        <span class="filter-label">❌ 還不熟</span>
                         <span class="filter-count" id="countUnfamiliar">0</span>
                     </button>
                     <button class="filter-btn" data-filter="familiar">
-                        <span class="filter-label">已熟悲</span>
+                        <span class="filter-label">✅ 熟悲了</span>
                         <span class="filter-count" id="countFamiliar">0</span>
                     </button>
                     <button class="filter-btn" data-filter="unseen">
-                        <span class="filter-label">還沒看</span>
+                        <span class="filter-label">👀 還沒看</span>
                         <span class="filter-count" id="countUnseen">0</span>
                     </button>
                 </div>
             </div>
+        </div>
 
-            <div class="card-container">
-                <div class="flashcard" id="flashcard">
-                    <div class="card-face card-front">
-                        <img id="cardImage" class="card-image" alt="Muscle" style="max-height: 90%; margin: 0;">
-                        <div class="flip-hint">👆 點擊翻轉查看資訊</div>
-                    </div>
-                    <div class="card-face card-back">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; margin-bottom: 1.5rem;">
-                            <div style="display: flex; align-items: center; justify-content: center;">
-                                <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height: 200px; margin: 0;">
-                            </div>
-                            <div style="display: flex; flex-direction: column; justify-content: center;">
-                                <h2 class="card-title" id="cardTitleEN">Muscle Name</h2>
-                                <p class="card-subtitle" id="cardTitleZH">肌肉名稱</p>
-                            </div>
-                        </div>
-                        <div class="card-info" id="cardInfo">
-                            <!-- 資訊會動態載入 -->
-                        </div>
-                        <div class="flip-hint">👆 點擊翻回正面</div>
-                    </div>
+        <!-- 卡片 -->
+        <div class="card-container">
+            <div class="flashcard" id="flashcard">
+                <div class="card-face card-front">
+                    <img id="cardImage" class="card-image" alt="Muscle" style="max-height:90%;margin:0;">
+                    <div class="flip-hint">👆 點擊翻轉查看資訊</div>
                 </div>
-            </div>
-
-            <div class="actions">
-                <button class="action-btn btn-unfamiliar" id="btnUnfamiliar">❌ 我還不熟</button>
-                <button class="action-btn btn-familiar" id="btnFamiliar">✅ 我熟悉了</button>
-            </div>
-
-            <div class="navigation">
-                <button class="nav-btn" id="btnPrev">← 上一張</button>
-                <button class="nav-btn" id="btnNext">下一張 →</button>
-            </div>
-            
-            <div style="text-align: center; margin-top: 1.5rem;">
-                <button class="nav-btn" id="btnStats" style="background: var(--primary); padding: 0.8rem 2rem;">
-                    📊 我的學習成效
-                </button>
+                <div class="card-face card-back">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;width:100%;margin-bottom:1.5rem;">
+                        <div style="display:flex;align-items:center;justify-content:center;">
+                            <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height:200px;margin:0;">
+                        </div>
+                        <div style="display:flex;flex-direction:column;justify-content:center;">
+                            <h2 class="card-title" id="cardTitleEN">Muscle Name</h2>
+                            <p class="card-subtitle" id="cardTitleZH">肌肉名稱</p>
+                        </div>
+                    </div>
+                    <div class="card-info" id="cardInfo"></div>
+                    <div class="flip-hint">👆 點擊翻回正面</div>
+                </div>
             </div>
         </div>
 
-        <!-- 學習成效頁面 -->
-        <div id="statsPage" style="display: none;">
-            <div style="background: var(--card); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <h2 style="font-family: 'Crimson Pro', serif; font-size: 2rem; color: var(--primary); margin: 0;">📊 我的學習成效</h2>
-                    <button class="nav-btn" id="btnBackToMain" style="background: var(--accent);">← 返回主頁</button>
-                </div>
-                
-                <!-- 總覽統計 -->
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
-                    <div style="background: linear-gradient(135deg, var(--primary) 0%, #1e4a5f 100%); color: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
-                        <div style="font-size: 2.5rem; font-weight: 700;" id="statsTotal">0</div>
-                        <div style="font-size: 0.9rem; opacity: 0.9;">總題數</div>
-                    </div>
-                    <div style="background: linear-gradient(135deg, var(--success) 0%, #45a049 100%); color: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
-                        <div style="font-size: 2.5rem; font-weight: 700;" id="statsFamiliar">0</div>
-                        <div style="font-size: 0.9rem; opacity: 0.9;">已熟悉</div>
-                    </div>
-                    <div style="background: linear-gradient(135deg, var(--secondary) 0%, #6d3d39 100%); color: white; padding: 1.5rem; border-radius: 15px; text-align: center;">
-                        <div style="font-size: 2.5rem; font-weight: 700;" id="statsUnfamiliar">0</div>
-                        <div style="font-size: 0.9rem; opacity: 0.9;">還不熟</div>
-                    </div>
-                </div>
+        <!-- 熟悲按鈕 -->
+        <div class="actions">
+            <button class="action-btn btn-unfamiliar" id="btnUnfamiliar">❌ 還不熟</button>
+            <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悲了</button>
+        </div>
 
-                <!-- 我最常錯的 -->
-                <div style="margin-bottom: 3rem;">
-                    <h3 style="font-family: 'Crimson Pro', serif; font-size: 1.5rem; color: var(--secondary); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border);">
-                        ❌ 我最常錯的（前 10 名）
-                    </h3>
-                    <div id="mostWrongList"></div>
-                </div>
+        <!-- 導航 -->
+        <div class="navigation">
+            <button class="nav-btn" id="btnPrev">← 上一張</button>
+            <button class="nav-btn" id="btnNext">下一張 →</button>
+        </div>
 
-                <!-- 我最熟的 -->
-                <div>
-                    <h3 style="font-family: 'Crimson Pro', serif; font-size: 1.5rem; color: var(--success); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border);">
-                        ✅ 我最熟的（前 10 名）
-                    </h3>
-                    <div id="mostCorrectList"></div>
+        <!-- 學習成效按鈕（唯一一個，放在最下面） -->
+        <div class="stats-btn-wrap">
+            <button class="stats-btn" id="btnStats">📊 我的學習成效</button>
+        </div>
+    </div>
+
+    <!-- 學習成效頁面 -->
+    <div id="statsPage" class="stats-page">
+        <div class="stats-page-inner">
+            <div class="stats-header">
+                <h2>📊 我的學習成效</h2>
+                <button class="nav-btn" id="btnBackToMain" style="background:var(--accent);">← 返回主頁</button>
+            </div>
+            <div class="stats-summary">
+                <div class="stats-card" style="background:linear-gradient(135deg,var(--primary),#1e4a5f);">
+                    <div class="num" id="statsTotal">0</div><div class="label">總題數</div>
                 </div>
+                <div class="stats-card" style="background:linear-gradient(135deg,var(--success),#45a049);">
+                    <div class="num" id="statsFamiliar">0</div><div class="label">已熟悲</div>
+                </div>
+                <div class="stats-card" style="background:linear-gradient(135deg,var(--secondary),#6d3d39);">
+                    <div class="num" id="statsUnfamiliar">0</div><div class="label">還不熟</div>
+                </div>
+            </div>
+            <div class="stats-section">
+                <h3 style="color:var(--secondary);">❌ 我最常錯的（前 10 名）</h3>
+                <div id="mostWrongList"></div>
+            </div>
+            <div class="stats-section">
+                <h3 style="color:var(--success);">✅ 我最熟的（前 10 名）</h3>
+                <div id="mostCorrectList"></div>
             </div>
         </div>
     </div>
 
-    <script>
-        const GITHUB_USER = 'ougaga26-lab';
-        const REPO_NAME = 'Musculature-Heaven';
-        const CSV_PATH = 'data/muscles.csv';
-        const IMAGES_PATH = 'images/';
-        
-        let allCards = [];
-        let cardQueue = []; // 卡片佇列（隨機 + 重複複習）
-        let currentIndex = 0;
-        let currentFilter = 'all';
-        let familiarityData = {};
-        let statsData = {}; // 統計資料：{ filename: { wrong: 0, correct: 0 } }
+</div><!-- /container -->
 
-        // 從 localStorage 載入熟悉度資料
-        function loadFamiliarityData() {
-            const saved = localStorage.getItem('musculature_familiarity');
-            if (saved) {
-                familiarityData = JSON.parse(saved);
+<script>
+// ─── 常數 ───
+const GITHUB_USER = 'ougaga26-lab';
+const REPO_NAME   = 'Musculature-Heaven';
+const RAW_BASE    = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/`;
+const CSV_PATH    = 'data/muscles.csv';
+const IMG_PATH    = 'images/';
+
+// ─── 狀態 ───
+let allCards      = [];
+let cardQueue     = [];
+let currentIndex  = 0;
+let currentFilter = 'all';
+let familiarityData = {};   // { filename: 'unseen' | 'unfamiliar' | 'familiar' }
+let statsData       = {};   // { filename: { wrong, correct, nameEN, nameZH, image } }
+
+// ─── localStorage ───
+function loadSaved() {
+    try { familiarityData = JSON.parse(localStorage.getItem('musculature_familiarity')) || {}; } catch(e){}
+    try { statsData       = JSON.parse(localStorage.getItem('musculature_stats'))       || {}; } catch(e){}
+}
+function saveSaved() {
+    localStorage.setItem('musculature_familiarity', JSON.stringify(familiarityData));
+    localStorage.setItem('musculature_stats',       JSON.stringify(statsData));
+}
+
+// ─── CSV 解析（處理引號內換行 + 清除 \r） ───
+function parseCSV(text) {
+    text = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+    const lines   = text.split('\n');
+    const headers = parseCSVLine(lines[0]);
+    const data    = [];
+    let i = 1;
+    while (i < lines.length) {
+        if (!lines[i].trim()) { i++; continue; }
+        let row = lines[i];
+        let qc  = (row.match(/"/g)||[]).length;
+        while (qc % 2 !== 0 && i+1 < lines.length) { i++; row += '\n'+lines[i]; qc = (row.match(/"/g)||[]).length; }
+        const vals = parseCSVLine(row);
+        if (vals.length === headers.length) {
+            const obj = {};
+            headers.forEach((h,idx) => obj[h] = vals[idx]);
+            data.push(obj);
+        }
+        i++;
+    }
+    return data;
+}
+function parseCSVLine(line) {
+    const vals = []; let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch==='"') { if (inQ && line[i+1]==='"') { cur+='"'; i++; } else inQ=!inQ; }
+        else if (ch===',' && !inQ) { vals.push(cur.trim()); cur=''; }
+        else cur += ch;
+    }
+    vals.push(cur.trim());
+    return vals;
+}
+
+// ─── 載入 ───
+async function loadData() {
+    try {
+        const res  = await fetch(RAW_BASE + CSV_PATH);
+        const text = await res.text();
+        allCards   = parseCSV(text);
+
+        // 新卡片預設 unseen
+        allCards.forEach(c => { if (!familiarityData[c['picture file']]) familiarityData[c['picture file']] = 'unseen'; });
+
+        applyFilter();
+        updateProgress();
+        showCard(0);
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('app').style.display     = 'block';
+    } catch(err) {
+        document.getElementById('loading').innerHTML = `<p style="color:#c00;">載入失敗！</p><p style="font-size:.9rem;margin-top:.5rem;">${err.message}</p>`;
+    }
+}
+
+// ─── 篩選 ───
+function applyFilter() {
+    const filtered = currentFilter === 'all'
+        ? [...allCards]
+        : allCards.filter(c => familiarityData[c['picture file']] === currentFilter);
+    cardQueue    = shuffleArray(filtered);
+    currentIndex = 0;
+}
+function shuffleArray(arr) {
+    const a = [...arr];
+    for (let i = a.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+    return a;
+}
+
+// 複習插入（每 3 張後再出現）— 只在「全部」模式觸發
+function insertReviewCard(card) {
+    cardQueue.splice(Math.min(currentIndex+3, cardQueue.length), 0, card);
+}
+
+// ─── 顯示卡片 ───
+const FALLBACK_IMG = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
+
+function showCard(idx) {
+    if (!cardQueue.length) return;
+    const card = cardQueue[idx];
+    const url  = RAW_BASE + IMG_PATH + card['picture file'];
+
+    ['cardImage','cardImageBack'].forEach(id => {
+        const el = document.getElementById(id);
+        el.src = url;
+        el.onerror = function(){ this.src = FALLBACK_IMG; };
+    });
+
+    document.getElementById('cardTitleEN').textContent = card['name (EN)'] || '';
+    document.getElementById('cardTitleZH').textContent = card['name (CN)'] || '';
+
+    document.getElementById('cardInfo').innerHTML = [
+        ['Origin / 起始點',    card['Origin'],    card['起始點']],
+        ['Insertion / 結束點', card['Insertion'], card['結束點']],
+        ['Action / 動作',      card['Action'],    card['動作']],
+        ['Nerve / 神經支配',   card['Nerve'],     card['神經支配']]
+    ].map(([label,en,zh]) =>
+        `<div class="info-item"><div class="info-label">${label}</div><div class="info-content">${en||''}\n${zh||''}</div></div>`
+    ).join('');
+
+    document.getElementById('flashcard').classList.remove('flipped');
+    document.getElementById('btnPrev').disabled = idx === 0;
+    document.getElementById('btnNext').disabled = idx === cardQueue.length - 1;
+
+    const isFam = familiarityData[card['picture file']] === 'familiar';
+    document.getElementById('btnFamiliar').style.opacity   = isFam ? '1' : '0.5';
+    document.getElementById('btnUnfamiliar').style.opacity = isFam ? '0.5' : '1';
+}
+
+// ─── 更新篩選器數字 ───
+function updateProgress() {
+    const total = allCards.length;
+    const fam   = allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
+    const unfam = allCards.filter(c => familiarityData[c['picture file']] === 'unfamiliar').length;
+    document.getElementById('countAll').textContent        = total;
+    document.getElementById('countFamiliar').textContent   = fam;
+    document.getElementById('countUnfamiliar').textContent = unfam;
+    document.getElementById('countUnseen').textContent     = total - fam - unfam;
+}
+
+// ─── 學習成效頁面 ───
+function showStatsPage() {
+    document.getElementById('app').style.display       = 'none';
+    document.getElementById('statsPage').style.display = 'block';
+
+    document.getElementById('statsTotal').textContent     = allCards.length;
+    document.getElementById('statsFamiliar').textContent   = allCards.filter(c => familiarityData[c['picture file']]==='familiar').length;
+    document.getElementById('statsUnfamiliar').textContent = allCards.filter(c => familiarityData[c['picture file']]==='unfamiliar').length;
+
+    const renderList = (id, key, label, bg) => {
+        const list = Object.values(statsData).filter(s=>s[key]>0).sort((a,b)=>b[key]-a[key]).slice(0,10);
+        document.getElementById(id).innerHTML = list.length
+            ? list.map(item => `
+                <div class="stats-list-item">
+                    <img src="${RAW_BASE}${IMG_PATH}${item.image}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2275%22 height=%2275%22><rect width=%2275%22 height=%2275%22 fill=%22%23ddd%22/></svg>'">
+                    <div class="info"><div class="name-en">${item.nameEN}</div><div class="name-zh">${item.nameZH}</div></div>
+                    <div class="badge" style="background:${bg};">${label} ${item[key]} 次</div>
+                </div>`).join('')
+            : '<p class="stats-empty">還沒有紀錄</p>';
+    };
+    renderList('mostWrongList',   'wrong',   '錯誤', 'var(--secondary)');
+    renderList('mostCorrectList', 'correct', '正確', 'var(--success)');
+}
+
+// ─── 事件監聽 ───
+document.addEventListener('DOMContentLoaded', () => {
+    loadSaved();
+    loadData();
+
+    // 翻牌
+    document.getElementById('flashcard').addEventListener('click', e => {
+        if (!e.target.classList.contains('action-btn'))
+            document.getElementById('flashcard').classList.toggle('flipped');
+    });
+
+    // 篩選器（全部 + 子類別都套在這裡）
+    const allBtns = document.querySelectorAll('.filter-btn-all, .filter-btn');
+    allBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const f = btn.dataset.filter;
+
+            // 子類別為空 → 訊息 + 3秒導回
+            if (f !== 'all') {
+                const cnt = allCards.filter(c => familiarityData[c['picture file']] === f).length;
+                if (cnt === 0) {
+                    document.getElementById('app').style.display     = 'none';
+                    document.getElementById('emptyMsg').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('emptyMsg').style.display = 'none';
+                        document.getElementById('app').style.display     = 'block';
+                        allBtns.forEach(b => b.classList.remove('active'));
+                        document.querySelector('[data-filter="all"]').classList.add('active');
+                        currentFilter = 'all';
+                        applyFilter();
+                        showCard(0);
+                    }, 3000);
+                    return;
+                }
             }
-            
-            const savedStats = localStorage.getItem('musculature_stats');
-            if (savedStats) {
-                statsData = JSON.parse(savedStats);
-            }
-        }
 
-        // 儲存熟悉度資料
-        function saveFamiliarityData() {
-            localStorage.setItem('musculature_familiarity', JSON.stringify(familiarityData));
-            localStorage.setItem('musculature_stats', JSON.stringify(statsData));
-        }
-
-        // 改進的 CSV 解析（處理欄位中的換行）
-        function parseCSV(text) {
-            // 先統一換行符號，清除 \r
-            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-            
-            const lines = text.split('\n');
-            const headers = parseCSVLine(lines[0]);
-            
-            const data = [];
-            let i = 1;
-            
-            while (i < lines.length) {
-                if (!lines[i].trim()) {
-                    i++;
-                    continue;
-                }
-                
-                // 收集完整的一筆資料（可能跨多行）
-                let rowText = lines[i];
-                let quoteCount = (rowText.match(/"/g) || []).length;
-                
-                // 如果引號數量是奇數，表示跨行了
-                while (quoteCount % 2 !== 0 && i + 1 < lines.length) {
-                    i++;
-                    rowText += '\n' + lines[i];
-                    quoteCount = (rowText.match(/"/g) || []).length;
-                }
-                
-                const values = parseCSVLine(rowText);
-                
-                if (values.length === headers.length) {
-                    const obj = {};
-                    headers.forEach((header, index) => {
-                        obj[header] = values[index];
-                    });
-                    data.push(obj);
-                }
-                
-                i++;
-            }
-            
-            return data;
-        }
-
-        // 解析單行 CSV
-        function parseCSVLine(line) {
-            const values = [];
-            let current = '';
-            let inQuotes = false;
-            
-            for (let i = 0; i < line.length; i++) {
-                const char = line[i];
-                
-                if (char === '"') {
-                    if (inQuotes && line[i + 1] === '"') {
-                        current += '"';
-                        i++;
-                    } else {
-                        inQuotes = !inQuotes;
-                    }
-                } else if (char === ',' && !inQuotes) {
-                    values.push(current.trim());
-                    current = '';
-                } else {
-                    current += char;
-                }
-            }
-            values.push(current.trim());
-            
-            return values;
-        }
-
-        // 載入 CSV 資料
-        async function loadData() {
-            try {
-                const csvUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${CSV_PATH}`;
-                const response = await fetch(csvUrl);
-                const text = await response.text();
-                
-                allCards = parseCSV(text);
-                
-                console.log(`載入 ${allCards.length} 筆資料`);
-                
-                // 初始化熟悉度資料
-                allCards.forEach(card => {
-                    const filename = card['picture file'];
-                    if (!familiarityData[filename]) {
-                        familiarityData[filename] = 'unseen';
-                    }
-                });
-                
-                applyFilter();
-                updateProgress();
-                showCard(0);
-                
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('app').style.display = 'block';
-            } catch (error) {
-                console.error('載入資料失敗:', error);
-                document.getElementById('loading').innerHTML = `
-                    <p style="color: #c00;">載入失敗！請確認資料檔案是否存在。</p>
-                    <p style="font-size: 0.9rem; margin-top: 1rem;">錯誤：${error.message}</p>
-                `;
-            }
-        }
-
-        // 套用篩選器並建立隨機佇列
-        function applyFilter() {
-            let filtered = [];
-            
-            if (currentFilter === 'all') {
-                filtered = [...allCards];
-            } else {
-                filtered = allCards.filter(card => {
-                    const filename = card['picture file'];
-                    return familiarityData[filename] === currentFilter;
-                });
-            }
-            
-            // 隨機排序
-            cardQueue = shuffleArray([...filtered]);
-            currentIndex = 0;
-            
-        }
-
-        // 洗牌演算法
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-            }
-            return shuffled;
-        }
-
-        // 插入重複複習卡片（每 3 張出現一次）
-        function insertReviewCard(card) {
-            // 在當前位置後的第 3 張插入
-            const insertPosition = Math.min(currentIndex + 3, cardQueue.length);
-            cardQueue.splice(insertPosition, 0, card);
-        }
-
-        // 顯示卡片
-        function showCard(index) {
-            if (cardQueue.length === 0) {
-                document.getElementById('app').innerHTML = '<div class="loading"><p>目前沒有符合條件的卡片</p></div>';
-                return;
-            }
-            
-            const card = cardQueue[index];
-            const imageUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${IMAGES_PATH}${card['picture file']}`;
-            
-            // 正面圖片
-            document.getElementById('cardImage').src = imageUrl;
-            document.getElementById('cardImage').onerror = function() {
-                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
-            };
-            
-            // 背面圖片
-            document.getElementById('cardImageBack').src = imageUrl;
-            document.getElementById('cardImageBack').onerror = function() {
-                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
-            };
-            
-            // 標題
-            document.getElementById('cardTitleEN').textContent = card['name (EN)'] || '';
-            document.getElementById('cardTitleZH').textContent = card['name (CN)'] || '';
-            
-            // 設定背面資訊
-            const infoHTML = `
-                <div class="info-item">
-                    <div class="info-label">Origin / 起始點</div>
-                    <div class="info-content">${card['Origin'] || ''}\n${card['起始點'] || ''}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Insertion / 結束點</div>
-                    <div class="info-content">${card['Insertion'] || ''}\n${card['結束點'] || ''}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Action / 動作</div>
-                    <div class="info-content">${card['Action'] || ''}\n${card['動作'] || ''}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Nerve / 神經支配</div>
-                    <div class="info-content">${card['Nerve'] || ''}\n${card['神經支配'] || ''}</div>
-                </div>
-            `;
-            
-            document.getElementById('cardInfo').innerHTML = infoHTML;
-            
-            // 重置翻牌狀態
-            document.getElementById('flashcard').classList.remove('flipped');
-            
-            // 更新按鈕狀態
-            document.getElementById('btnPrev').disabled = index === 0;
-            document.getElementById('btnNext').disabled = index === cardQueue.length - 1;
-            
-            // 更新熟悉度按鈕樣式
-            const filename = card['picture file'];
-            const isFamiliar = familiarityData[filename] === 'familiar';
-            
-            if (isFamiliar) {
-                document.getElementById('btnFamiliar').style.opacity = '1';
-                document.getElementById('btnUnfamiliar').style.opacity = '0.5';
-            } else {
-                document.getElementById('btnFamiliar').style.opacity = '0.5';
-                document.getElementById('btnUnfamiliar').style.opacity = '1';
-            }
-        }
-
-        // 更新進度（四個篩選器的數字）
-        function updateProgress() {
-            const total = allCards.length;
-            const familiar = allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
-            const unfamiliar = allCards.filter(c => familiarityData[c['picture file']] === 'unfamiliar').length;
-            const unseen = total - familiar - unfamiliar;
-
-            document.getElementById('countAll').textContent = total;
-            document.getElementById('countFamiliar').textContent = familiar;
-            document.getElementById('countUnfamiliar').textContent = unfamiliar;
-            document.getElementById('countUnseen').textContent = unseen;
-        }
-
-        // 事件監聽
-        document.addEventListener('DOMContentLoaded', () => {
-            loadFamiliarityData();
-            loadData();
-            
-            // 翻牌
-            document.getElementById('flashcard').addEventListener('click', (e) => {
-                if (!e.target.classList.contains('action-btn')) {
-                    document.getElementById('flashcard').classList.toggle('flipped');
-                }
-            });
-            
-            // 篩選器
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentFilter = btn.dataset.filter;
-                    applyFilter();
-                    showCard(0);
-                });
-            });
-            
-            // 熟悉度按鈕
-            document.getElementById('btnUnfamiliar').addEventListener('click', () => {
-                const card = cardQueue[currentIndex];
-                const filename = card['picture file'];
-                
-                familiarityData[filename] = 'unfamiliar';
-                
-                // 更新統計：增加錯誤次數
-                if (!statsData[filename]) {
-                    statsData[filename] = { wrong: 0, correct: 0, nameEN: card['name (EN)'], nameZH: card['name (CN)'], image: filename };
-                }
-                statsData[filename].wrong++;
-                
-                saveFamiliarityData();
-                updateProgress();
-                
-                // 插入重複複習（每 3 張後再出現）
-                insertReviewCard(card);
-                
-                // 自動跳到下一張
-                if (currentIndex < cardQueue.length - 1) {
-                    currentIndex++;
-                    showCard(currentIndex);
-                } else {
-                    showCard(currentIndex);
-                }
-            });
-            
-            document.getElementById('btnFamiliar').addEventListener('click', () => {
-                const card = cardQueue[currentIndex];
-                const filename = card['picture file'];
-                
-                familiarityData[filename] = 'familiar';
-                
-                // 更新統計：增加正確次數
-                if (!statsData[filename]) {
-                    statsData[filename] = { wrong: 0, correct: 0, nameEN: card['name (EN)'], nameZH: card['name (CN)'], image: filename };
-                }
-                statsData[filename].correct++;
-                
-                saveFamiliarityData();
-                updateProgress();
-                
-                // 自動跳到下一張
-                if (currentIndex < cardQueue.length - 1) {
-                    currentIndex++;
-                    showCard(currentIndex);
-                } else {
-                    showCard(currentIndex);
-                }
-            });
-            
-            // 導航
-            document.getElementById('btnPrev').addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    // 預設標記為不熟悉
-                    const currentCard = cardQueue[currentIndex];
-                    if (familiarityData[currentCard['picture file']] === 'unseen') {
-                        familiarityData[currentCard['picture file']] = 'unfamiliar';
-                        saveFamiliarityData();
-                        updateProgress();
-                    }
-                    
-                    currentIndex--;
-                    showCard(currentIndex);
-                }
-            });
-            
-            document.getElementById('btnNext').addEventListener('click', () => {
-                if (currentIndex < cardQueue.length - 1) {
-                    // 預設標記為不熟悉
-                    const currentCard = cardQueue[currentIndex];
-                    if (familiarityData[currentCard['picture file']] === 'unseen') {
-                        familiarityData[currentCard['picture file']] = 'unfamiliar';
-                        saveFamiliarityData();
-                        updateProgress();
-                    }
-                    
-                    currentIndex++;
-                    showCard(currentIndex);
-                }
-            });
-            
-            
-            // 學習成效頁面切換
-            document.getElementById('statsBtn').addEventListener('click', showStatsPage);
-            document.getElementById('btnStats').addEventListener('click', showStatsPage);
-            document.getElementById('btnBackToMain').addEventListener('click', () => {
-                document.getElementById('statsPage').style.display = 'none';
-                document.getElementById('app').style.display = 'block';
-            });
-            
-            // 鍵盤導航
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') {
-                    document.getElementById('btnPrev').click();
-                } else if (e.key === 'ArrowRight') {
-                    document.getElementById('btnNext').click();
-                } else if (e.key === ' ') {
-                    e.preventDefault();
-                    document.getElementById('flashcard').classList.toggle('flipped');
-                }
-            });
+            allBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = f;
+            applyFilter();
+            showCard(0);
         });
+    });
 
-        // 顯示學習成效頁面
-        function showStatsPage() {
-            document.getElementById('app').style.display = 'none';
-            document.getElementById('statsPage').style.display = 'block';
-            
-            // 更新統計數字
-            document.getElementById('statsTotal').textContent = allCards.length;
-            const familiarCount = Object.values(familiarityData).filter(v => v === 'familiar').length;
-            const unfamiliarCount = Object.values(familiarityData).filter(v => v === 'unfamiliar').length;
-            document.getElementById('statsFamiliar').textContent = familiarCount;
-            document.getElementById('statsUnfamiliar').textContent = unfamiliarCount;
-            
-            // 最常錯的（按錯誤次數排序）
-            const wrongList = Object.values(statsData)
-                .filter(s => s.wrong > 0)
-                .sort((a, b) => b.wrong - a.wrong)
-                .slice(0, 10);
-            
-            const wrongHTML = wrongList.length === 0 
-                ? '<p style="text-align: center; color: #999; padding: 2rem;">還沒有錯誤紀錄</p>'
-                : wrongList.map(item => `
-                    <div style="display: flex; align-items: center; padding: 1rem; background: white; border-radius: 10px; margin-bottom: 0.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                        <img src="https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${IMAGES_PATH}${item.image}" 
-                             style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 1rem;"
-                             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22 80%22 height=%2280%22><rect width=%2280%22 height=%2280%22 fill=%22%23ddd%22/></svg>'">
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary);">${item.nameEN}</div>
-                            <div style="color: var(--secondary); font-size: 0.95rem;">${item.nameZH}</div>
-                        </div>
-                        <div style="background: var(--secondary); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600;">
-                            錯誤 ${item.wrong} 次
-                        </div>
-                    </div>
-                `).join('');
-            
-            document.getElementById('mostWrongList').innerHTML = wrongHTML;
-            
-            // 最熟的（按正確次數排序）
-            const correctList = Object.values(statsData)
-                .filter(s => s.correct > 0)
-                .sort((a, b) => b.correct - a.correct)
-                .slice(0, 10);
-            
-            const correctHTML = correctList.length === 0
-                ? '<p style="text-align: center; color: #999; padding: 2rem;">還沒有正確紀錄</p>'
-                : correctList.map(item => `
-                    <div style="display: flex; align-items: center; padding: 1rem; background: white; border-radius: 10px; margin-bottom: 0.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                        <img src="https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/${IMAGES_PATH}${item.image}" 
-                             style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 1rem;"
-                             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22><rect width=%2280%22 height=%2280%22 fill=%22%23ddd%22/></svg>'">
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; font-size: 1.1rem; color: var(--primary);">${item.nameEN}</div>
-                            <div style="color: var(--secondary); font-size: 0.95rem;">${item.nameZH}</div>
-                        </div>
-                        <div style="background: var(--success); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600;">
-                            正確 ${item.correct} 次
-                        </div>
-                    </div>
-                `).join('');
-            
-            document.getElementById('mostCorrectList').innerHTML = correctHTML;
+    // ❌ 還不熟
+    document.getElementById('btnUnfamiliar').addEventListener('click', () => {
+        const card = cardQueue[currentIndex], fn = card['picture file'];
+        familiarityData[fn] = 'unfamiliar';
+        if (!statsData[fn]) statsData[fn] = { wrong:0, correct:0, nameEN: card['name (EN)'], nameZH: card['name (CN)'], image: fn };
+        statsData[fn].wrong++;
+        saveSaved(); updateProgress();
+
+        // 複習：只在全部模式
+        if (currentFilter === 'all') insertReviewCard(card);
+
+        if (currentIndex < cardQueue.length-1) { currentIndex++; showCard(currentIndex); }
+        else showCard(currentIndex);
+    });
+
+    // ✅ 熟悲了
+    document.getElementById('btnFamiliar').addEventListener('click', () => {
+        const card = cardQueue[currentIndex], fn = card['picture file'];
+        familiarityData[fn] = 'familiar';
+        if (!statsData[fn]) statsData[fn] = { wrong:0, correct:0, nameEN: card['name (EN)'], nameZH: card['name (CN)'], image: fn };
+        statsData[fn].correct++;
+        saveSaved(); updateProgress();
+
+        if (currentIndex < cardQueue.length-1) { currentIndex++; showCard(currentIndex); }
+        else showCard(currentIndex);
+    });
+
+    // 導航：「還沒看」跳過時標記為不熟悲，其他不改
+    document.getElementById('btnPrev').addEventListener('click', () => {
+        if (currentIndex > 0) {
+            const fn = cardQueue[currentIndex]['picture file'];
+            if (familiarityData[fn]==='unseen') { familiarityData[fn]='unfamiliar'; saveSaved(); updateProgress(); }
+            currentIndex--; showCard(currentIndex);
         }
-    </script>
+    });
+    document.getElementById('btnNext').addEventListener('click', () => {
+        if (currentIndex < cardQueue.length-1) {
+            const fn = cardQueue[currentIndex]['picture file'];
+            if (familiarityData[fn]==='unseen') { familiarityData[fn]='unfamiliar'; saveSaved(); updateProgress(); }
+            currentIndex++; showCard(currentIndex);
+        }
+    });
+
+    // 學習成效
+    document.getElementById('btnStats').addEventListener('click', showStatsPage);
+    document.getElementById('btnBackToMain').addEventListener('click', () => {
+        document.getElementById('statsPage').style.display = 'none';
+        document.getElementById('app').style.display     = 'block';
+    });
+
+    // 鍵盤
+    document.addEventListener('keydown', e => {
+        if (e.key==='ArrowLeft')  document.getElementById('btnPrev').click();
+        else if (e.key==='ArrowRight') document.getElementById('btnNext').click();
+        else if (e.key===' ') { e.preventDefault(); document.getElementById('flashcard').classList.toggle('flipped'); }
+    });
+});
+</script>
 </body>
 </html>
