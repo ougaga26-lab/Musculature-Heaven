@@ -371,7 +371,7 @@
                         <span class="filter-count" id="countUnfamiliar">0</span>
                     </button>
                     <button class="filter-btn" data-filter="familiar">
-                        <span class="filter-label">✅ 熟悲了</span>
+                        <span class="filter-label">✅ 熟悉了</span>
                         <span class="filter-count" id="countFamiliar">0</span>
                     </button>
                     <button class="filter-btn" data-filter="unseen">
@@ -387,7 +387,7 @@
             <div class="flashcard" id="flashcard">
                 <!-- 滑動標記 -->
                 <div class="swipe-label swipe-label-left"  id="swipeLeft">❌ 還不熟</div>
-                <div class="swipe-label swipe-label-right" id="swipeRight">✅ 熟悲了</div>
+                <div class="swipe-label swipe-label-right" id="swipeRight">✅ 熟悉了</div>
                 <div class="card-face card-front">
                     <img id="cardImage" class="card-image" alt="Muscle" style="max-height:90%;margin:0;">
                     <div class="flip-hint">👆 點擊翻轉查看資訊</div>
@@ -411,7 +411,7 @@
         <!-- 熟悲按鈕 -->
         <div class="actions">
             <button class="action-btn btn-unfamiliar" id="btnUnfamiliar">❌ 還不熟</button>
-            <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悲了</button>
+            <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悉了</button>
         </div>
 
         <!-- 導航 -->
@@ -697,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else showCard(currentIndex);
     });
 
-    // ✅ 熟悲了
+    // ✅ 熟悉了
     document.getElementById('btnFamiliar').addEventListener('click', () => {
         const card = cardQueue[currentIndex], fn = card['picture file'];
         familiarityData[fn] = 'familiar';
@@ -734,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 清空紀錄
     document.getElementById('btnClear').addEventListener('click', () => {
-        if (!confirm('確定要清空所有紀錄嗎？\n這會把熟悲度和學習統計全部刪掉，從頭來過。')) return;
+        if (!confirm('確定要清空所有紀錄嗎？\n這會把熟悉度和學習統計全部刪掉，從頭來過。')) return;
         familiarityData = {};
         statsData       = {};
         localStorage.removeItem('musculature_familiarity');
@@ -808,7 +808,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('btnUnfamiliar').click();  // 觸發既有的還不熟 logic
                 }, { once: true });
             } else if (curX > THRESHOLD) {
-                // 滑到右邊夠遠 → 熟悲了，飛出
+                // 滑到右邊夠遠 → 熟悉了，飛出
                 card.style.transition = '';
                 card.classList.add('fly-right');
                 card.addEventListener('animationend', () => {
