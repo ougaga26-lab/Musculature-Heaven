@@ -301,7 +301,7 @@
                         <span class="filter-count" id="countUnfamiliar">0</span>
                     </button>
                     <button class="filter-btn" data-filter="familiar">
-                        <span class="filter-label">✅ 熟悲了</span>
+                        <span class="filter-label">✅ 熟悉了</span>
                         <span class="filter-count" id="countFamiliar">0</span>
                     </button>
                     <button class="filter-btn" data-filter="unseen">
@@ -338,7 +338,7 @@
         <!-- 熟悲按鈕 -->
         <div class="actions">
             <button class="action-btn btn-unfamiliar" id="btnUnfamiliar">❌ 還不熟</button>
-            <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悲了</button>
+            <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悉了</button>
         </div>
 
         <!-- 導航 -->
@@ -613,7 +613,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else showCard(currentIndex);
     });
 
-    // ✅ 熟悲了
+    // ✅ 熟悉了
     document.getElementById('btnFamiliar').addEventListener('click', () => {
         const card = cardQueue[currentIndex], fn = card['picture file'];
         familiarityData[fn] = 'familiar';
