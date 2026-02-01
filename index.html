@@ -218,8 +218,11 @@
             background: var(--card); border-radius: 20px; padding: 2rem;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
-        .stats-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .stats-header h2 { font-family: 'Crimson Pro', serif; font-size: 2rem; color: var(--primary); margin: 0; }
+        .stats-header { margin-bottom: 1rem; }
+        .stats-title {
+            font-family: 'Crimson Pro', serif; font-size: 2rem;
+            color: var(--primary); margin-bottom: 1.5rem;
+        }
         .stats-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
         .stats-card { color: white; padding: 1.5rem; border-radius: 15px; text-align: center; }
         .stats-card .num { font-size: 2.5rem; font-weight: 700; }
@@ -250,17 +253,76 @@
         }
         .stats-empty { text-align: center; color: #999; padding: 1.5rem; }
 
+        /* 清空紀錄 */
+        .clear-section { margin-top: 2.5rem; text-align: center; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+        .clear-btn {
+            padding: 0.7rem 1.8rem;
+            background: transparent;
+            color: #999;
+            border: 1.5px solid #ccc;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .clear-btn:hover {
+            color: #c00;
+            border-color: #c00;
+            background: rgba(200,0,0,0.04);
+        }
+
         /* ─── 手機版 ─── */
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             .flashcard { height: 450px; }
             .card-title { font-size: 1.8rem; }
             .card-subtitle { font-size: 1.2rem; }
-            .filter-buttons { flex-wrap: wrap; }
-            .filter-btn-all { flex: none; }
-            .filter-sub-group { flex: 1; min-width: 100%; }
             .actions { flex-direction: column; }
             .action-btn { width: 100%; }
+
+            /* 篩選器：全部在上，三個子類別在下，寬度齊平 */
+            .filter-buttons {
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+            .filter-btn-all {
+                width: 100%;
+                padding: 0.6rem 1rem;
+            }
+            .filter-sub-group {
+                width: 100%;
+                gap: 0.4rem;
+            }
+
+            /* 學習成效 總覽縮小 */
+            .stats-summary { gap: 0.6rem; }
+            .stats-card { padding: 0.9rem 0.5rem; border-radius: 12px; }
+            .stats-card .num { font-size: 1.8rem; }
+            .stats-card .label { font-size: 0.75rem; }
+            .stats-title { font-size: 1.5rem; margin-bottom: 1rem; }
+            .stats-section h3 { font-size: 1.1rem; }
+
+            /* 學習成效 清單：縮小文字，badge 上下排 */
+            .stats-list-item {
+                padding: 0.7rem 0.6rem;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .stats-list-item img {
+                width: 60px; height: 60px;
+                margin-right: 0.7rem;
+            }
+            .stats-list-item .info { flex: 1; min-width: 0; }
+            .stats-list-item .name-en { font-size: 0.88rem; }
+            .stats-list-item .name-zh { font-size: 0.78rem; }
+            .stats-list-item .badge {
+                font-size: 0.72rem;
+                padding: 0.3rem 0.7rem;
+                /* 當空間不夠時會自動換行到下面 */
+                flex-shrink: 1;
+                white-space: nowrap;
+            }
         }
     </style>
 </head>
@@ -357,15 +419,15 @@
     <div id="statsPage" class="stats-page">
         <div class="stats-page-inner">
             <div class="stats-header">
-                <h2>📊 我的學習成效</h2>
                 <button class="nav-btn" id="btnBackToMain" style="background:var(--accent);">← 返回主頁</button>
             </div>
+            <h2 class="stats-title">📊 我的學習成效</h2>
             <div class="stats-summary">
                 <div class="stats-card" style="background:linear-gradient(135deg,var(--primary),#1e4a5f);">
                     <div class="num" id="statsTotal">0</div><div class="label">總題數</div>
                 </div>
                 <div class="stats-card" style="background:linear-gradient(135deg,var(--success),#45a049);">
-                    <div class="num" id="statsFamiliar">0</div><div class="label">已熟悲</div>
+                    <div class="num" id="statsFamiliar">0</div><div class="label">已熟悉</div>
                 </div>
                 <div class="stats-card" style="background:linear-gradient(135deg,var(--secondary),#6d3d39);">
                     <div class="num" id="statsUnfamiliar">0</div><div class="label">還不熟</div>
@@ -378,6 +440,11 @@
             <div class="stats-section">
                 <h3 style="color:var(--success);">✅ 我最熟的（前 10 名）</h3>
                 <div id="mostCorrectList"></div>
+            </div>
+
+            <!-- 清空紀錄 -->
+            <div class="clear-section">
+                <button class="clear-btn" id="btnClear">🗑️ 清空紀錄</button>
             </div>
         </div>
     </div>
@@ -646,6 +713,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnBackToMain').addEventListener('click', () => {
         document.getElementById('statsPage').style.display = 'none';
         document.getElementById('app').style.display     = 'block';
+    });
+
+    // 清空紀錄
+    document.getElementById('btnClear').addEventListener('click', () => {
+        if (!confirm('確定要清空所有紀錄嗎？\n這會把熟悲度和學習統計全部刪掉，從頭來過。')) return;
+        familiarityData = {};
+        statsData       = {};
+        localStorage.removeItem('musculature_familiarity');
+        localStorage.removeItem('musculature_stats');
+        // 重新初始化全部為 unseen
+        allCards.forEach(c => { familiarityData[c['picture file']] = 'unseen'; });
+        saveSaved();
+        updateProgress();
+        // 導回主頁並重新開始
+        document.getElementById('statsPage').style.display = 'none';
+        document.getElementById('app').style.display     = 'block';
+        currentFilter = 'all';
+        document.querySelectorAll('.filter-btn-all, .filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-filter="all"]').classList.add('active');
+        applyFilter();
+        showCard(0);
     });
 
     // 鍵盤
