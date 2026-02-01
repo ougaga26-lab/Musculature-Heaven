@@ -1,0 +1,612 @@
+no,picture file,name (CN),name (EN),Origin,起始點,Insertion,結束點,Action,動作,Nerve,神經支配
+1,trapezius.jpg,斜方肌,Trapezius,"Occipital protuberance
+Ligamentum nuchae
+Spinous processes of C7-T12","枕外隆凸
+項韌帶
+第七頸椎至第十二胸椎棘突","Lateral clavicle
+Spine of scapula
+Root of spine of scapula","鎖骨外側三分之一
+肩胛骨棘
+肩胛骨棘根部","Elevation of scapula
+Upward rotation of scapula
+Retraction of scapula
+Depression of scapula","肩胛骨上提
+肩胛骨上旋
+肩胛骨內收
+肩胛骨下沉",Spinal accessory nerve (Cranial nerve XI),脊髓副神經（第十一對腦神經）
+2,rhomboid_minor.jpg,小菱形肌,Rhomboid Minor,Spinous processes of C7-T1,第七頸椎至第一胸椎棘突,Root of spine of scapula,肩胛棘根部,"Retraction of scapula
+Downward rotation of scapula","肩胛骨內收
+肩胛骨下旋",Dorsal scapular nerve,肩胛背神經
+3,rhomboid_major.jpg,大菱形肌,Rhomboid Major,Spinous processes of T2-T5,第二至第五胸椎棘突,Vertebral border of scapula inferior to root of spine,肩胛骨內側緣肩胛棘根部以下,"Retraction of scapula
+Downward rotation of scapula","肩胛骨內收
+肩胛骨下旋",Dorsal scapular nerve,肩胛背神經
+4,levator_scapulae.jpg,提肩胛肌,Levator Scapulae,Transverse processes of C1-C4,第一至第四頸椎橫突,Vertebral border of scapula superior to root of spine,肩胛骨內側緣肩胛棘根部上方,"Elevation of scapula
+Downward rotation of scapula","肩胛骨上提
+肩胛骨下旋",Dorsal scapular nerve,肩胛背神經
+5,latissimus_dorsi.jpg,闊背肌,Latissimus Dorsi,"Spinous processes of T7-T12
+Lower ribs
+Thoracolumbar aponeurosis
+Iliac crest","第7-12胸椎棘突
+下肋骨
+胸腰筋膜
+髂嵴",Bicipital groove of humerus,肱骨結節間溝,"Extension of shoulder
+Internal rotation of shoulder
+Adduction of shoulder","肩關節伸展
+肩關節內旋
+肩關節內收",Thoracodorsal nerve,胸背神經
+6,serratus_posterior_superior.jpg,後上鋸肌,Serratus Posterior Superior,"Ligamentum nuchae
+Spinous processes of C7-T3","項韌帶
+第七頸椎至第三胸椎棘突",Superior border of ribs 2-4,第二至第四肋骨上緣,Elevates ribs,肋骨上提,Intercostal nerves T1-T4,第一至第四胸椎肋間神經
+7,serratus_posterior_inferior.jpg,後下鋸肌,Serratus Posterior Inferior,Spinous processes of T11-L2,第11胸椎至第2腰椎棘突,Inferior border of ribs 9-12,第9至12肋骨下緣,Depresses ribs,肋骨下沉,Intercostal nerves T9-T12,第9至12胸椎肋間神經
+8,iliocostalis.jpg,髂肋肌,Iliocostalis,"Posterior ribs
+Thoracolumbar aponeurosis
+Iliac crest
+Sacrum","後肋骨
+胸腰筋膜
+髂骨嵴
+薦骨","Transverse processes of cervical vertebrae
+Posterior ribs","頸椎橫突
+後肋骨","Extension of vertebral column
+Lateral flexion of vertebral column","脊柱伸展
+脊柱側彎",Posterior rami of spinal nerves,脊神經後支
+9,longissimus.jpg,最長肌,Longissimus,"Transverse processes of cervical and thoracic vertebrae
+Thoracolumbar aponeurosis
+Iliac crest
+Sacrum","頸椎及胸椎橫突
+胸腰筋膜
+髂骨嵴
+薦骨","Mastoid process
+Transverse processes of cervical and thoracic vertebrae","乳突
+頸椎及胸椎橫突","Extension of vertebral column
+Lateral flexion of vertebral column","脊柱伸展
+脊柱側屈",Posterior rami of spinal nerves,脊神經後支
+10,spinalis.jpg,棘肌,Spinalis,"Ligamentum nuchae
+Spinous processes of cervical/thoracic/lumbar vertebrae","項韌帶
+頸椎/胸椎/腰椎棘突","Occipital bone
+Spinous processes of cervical & thoracic vertebrae","枕骨
+頸椎及胸椎棘突","Extension of vertebral column
+Lateral flexion of vertebral column","脊柱伸展
+脊柱側屈",Posterior rami of spinal nerves,脊神經後支
+11,splenius_capitis.jpg,頭夾肌,Splenius Capitis,"Spinous process of the C7-T3
+Ligamentum nuchae","第七頸椎至第三胸椎棘突
+項韌帶","Occipital bone
+Mastoid Process","枕骨
+乳突","Extension of head and neck
+Lateral flexion of head
+Rotation of head","頭頸部伸展
+頭部側屈
+頭部旋轉",Posterior rami of spinal nerves C2-3,第二至第三頸神經後支
+12,rectus_capitis_posterior_major.jpg,頭後大直肌,Rectus Capitis Posterior Major,Spinous process of axis,樞椎棘突,Occipital bone,枕骨,"Extension of atlanto-occipital joint
+Ipsilateral rotation at the atlanto-axial joint","寰枕關節伸展
+寰樞關節同側旋轉",Posterior ramus of spinal nerve C1,第一頸神經後支
+13,rectus_capitis_posterior_minor.jpg,頭後小直肌,Rectus Capitis Posterior Minor,Posterior tubercle of atlas,寰椎後結節,Occipital bone,枕骨,Extension of atlanto-occipital joint,"寰枕關節伸展
+",Posterior ramus of spinal nerve C1,第一頸神經後支
+14,obliquus_capitis_superior.jpg,頭上斜肌,Obliquus Capitis Superior,Transverse process of atlas,寰椎橫突,Occipital bone,枕骨,"Extension of atlanto-occipital joint
+Lateral flexion of atlanto-occipital joint","寰枕關節伸展
+寰枕關節側屈",Posterior ramus of spinal nerve C1,第一頸神經後支
+15,obliquus_capitis_inferior.jpg,頭下斜肌,Obliquus Capitis Inferior,Lateral/superior surface spinous process of the axis,第二頸椎棘突外側/上表面,Transverse process of the atlas,第一頸椎橫突,Ipsilateral rotation of the atlanto-axial joint,寰樞關節同側旋轉,Posterior ramus of spinal nerve C1,第一頸神經後支
+16,serratus_anterior.jpg,前鋸肌,Serratus Anterior,Lateral surface of superior ribs,上位肋骨外側面,Medial (vertebral) border of scapula,肩胛骨內側緣（脊椎緣）,"Protraction of scapula
+Upward rotation of scapula
+Holds scapula to thoracic wall","肩胛骨前引
+肩胛骨上迴旋
+固定肩胛骨於胸壁",Long thoracic nerve,胸長神經
+17,pectoralis_major.jpg,胸大肌,Pectoralis Major,"Medial clavicle
+Sternum and costal cartilages of superior ribs","鎖骨內側部
+胸骨及上位肋骨之肋軟骨",Lateral bicipital groove of humerus,肱骨二頭肌溝外側緣,"Adduction/horizontal adduction of shoulder
+Internal rotation of shoulder
+Flexion of shoulder (clavicular head)
+Extension of shoulder to neutral (sternal head)","肩關節內收/水平內收
+肩關節內旋
+肩關節屈曲（鎖骨部）
+肩關節伸展至中立位（胸骨部）","Lateral and medial pectoral nerves (clavicular head), Medial pectoral nerve (sternal head)",胸外側神經及胸內側神經（鎖骨部），胸內側神經（胸骨部）
+18,pectoralis_minor.jpg,胸小肌,Pectoralis Minor,Anterior surface of ribs 3-5,第3-5肋骨前面,Coracoid process of scapula,肩胛骨喙突,"Protraction of scapula
+Depression of scapula
+Downward rotation of scapula","肩胛骨前引
+肩胛骨下沉
+肩胛骨下旋",Medial pectoral nerve,胸內側神經
+19,subclavius.jpg,鎖骨下肌,Subclavius,Costal cartilage of rib 1,第一肋軟骨,Inferior border of clavicle,鎖骨下緣,Stabilizes clavicle,穩定鎖骨,Nerve to subclavius,鎖骨下肌神經
+20,scalenes.jpg,斜角肌群,Scalenes,Transverse processes of cervical vertebrae,頸椎橫突,"First rib
+Second rib","第一肋骨
+第二肋骨","Elevation of ribs 1 and 2
+Flexion of cervical vertebrae
+Lateral flexion of cervical vertebrae","第一、二肋骨上提
+頸椎屈曲
+頸椎側屈",Anterior rami of spinal nerves,脊神經前支
+21,sternocleidomastoid.jpg,胸鎖乳突肌,Sternocleidomastoid,"Medial clavicle
+Manubrium","鎖骨內側端
+胸骨柄",Mastoid process,"乳突","Flexion of neck
+Ipsilateral lateral flexion
+Contralateral rotation of neck","頸部屈曲
+同側側屈
+對側頸部旋轉",Cranial nerve XI (accessory),第十一對腦神經（副神經）
+22,platysma.jpg,頸闊肌,Platysma,Fascia over upper chest,上胸部筋膜,Mandible,下顎骨,Tension of skin of neck,頸部皮膚緊張,Cranial nerve VII (Facial nerve),第七對腦神經（顏面神經）
+23,external_intercostals.jpg,外肋間肌,External Intercostals,Interior margin of rib above,肋骨下緣之上,Superior margin of rib below,肋骨上緣之下,Elevate ribs during inspiration,吸氣時提升肋骨,Intercostal nerve,肋間神經
+24,internal_intercostals.jpg,內肋間肌,Internal Intercostals,Superior margin of rib below,下位肋骨上緣,Inferior margin of rib above,上位肋骨下緣,Depresses ribs during forced expiration,用力呼氣時使肋骨下降,Intercostal nerve,肋間神經
+25,biceps_brachii.jpg,肱二頭肌,Biceps Brachii,"Coracoid process
+Supraglenoid tubercle","喙突
+肩胛上結節","Radial tuberosity
+Bicipital aponeurosis
+Antebrachial fascia (medial side)","橈骨粗隆
+肱二頭肌腱膜
+前臂筋膜（內側）","Supination of forearm
+Flexion of elbow
+Flexion of shoulder","前臂內旋
+肘關節屈曲
+肩關節屈曲",Musculocutaneous nerve,肌皮神經
+26,coracobrachialis.jpg,喙肱肌,Coracobrachialis,Coracoid process of scapula,肩胛骨喙突,Middle of medial border of humerus,肱骨內側緣中部,"Flexion of shoulder
+Adduction of shoulder","肩關節屈曲
+肩關節內收",Musculocutaneous nerve,肌皮神經
+27,brachialis.jpg,肱肌,Brachialis,Distal anterior humerus,肱骨遠端前面,"Ulnar tuberosity
+Coronoid process","尺骨粗隆
+冠狀突",Flexion of elbow,肘關節屈曲,Musculocutaneous nerve,肌皮神經
+28,brachioradialis.jpg,肱橈肌,Brachioradialis,Supracondylar ridge of humerus,肱骨髁上嵴,Styloid process of radius,橈骨莖突,Flexion of elbow with forearm in neutral position,前臂中立位時肘關節屈曲,Radial nerve,橈神經
+29,triceps_brachii.jpg,肱三頭肌,Triceps Brachii,"Long head - Infraglenoid tubercle
+Lateral head - Posterior humerus above spiral groove
+Medial head - Posterior humerus below spiral groove","長頭 - 肩胛下結節
+外側頭 - 肱骨後面螺旋溝上方
+內側頭 - 肱骨後面螺旋溝下方",Olecranon process,鷹嘴突,"Extension of elbow
+Extension of shoulder (long head only)","肘關節伸展
+肩關節伸展（僅長頭）",Radial nerve,橈神經
+30,deltoid.jpg,三角肌,Deltoid,"Lateral clavicle
+Acromion
+Spine of scapula","鎖骨外側三分之一
+肩峰
+肩胛棘",Deltoid tuberosity,三角肌粗隆,"Flexion of shoulder
+Horizontal adduction of shoulder
+Internal rotation of shoulder
+Abduction of shoulder
+Extension of shoulder
+Horizontal abduction of shoulder
+External rotation of shoulder","肩關節屈曲
+肩關節水平內收
+肩關節內旋
+肩關節外展
+肩關節伸展
+肩關節水平外展
+肩關節外旋",Axillary nerve,腋神經
+31,supraspinatus.jpg,棘上肌,Supraspinatus,Supraspinous fossa,棘上窩,Superior greater tubercle,肱骨大結節上端,"Abduction of shoulder
+Stabilizes glenohumeral joint","肩關節外展
+穩定肩關節",Suprascapular nerve,肩胛上神經
+32,infraspinatus.jpg,棘下肌,Infraspinatus,Infraspinous fossa,棘下窩,Middle greater tubercle,肱骨大結節中部,"External rotation of shoulder
+Stabilizes glenohumeral joint","肩關節外旋
+穩定盂肱關節",Suprascapular nerve,肩胛上神經
+33,subscapularis.jpg,肩胛下肌,Subscapularis,Subscapular fossa,肩胛下窩,Lesser tubercle,小結節,"Internal rotation of shoulder
+Stabilizes glenohumeral joint","肩關節內旋
+穩定肱骨關節","Upper subscapular nerve, Lower subscapular nerve",上肩胛下神經、下肩胛下神經
+34,teres_minor.jpg,小圓肌,Teres Minor,Superior axillary border of scapula,肩胛骨腋緣上部,Inferior greater tubercle,肱骨大結節下部,"External rotation of shoulder
+Stabilizes glenohumeral joint","肩關節外旋
+穩定盂肱關節",Axillary nerve,腋神經
+35,teres_major.jpg,大圓肌,Teres Major,"Inferior angle of scapula
+Inferior axillary border of scapula","肩胛骨下角
+肩胛骨腋窩緣下部",Medial bicipital groove,肱骨二頭肌溝內側唇,"Extension of shoulder
+Internal rotation of shoulder
+Adduction of shoulder","肩關節伸展
+肩關節內旋
+肩關節內收",Lower subscapular nerve,下肩胛下神經
+36,,,,,,,,,,,
+37,pronator_teres.jpg,旋前圓肌,Pronator Teres,"Medial epicondyle of humerus
+Coronoid process of ulna","肱骨內上髁
+尺骨冠狀突",Middle of lateral radius,橈骨外側面中部,"Pronation of forearm
+Flexion of elbow","前臂旋前
+肘關節屈曲",Median nerve,正中神經
+38,flexor_carpi_radialis.jpg,橈側屈腕肌,Flexor Carpi Radialis,Medial epicondyle of humerus,肱骨內上髁,"Base of 2nd metacarpal
+Base of 3rd metacarpal","第二掌骨底
+第三掌骨底","Radial deviation of wrist
+Flexion of wrist","腕關節橈側偏移
+腕關節屈曲",Median nerve,正中神經
+39,palmaris_longus.jpg,掌長肌,Palmaris Longus,Medial epicondyle of humerus,肱骨內上髁,"Palmar aponeurosis
+Flexor retinaculum","掌腱膜
+屈肌支持帶",Flexion of wrist,腕關節屈曲,Median nerve,正中神經
+40,flexor_carpi_ulnaris.jpg,尺側屈腕肌,Flexor Carpi Ulnaris,"Medial epicondyle of humerus
+Olecranon process and proximal posterior ulna","肱骨內上髁
+鷹嘴突及尺骨近端後側","Pisiform
+Hook of hamate
+Base of 5th metacarpal","豌豆骨
+鉤骨鉤突
+第五掌骨底部","Ulnar deviation of wrist
+Flexion of wrist","腕關節尺側偏移
+腕關節屈曲",Ulnar nerve,尺神經
+41,flexor_digitorum_superficialis.jpg,屈指淺肌,Flexor Digitorum Superficialis,"Medial epicondyle of humerus
+Coronoid process of ulna
+Proximal anterior surface of radius","肱骨內上髁
+尺骨冠狀突
+橈骨近端前面",Middle phalanges of digits 2-5,第2-5指中節指骨,"Flexion of digits 2-5 at MCP and PIP joints
+Flexion of wrist","第2-5指掌指關節和近端指間關節屈曲
+腕關節屈曲",Median nerve,正中神經
+42,flexor_digitorum_profundus.jpg,指屈深肌,Flexor Digitorum Profundus,Proximal surface of ulna,尺骨近端表面,Base of distal phalanges of digits 2-5,第2-5指遠端指骨基底,"Flexion of wrist
+Flexion of digits 2-5 at MCP, PIP & DIP joints","腕關節屈曲
+第2-5指掌指關節、近端及遠端指間關節屈曲",Digits 2-3: Anterior interosseous nerve (deep branch of median nerve); Digits 4-5: ulnar nerve,第2-3指：前骨間神經（正中神經深支）；第4-5指：尺神經
+43,flexor_pollicis_longus.jpg,屈拇長肌,Flexor Pollicis Longus,"Anterior surface of radius
+Interosseous membrane","橈骨前面
+骨間膜",Base of distal phalanx of 1st digit,第一指遠端指骨底,Flexion of thumb at IP joint,拇指指間關節屈曲,Anterior interosseous nerve (deep branch of median nerve),前骨間神經（正中神經深支）
+44,pronator_quadratus.jpg,旋前方肌,Pronator Quadratus,Distal anteromedial ulna,尺骨遠端前內側面,Distal anterolateral radius,橈骨遠端前外側面,Pronation of forearm,前臂旋前,Anterior interosseous nerve (deep branch of median nerve),前骨間神經（正中神經深支）
+45,lumbricals(Hand).jpg,蚓狀肌(手),Lumbricals,Flexor digitorum profundus tendons,屈指深肌腱,Radial side of extensor expansion of digits 2-5,第2-5指伸肌腱膜橈側,"Flexion of digits 2-5 at MCP joints
+Extension of digits 2-5 at PIP & DIP joints","第2-5指掌指關節屈曲
+第2-5指近端及遠端指間關節伸展","Digits 2-3: median nerve, Digits 4-5: ulnar nerve",第2-3指：正中神經，第4-5指：尺神經
+46,palmar_interossei.jpg,掌側骨間肌,Palmar Interossei,"Palmar surfaces of 2nd, 4th, and 5th metacarpals",第二、四、五掌骨掌側面,"Bases of proximal phalanges and extensor expansions of digits 2, 4, and 5
+Ulnar/medial side of digit 2
+Radial/lateral side of digits 4-5","第二、四、五指近端指骨底及伸肌腱膜
+第二指尺側/內側
+第四、五指橈側/外側","Adduction of digits 2, 4 and 5 at MCP joints
+Flexion of digits 2, 4 and 5 at MCP joints
+Extension of digits 2, 4 and 5 at PIP and DIP joints","第二、四、五指掌指關節內收
+第二、四、五指掌指關節屈曲
+第二、四、五指近端及遠端指間關節伸直",Ulnar nerve,尺神經
+47,abductor_pollicis_brevis.jpg,外展拇短肌,Abductor Pollicis Brevis,"Flexor retinaculum
+Trapezium
+Scaphoid","屈肌支持帶
+大多角骨
+舟狀骨",Base of proximal phalanx of digit 1,第一指近端指骨基部,Abduction of thumb at CMC joint,拇指腕掌關節外展,Median nerve,正中神經
+48,flexor_pollicis_brevis.jpg,屈拇短肌,Flexor Pollicis Brevis,"Superficial head - flexor retinaculum and trapezium
+Deep head - trapezium and capitate","淺頭 - 屈肌支持帶和大多角骨
+深頭 - 大多角骨和頭狀骨",Base of proximal phalanx of digit 1,拇指近端指骨基部,Flexion of thumb at MCP joint,拇指掌指關節屈曲,Superficial head: median nerve; Deep head: ulnar nerve,淺頭：正中神經；深頭：尺神經
+49,opponens_pollicis.jpg,對掌拇肌,Opponens Pollicis,"Flexor retinaculum
+Trapezium","屈肌支持帶
+大多角骨",Radial shaft of 1st metacarpal,第一掌骨橈側骨幹,Opposition of thumb at CMC joint,拇指於腕掌關節對掌,Median nerve,正中神經
+50,adductor_pollicis.jpg,內收拇肌,Adductor Pollicis,"Transverse head: anterior surface of 3rd metacarpal
+Oblique head: bases of 2nd and 3rd metacarpals; capitate, trapezoid and trapezium","橫頭：第三掌骨前表面
+斜頭：第二、三掌骨基底；頭狀骨、小多角骨、大多角骨",Base of proximal phalanx of digit 1,第一指近節趾骨基底,Adduction of thumb at CMC joint,拇指在腕掌關節內收,Ulnar nerve,尺神經
+51,opponens_digiti_minimi.jpg,對掌小指肌,Opponens Digiti Minimi,"Flexor retinaculum
+Hook of hamate","屈肌支持帶
+鉤骨鉤突",Ulnar border of 5th metacarpal,第五掌骨尺側緣,Opposition of digit 5 at CMC joint,第五指在腕掌關節的對掌動作,Ulnar nerve,尺神經
+52,flexor_digiti_minimi.jpg,屈小指肌,Flexor Digiti Minimi,"Flexor retinaculum
+Hook of hamate","屈肌支持帶
+鉤骨鉤突",Base of proximal phalanx of digit 5,第五指近端指骨底,Flexion of digit 5 at MCP joint,第五指掌指關節屈曲,Ulnar nerve,尺神經
+53,abductor_digiti_minimi.jpg,外展小指肌,Abductor Digiti Minimi,Pisiform,豌豆骨,Base of proximal phalanx of digit 5,第五指近節指骨底,Abduction of digit 5 at MCP joint,第五指掌指關節外展,Ulnar nerve,尺神經
+54,extensor_carpi_radialis_longus.jpg,橈側伸腕長肌,Extensor Carpi Radialis Longus,"Lateral supracondylar ridge
+Lateral epicondyle of humerus","肱骨外上髁嵴
+肱骨外上髁",Base of 2nd metacarpal,第二掌骨基部,"Extension of wrist
+Radial deviation of wrist","腕關節伸展
+腕關節橈側偏移",Radial nerve,橈神經
+55,extensor_carpi_radialis_brevis.jpg,橈側伸腕短肌,Extensor Carpi Radialis Brevis,Lateral epicondyle of humerus,肱骨外上髁,Base of 3rd metacarpal,第三掌骨底,Extension of wrist,腕關節伸展,Deep branch of radial nerve,橈神經深支
+56,extensor_carpi_ulnaris.jpg,尺側伸腕肌,Extensor Carpi Ulnaris,"Lateral epicondyle of humerus
+Proximal posterior ulna","肱骨外上髁
+尺骨近端後側",Base of 5th metacarpal,第五掌骨基底,"Extension of wrist
+Ulnar deviation of wrist","腕關節伸展
+腕關節尺側偏移",Deep branch of radial nerve,橈神經深支
+57,extensor_digitorum.jpg,伸指肌,Extensor Digitorum,Lateral epicondyle of humerus,肱骨外上髁,Extensor expansion of digits 2-5,第2-5指伸肌腱膜,"Extension of wrist
+Extension of digits 2-5 at MCP joints","腕關節伸展
+第2-5指掌指關節伸展",Deep branch of radial nerve,橈神經深支
+58,extensor_digiti_minimi.jpg,伸小指肌,Extensor Digiti Minimi,Lateral epicondyle of humerus,肱骨外上髁,Extensor expansion of digit 5,第五指伸肌腱膜,"Extension of wrist
+Extension of digit 5 at MCP joints","腕關節伸展
+第五指掌指關節伸展",Deep branch of radial nerve,橈神經深支
+59,supinator.jpg,旋後肌,Supinator,"Lateral epicondyle of humerus
+Annular & radial collateral ligaments
+Supinator crest of ulna","肱骨外上髁
+橈骨環狀韌帶與橈骨側副韌帶
+尺骨旋後肌嵴",Lateral surface of proximal radius,橈骨近端外側面,Supination of forearm,前臂旋後,Deep branch of radial nerve,橈神經深支
+60,extensor_indicis.jpg,伸食指肌,Extensor Indicis,"Posterior ulna
+Adjacent interosseous membrane","尺骨後面
+鄰近骨間膜",Extensor expansion of digit 2,食指伸肌腱膜,"Extension of wrist
+Extension of digit 2 at MCP joint","腕關節伸展
+食指掌指關節伸展",Deep branch of radial nerve,橈神經深支
+61,extensor_pollicis_longus.jpg,伸拇長肌,Extensor Pollicis Longus,"Middle posterior ulna
+Interosseous membrane","尺骨中段後緣
+骨間膜",Base of distal phalanx of digit 1,第一指遠端指骨基部,"Radial deviation of wrist
+Extension of thumb at IP joint","腕關節橈側偏移
+拇指指間關節伸展",Deep branch of radial nerve,橈神經深支
+62,extensor_pollicis_brevis.jpg,伸拇短肌,Extensor Pollicis Brevis,"Posterior radius
+Interosseous membrane","橈骨後面
+骨間膜",Base of proximal phalanx of digit 1,第一指近端指骨底,"Radial deviation of wrist
+Extension of thumb at MCP joint","腕關節橈側偏移
+拇指掌指關節伸展",Deep branch of radial nerve,橈神經深支
+63,abductor_pollicis_longus.jpg,外展拇長肌,Abductor Pollicis Longus,"Posterior surfaces of radius and ulna
+Interosseous membrane","橈骨及尺骨後面
+骨間膜",Base of 1st metacarpal,第一掌骨基部,"Radial deviation of wrist
+Abduction of thumb at CMC joint","腕關節橈側偏移
+拇指腕掌關節外展",Deep branch of radial nerve,橈神經深支
+64,dorsal_interossei(Hand).jpg,背側骨間肌(手),Dorsal Interossei,Posterior surface of adjacent metacarpals,相鄰掌骨的後表面,"Bases of proximal phalanges and extensor expansions of digits 2-4
+Radial/lateral side of digit 2-3
+Ulnar/medial side of digit 3-4","第2-4指近端指骨底部及伸肌腱膜
+第2-3指橈側/外側
+第3-4指尺側/內側","Abduction of digits 2-4 MCP joints
+Flexion of digits 2-4 at MCP joints
+Extension of digits 2-4 at PIP and DIP joints","第2-4指掌指關節外展
+第2-4指掌指關節屈曲
+第2-4指近端及遠端指間關節伸展",Ulnar nerve,尺神經
+65,diaphragm.jpg,橫膈膜,Diaphragm,"Xiphoid process
+Lower costal cartilages
+Upper lumbar vertebrae
+Medial and lateral arcuate ligaments","劍突
+下肋軟骨
+上腰椎
+內側弓狀韌帶和外側弓狀韌帶",Central tendon of diaphragm,橫膈膜中央腱,Expands thorax during inspiration,吸氣時擴張胸腔,Phrenic nerve,膈神經
+66,rectus_abdominis.jpg,腹直肌,Rectus Abdominis,"Pubic symphysis
+Pubic crest","恥骨聯合
+恥骨嵴","Costal cartilages of ribs 5-7
+Xiphoid process","第5-7肋骨肋軟骨
+劍突","Flexes vertebral column
+Compresses abdomen","脊柱屈曲
+腹部壓縮",Intercostal nerves T7-T12,第7-12胸椎肋間神經
+67,external_oblique.jpg,腹外斜肌,External Oblique,Lower eight ribs,下八肋骨,"Abdominal aponeurosis to linea alba
+Pubis
+Anterior iliac crest","腹直肌鞘至白線
+恥骨
+髂前上棘","Flexes vertebral column and compresses abdomen
+Ipsilateral flexion
+Contralateral rotation of vertebral column","脊柱屈曲及腹部壓縮
+同側側彎
+對側旋轉脊柱","Intercostal nerves T7-T12, Iliohypogastric and ilioinguinal nerves",肋間神經T7-T12，髂腹下神經及髂腹股溝神經
+68,internal_abdominal_oblique.jpg,腹內斜肌,Internal Abdominal Oblique,"Inguinal ligament
+Iliac crest
+Thoracolumbar aponeurosis","腹股溝韌帶
+髂嵴
+胸腰筋膜","Costal cartilages of lower ribs
+Abdominal aponeurosis to linea alba","下肋骨肋軟骨
+腹白線腱膜","Flexes vertebral column and compresses abdomen
+Ipsilateral flexion and rotation of vertebral column","脊柱屈曲並壓迫腹部
+脊柱同側屈曲及旋轉","Intercostal nerves T7-T12, Iliohypogastric and ilioinguinal nerves",肋間神經T7-T12、髂腹下神經及髂腹股溝神經
+69,transverse_abdominis_anatomy.jpg,腹橫肌,Transverse Abdominis,"Inguinal ligament
+Iliac crest
+Thoracolumbar aponeurosis
+Costal cartilage of ribs 7-12","腹股溝韌帶
+髂嵴
+胸腰筋膜
+第7-12肋骨肋軟骨","Abdominal aponeurosis to linea alba
+Pubis
+","腹部筋膜至白線
+恥骨",Compresses abdomen,壓縮腹部,"Intercostal nerves T7-T12, Iliohypogastric and ilioinguinal nerves",第7-12肋間神經、髂腹下神經及髂腹股溝神經
+70,quadratus_lumborum.jpg,腰方肌,Quadratus Lumborum,Iliac crest,髂骨稜,"12th rib
+Transverse processes L1-4","第12肋骨
+腰椎1-4橫突","Lateral flexion of vertebral column
+Elevates hip","脊柱側彎
+髖部上提",Anterior rami T12-L4,胸椎12-腰椎4前支
+71,iliacus.jpg,髂肌,Iliacus,Iliac fossa,髂窩,Lesser trochanter of femur,股骨小轉子,"Flexion of hip
+Flexion of lumbar vertebral column","髖關節屈曲
+腰椎屈曲",Femoral nerve,股神經
+72,psoas_minor.jpg,腰小肌,Psoas Minor,Vertebral body of T12-L1,第十二胸椎至第一腰椎椎體,Superior ramus of pubis,恥骨上支,Flexion of lumbar vertebral column,腰椎屈曲,Anterior rami of spinal nerves L1,第一腰神經前支
+73,psoas_major.jpg,腰大肌,Psoas Major,"T12-L5 vertebral bodies and discs
+L1-5 transverse processes","第十二胸椎至第五腰椎椎體及椎間盤
+第一至第五腰椎橫突",Lesser trochanter of femur,股骨小轉子,"Flexion of hip
+Flexion of lumbar vertebral column","髖關節屈曲
+腰椎屈曲",Anterior rami of spinal nerves L2-3,第二至第三腰神經前支
+74,gluteus_maximus.jpg,臀大肌,Gluteus Maximus,"Posterior sacrum and sacrotuberous ligament
+Superior posterior ilium","薦骨後面及薦結節韌帶
+髂骨上後部","Gluteal tuberosity of femur
+Lateral condyle of tibia via iliotibial tract","股骨臀肌粗隆
+經髂脛束至脛骨外髁","Extension of hip
+External rotation of the hip","髖關節伸展
+髖關節外轉",Inferior gluteal nerve,下臀神經
+75,gluteus_medius.jpg,臀中肌,Gluteus Medius,Middle posterior ilium,髂骨後面中部,Greater trochanter of femur,股骨大轉子,"Abduction of hip
+Internal/External rotation of hip depends on fiber orientation","髖關節外展
+髖關節內旋/外旋取決於纖維走向",Superior gluteal nerve,臀上神經
+76,gluteus_minimus.jpg,臀小肌,Gluteus Minimus,Inferior posterior ilium,腸骨下後部,Anterior surface of greater trochanter of femur,股骨大轉子前面,"Abduction of hip
+Internal rotation of hip","髖關節外展
+髖關節內旋",Superior gluteal nerve,上臀神經
+77,tensor_fascia_lata.jpg,闊筋膜張肌,Tensor Fascia Lata,Anterior iliac crest,髂骨前嵴,Lateral condyle of tibia via iliotibial tract,經由髂脛束至脛骨外側髁,"Stabilizes extended knee
+Flexion of hip
+Abduction of hip
+Internal rotation of hip","穩定伸直膝關節
+髖關節屈曲
+髖關節外展
+髖關節內轉",Superior gluteal nerve,上臀神經
+78,quadratus_femoris.jpg,股方肌,Quadratus Femoris,Ischial tuberosity,坐骨粗隆,Quadrate tubercle,股骨方形粗隆,External rotation of hip,髖關節外旋,"Nerve to quadratus femoris L4, L5, S1","股方肌神經 L4, L5, S1"
+79,obturator_internus.jpg,閉孔內肌,Obturator Internus,"Obturator membrane
+Superior pubic ramus","閉孔膜
+恥骨上支",Greater trochanter of femur,股骨大轉子,External rotation of hip,髖關節外轉,"Sacral Plexus L5, S1, S2","薦神經叢L5, S1, S2"
+80,piriformis.jpg,梨狀肌,Piriformis,Anterior sacrum,薦骨前面,Greater trochanter of femur,股骨大轉子,External rotation of hip,髖關節外轉,Anterior rami S1-2,薦神經前支S1-2
+81,obturator_externus.jpg,閉孔外肌,Obturator Externus,"Obturator membrane
+Pubic and ischial rami","閉孔膜
+恥骨支和坐骨支",Greater trochanter of femur,股骨大轉子,External rotation of hip,髖關節外旋,Obturator Nerve,閉孔神經
+82,biceps_femoris.jpg,股二頭肌,Biceps Femoris,"Long head: Ischial tuberosity
+Short head: Linea aspera","長頭：坐骨粗隆
+短頭：粗線","Lateral surface of head of fibula
+Lateral condyle of tibia","腓骨頭外側面
+脛骨外側髁","Flexion of knee
+External rotation of flexed knee
+Extension of hip (long head)","膝關節屈曲
+屈膝外旋
+髖關節伸展（長頭）",Long head: Tibial division of sciatic nerve; Short head: Common peroneal division of sciatic nerve,長頭：坐骨神經脛骨部；短頭：坐骨神經腓總神經部
+83,semitendinosus.jpg,半腱肌,Semitendinosus,Ischial tuberosity,坐骨粗隆,Pes anserinus,鵝足,"Flexion of knee
+Internal rotation of flexed knee
+Extension of hip","膝關節屈曲
+屈膝時膝關節內旋
+髖關節伸展",Tibial division of sciatic nerve,坐骨神經脛神經分支
+84,semimembranosus.jpg,半膜肌,Semimembranosus,Ischial tuberosity,坐骨粗隆,Posterior medial tibial condyle,脛骨內側髁後方,"Flexion of knee
+Internal rotation of flexed knee
+Extension of hip","膝關節屈曲
+屈膝時內旋
+髖關節伸展",Tibial division of sciatic nerve,坐骨神經脛神經分支
+85,sartorius.jpg,縫匠肌,Sartorius,Anterior superior iliac spine,髂前上棘,Pes anserinus,鵝足,"Flexion of hip
+Abduction of hip
+External rotation of hip
+Flexion of knee
+Internal rotation of knee","髖關節屈曲
+髖關節外展
+髖關節外旋
+膝關節屈曲
+膝關節內旋",Femoral nerve,股神經
+86,rectus_femoris.jpg,股直肌,Rectus Femoris,"Anterior inferior iliac spine
+Ilium above acetabulum","髂前下棘
+髖臼上方髂骨","Patella
+Tibial tuberosity via patellar ligament","髕骨
+經髕韌帶至脛骨粗隆","Extension of knee
+Flexion of hip","膝關節伸展
+髖關節屈曲",Femoral nerve,股神經
+87,vastus_lateralis.jpg,股外側肌,Vastus Lateralis,"Linea aspera
+Greater trochanter
+Intertrochanteric line of femur","股骨粗線
+股骨大轉子
+股骨轉子間線","Patella
+Tibial tuberosity via patellar ligament","髕骨
+經髕骨韌帶至脛骨粗隆",Extension of knee,"膝關節伸展",Femoral nerve,股神經
+88,vastus_medialis.jpg,股內側肌,Vastus Medialis,"Linea aspera
+Intertrochanteric line of femur","股骨粗線
+股骨轉子間線","Patella
+Tibial tuberosity via patellar ligament","髕骨
+經髕韌帶至脛骨粗隆",Extension of knee,膝關節伸展,Femoral nerve,股神經
+89,vastus_intermedius.jpg,股中間肌,Vastus Intermedius,Anterior and lateral femoral shaft,股骨幹前側及外側面,"Patella
+Tibial tuberosity via patellar ligament","髕骨
+經髕韌帶至脛骨粗隆",Extension of knee,膝關節伸展,Femoral Nerve,股神經
+90,adductor_magnus.jpg,內收大肌,Adductor Magnus,"Inferior ramus of pubis
+Ramus of ischium, ischial tuberosity","恥骨下支
+坐骨支、坐骨結節","Linea aspera of femur
+Adductor tubercle of femur","股骨粗線
+股骨收肌結節","Adduction of hip
+Flexion/Internal rotation of hip
+Extension/External rotation of hip","髖關節內收
+髖關節屈曲/內旋
+髖關節伸展/外旋","Obturator nerve, Tibial division of sciatic nerve",閉孔神經、坐骨神經脛神經分支
+91,adductor_longus.jpg,內收長肌,Adductor Longus,Anterior surface of body of pubis,恥骨體前面,Linea aspera,股骨粗線,"Adduction of hip
+Flexion of hip
+Some external rotation","髖關節內收
+髖關節屈曲
+部分外旋",Obturator nerve,閉孔神經
+92,adductor_brevis.jpg,內收短肌,Adductor Brevis,"Body of pubis
+Inferior ramus of pubis","恥骨體
+恥骨下支",Linea aspera,股骨粗線,"Adduction of hip
+Flexion of hip
+Some external rotation","髖關節內收
+髖關節屈曲
+部分外旋",Obturator nerve,閉孔神經
+93,pectineus.jpg,恥骨肌,Pectineus,Superior ramus of pubis,恥骨上支,Between lesser trochanter and linea aspera,小轉子與粗線間,"Adduction of hip
+Flexion of hip","髖關節內收
+髖關節屈曲",Femoral nerve,股神經
+94,gracilis.jpg,股薄肌,Gracilis,"Body of pubis
+Inferior ramus of pubis","恥骨體
+恥骨下支",Pes anserinus,鵝足,"Adduction of hip
+Flexion of hip
+Internal rotation of flexed knee","髖關節內收
+髖關節屈曲
+膝關節屈曲時內旋",Obturator nerve,閉孔神經
+95,tibialis_anterior.jpg,脛骨前肌,Tibialis Anterior,"Lateral surface of tibia
+Interosseous membrane","脛骨外側面
+骨間膜","Base of first metatarsal
+Medial cuneiform","第一蹠骨底
+內側楔狀骨","Dorsiflexion of ankle
+Inversion of foot","踝關節背屈
+足內翻",Deep peroneal nerve,深腓神經
+96,extensor_hallucis_longus.jpg,伸拇長肌,Extensor Hallucis Longus,"Anterior surface of Fibula
+Interosseous membrane","腓骨前面
+骨間膜",Base of distal phalanx of big toe,拇趾遠端趾骨底,Extension of big toe,拇趾伸展,Deep peroneal nerve,深腓神經
+97,extensor_digitorum_longus.jpg,伸趾長肌,Extensor Digitorum Longus,"Proximal anterior shaft of fibula
+Interosseous membrane
+Lateral condyle of tibia","腓骨近端前緣
+骨間膜
+脛骨外側髁",Extensor expansion of toes 2-5,第2-5趾伸肌擴張,"Extension of toes 2-5
+Dorsiflexion of ankle","第2-5趾伸展
+踝關節背屈",Deep peroneal nerve,深腓神經
+98,extensor_digitorum_brevis.jpg,伸趾短肌,Extensor Digitorum Brevis,Anterior and lateral calcaneus,跟骨前側及外側,Extensor expansion of toes 2-4,第2-4趾伸肌腱膜,Extension of toes 2-4,第2-4趾伸展,Deep peroneal nerve,腓深神經
+99,peroneus_tertius.jpg,第三腓骨肌,Peroneus Tertius,Distal anterior fibula,腓骨遠端前側,Base of 5th metatarsal,第五蹠骨基部,"Eversion of foot
+Dorsiflexion of ankle","足部外翻
+踝關節背屈",Deep peroneal nerve,深腓神經
+100,peroneus_longus.jpg,腓骨長肌,Peroneus Longus,Head and proximal lateral shaft of fibula,腓骨頭及腓骨近端外側骨幹,"Base of 1st metatarsal
+Medial cuneiform","第一蹠骨基部
+內側楔狀骨","Eversion of foot
+Plantarflexion of ankle","足部外翻
+踝關節蹠屈",Superficial peroneal nerve,淺腓神經
+101,peroneus_brevis.jpg,腓骨短肌,Peroneus Brevis,Distal lateral shaft of fibula,腓骨遠端外側骨幹,Base of 5th metatarsal,第五蹠骨基部,"Eversion of foot
+Plantarflexion of ankle","足部外翻
+踝關節蹠屈",Superficial peroneal nerve,淺腓神經
+102,gastrocnemius.jpg,腓腸肌,Gastrocnemius,"Medial head - medial epicondyle of femur
+Lateral head - lateral epicondyle of femur","內側頭 - 股骨內上髁
+外側頭 - 股骨外上髁",Calcaneus via calcaneal tendon,經跟腱止於跟骨,"Plantarflexion of ankle
+Flexion of knee","踝關節蹠屈
+膝關節屈曲",Tibial nerve,脛神經
+103,soleus.jpg,比目魚肌,Soleus,"Soleal line of tibia
+Proximal fibula","脛骨比目魚肌線
+腓骨近端",Calcaneus via calcaneal tendon,經由跟腱附著於跟骨,Plantarflexion of ankle,踝關節蹠屈,Tibial nerve,脛神經
+104,plantaris.jpg,蹠肌,Plantaris,Lateral supracondylar ridge of femur,股骨外上髁嵴,Posterior calcaneus,跟骨後面,"Plantarflexion of ankle
+Flexion of knee","踝關節蹠屈
+膝關節屈曲",Tibial nerve,脛神經
+105,popliteus.jpg,膕肌,Popliteus,Lateral condyle of femur,股骨外側髁,Proximal posterior tibia,脛骨近端後側,"Unlocks extended knee by internal rotation of tibia
+Unlocks extended knee by external rotation of femur","藉脛骨內旋解鎖伸直膝關節
+藉股骨外旋解鎖伸直膝關節",Tibial nerve,脛神經
+106,tibialis_posterior.jpg,脛骨後肌,Tibialis Posterior,"Posterior tibia
+Proximal posterior fibula
+Interosseous membrane","脛骨後側
+腓骨近端後側
+骨間膜","Navicular tuberosity
+All cuneiforms
+Cuboid
+Bases of metatarsals 2-4","舟骨粗隆
+所有楔骨
+骰骨
+第二至第四蹠骨底","Inversion of foot
+Plantarflexion of ankle","足內翻
+踝關節蹠屈",Tibial nerve,脛神經
+107,flexor_digitorum_longus.jpg,屈趾長肌,Flexor Digitorum Longus,Posterior tibia,脛骨後面,Distal phalanges of toes 2-5,第2-5趾遠端趾骨,"Flexion of toes 2-5 at DIP joints
+Plantarflexion of ankle","第2-5趾遠端指間關節屈曲
+足踝蹠屈",Tibial nerve,脛神經
+108,flexor_digitorum_brevis.jpg,屈趾短肌,Flexor Digitorum Brevis,Calcaneus,跟骨,Bases of middle phalanges of toes 2-5,第2-5趾中節趾骨底,Flexion of toes 2-5 at PIP joints,第2-5趾近端趾間關節屈曲,Medial plantar nerve,內側足底神經
+109,flexor_hallucis_longus.jpg,屈拇長肌,Flexor Hallucis Longus,"Distal posterior fibula
+Interosseous membrane","腓骨遠端後側
+骨間膜",Distal phalanges of big toe,拇趾遠端趾骨,Flexion of big toe,拇趾屈曲,Tibial nerve,脛神經
+110,flexor_hallucis_brevis.jpg,屈拇短肌,Flexor Hallucis Brevis,"Cuboid bone
+Lateral cuneiform bone","骰骨
+外側楔狀骨",Both sides of base of proximal phalanx of big toe,拇趾近端趾骨基底兩側,Flexion of big toe at MTP joint,拇趾蹠趾關節屈曲,Medial plantar nerve,內側足底神經
+111,abductor_hallucis.jpg,外展拇肌,Abductor Hallucis,Calcaneus,跟骨,Base of proximal phalanx of big toe,拇趾近端趾骨基部,"Flexion of big toe at MTP joint
+Abduction of big toe at MTP joint","拇趾蹠趾關節屈曲
+拇趾蹠趾關節外展",Medial plantar nerve,內側足底神經
+112,abductor_digiti_minimi (foot).jpg,外展小趾肌,Abductor Digiti Minimi,Calcaneus,跟骨,Base of proximal phalanx of toe 5,第五趾近端趾骨底,"Abduction of toe 5 at MTP joint
+Flexion of toe 5 at MTP joint","第五趾蹠趾關節外展
+第五趾蹠趾關節屈曲",Lateral plantar nerve,外側足底神經
+113,quadratus_plantae.jpg,蹠方肌,Quadratus Plantae,Calcaneus,跟骨,Lateral surface of flexor digitorum longus tendon,趾長屈肌腱外側面,Flexion of toes 2-5 at DIP joints,第2-5趾遠端指間關節屈曲,Lateral plantar nerve,足底外側神經
+114,lumbricals (foot).jpg,蚓狀肌(腳),Lumbricals,Tendons of flexor digitorum longus,屈趾長肌肌腱,Extensor expansion 2-5,第2-5趾伸肌腱膜,"Flexion of toes 2-5 at MTP joints
+Extension of toes 2-5 at IP joints","第2-5趾蹠趾關節屈曲
+第2-5趾趾間關節伸展","Toe 2: medial plantar nerve, Toes 3-5: lateral plantar nerves",第2趾：內側足底神經，第3-5趾：外側足底神經
+115,adductor_hallucis.jpg,內收拇肌,Adductor Hallucis,"Bases of 2nd-4th metatarsals
+Deep transverse metatarsal ligament
+Plantar plates of 3-5 MTP joints","第2-4蹠骨基部
+深橫蹠骨韌帶
+第3-5蹠趾關節足底板",Base of proximal phalanx of big toe,拇趾近端趾骨基部,"Adduction of big toe at MTP joint
+Flexion of big toe at MTP joint","拇趾蹠趾關節內收
+拇趾蹠趾關節屈曲",Lateral plantar nerve,外側足底神經
+116,flexor_digiti_minimi_brevis,屈小趾肌,Flexor Digiti Minimi,Base of 5th metatarsal,第五蹠骨底,Base of proximal phalanx of toe 5,第五趾近端趾骨底,Flexion of toe 5 at MTP joint,第五趾蹠趾關節屈曲,Lateral plantar nerve,外側足底神經
+117,dorsal_interossei (foot).jpg,背側骨間肌(腳),Dorsal Interossei,Posterior surfaces from adjacent metatarsals,相鄰蹠骨的後側面,"Extensor expansions of toe 2
+Lateral sides of toes 2-4","第二趾伸肌腱膜
+第2-4趾外側面","Abduction of toes 2-4 at MTP joints
+Flexion of toes 2-4 at MTP joints
+Extension of toes 2-4 at IP joints","第2-4趾在蹠趾關節外展
+第2-4趾在蹠趾關節屈曲
+第2-4趾在趾間關節伸展",Lateral plantar nerve,外側足底神經
+118,plantar_interossei.jpg,蹠側骨間肌,Plantar Interossei,Medial sides of metatarsals 3-5,第3-5蹠骨內側,Extensor expansions of toes 3-5,第3-5趾伸肌腱膜,"Adduction of toes 3-5 at MTP joints
+Flexion of toes 3-5 at MTP joints
+Extension of toes 3-5 at IP joints","第3-5趾於蹠趾關節內收
+第3-5趾於蹠趾關節屈曲
+第3-5趾於趾間關節伸展",Lateral plantar nerve,外側蹠神經
+119,occipitofrontalis.jpg,枕額肌,Occipitofrontalis,"Frontal belly: epicranial aponeurosis
+Occipital belly: superior nuchal line of occipital bone","額腹：帽狀腱膜
+枕腹：枕骨上項線","Frontal: skin of eyebrow
+Occipital: Epicranial aponeurosis","額腹：眉毛皮膚
+枕腹：帽狀腱膜","Frontal: raises eyebrows
+Occipital: pulls scalp backwards","額腹：提眉
+枕腹：向後牽拉頭皮","Frontal: Temporal branch of cranial nerve VII/ facial, Occipital: Posterior auricular nerve",額腹：顏面神經顳支，枕腹：耳後神經
+120,temporalis.jpg,顳肌,Temporalis,Temporal fossa,顳窩,Coronoid process of mandible,下顎骨冠狀突,"Elevation of mandible
+Retraction of mandible","下顎上提
+下顎後縮",Trigeminal nerve (Cranial nerve V),三叉神經（第五對腦神經）
+121,orbicularis_oculi.jpg,眼輪匝肌,Orbicularis Oculi,"Nasal part of frontal bone
+Maxilla
+Lacrimal","額骨鼻部
+上頜骨
+淚骨",Skin of orbital region,眼眶周圍皮膚,Opens and closes eye,眼瞼開合,Temporal branch and zygomatic branch of Cranial nerve VII (Facial nerve),顏面神經顳支及顴支
+122,orbicularis_oris.jpg,口輪匝肌,Orbicularis Oris,"Modiolus of angulus oris
+Vermillion line","口角結節
+唇紅緣","Skin of lips
+Fascia of lips","唇部皮膚
+唇部筋膜","Compression of lips
+Protrusion of lips","唇部緊閉
+唇部前突",Buccal and marginal mandibular branches of facial nerve (CN VII),顏面神經頰支及下頜緣支（第七對腦神經）
+123,zygomaticus_major.jpg,顴大肌,Zygomaticus Major,Anterior lateral surface of zygomatic bone,顴骨前外側面,Angle of mouth,口角,Elevates angle of mouth,口角上提,Zygomatic and buccal branches of Cranial nerve VII (facial nerve),第七對腦神經（顏面神經）之顴支及頰支
+124,zygomaticus_minor.jpg,顴小肌,Zygomaticus Minor,Lateral surface of zygomatic bone,顴骨外側面,Angle of mouth,口角,Elevates upper lip,上唇上提,Zygomatic and buccal branches of Cranial nerve VII (facial nerve),第七對腦神經（顏面神經）之顴支及頰支
+125,masseter.jpg,咬肌,Masseter,Inferior aspect of zygomatic arch,顴弓下緣,"Lateral coronoid process of mandible
+Ramus of mandible","下顎骨冠突外側面
+下顎骨升支","Elevates mandible/Chew
+Assists in protraction of mandible","下顎骨上提/咀嚼
+協助下顎骨前突",Mandibular branch of Trigeminal nerve (cranial nerve V),三叉神經下顎支（第五對腦神經）
+126,buccinator.jpg,頰肌,Buccinator,"Alveolar processes of maxilla and mandible
+Pterygomandibular raphe","上顎骨與下顎骨齒槽突
+翼下顎縫",Angle of mouth,口角,Compresses cheeks,壓迫頰部,Buccal branch of Cranial nerve VII (facial nerve),顏面神經頰支（第七對腦神經）
+127,Multifidus.jpg,多裂肌,Multifidus,"Posterior sacrum
+PSIS
+mammillary processes of lumbar vertebrae
+transverse processes of T1-T12
+articular processes of C4-C7","薦骨後部
+髂後上棘
+腰椎的乳突
+胸椎的橫突
+下四節頸椎的關節突",Spinous processes of all vertebrae except C1,所有脊椎（除寰椎 C1 外）的棘突,"Bilateral: Extends the vertebral column;
+Unilateral: Contralateral rotation and Ipsilateral side-bending;
+Core: Stabilizes vertebral segments.","雙側收縮：延伸脊椎（後仰）；
+單側收縮：使脊椎向對側旋轉、向同側側彎；
+核心功能：穩定椎節。",	Posterior rami of spinal nerves (medial branch).,脊神經後支（內側支）
