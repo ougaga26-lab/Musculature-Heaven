@@ -272,28 +272,49 @@
             background: rgba(200,0,0,0.04);
         }
 
+        /* ─── 滑動標記（左右兩側的 ❌ ✅） ─── */
+        .swipe-label {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            font-weight: 800;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            pointer-events: none;
+            z-index: 2;
+            user-select: none;
+        }
+        .swipe-label-left  { left: 1.2rem; color: var(--secondary); border: 3px solid var(--secondary); padding: 0.2rem 0.7rem; border-radius: 12px; font-size: 1.6rem; }
+        .swipe-label-right { right: 1.2rem; color: var(--success);    border: 3px solid var(--success);    padding: 0.2rem 0.7rem; border-radius: 12px; font-size: 1.6rem; }
+
+        /* 飛出動畫 */
+        @keyframes flyLeft {
+            0%   { transform: translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateX(-140%) rotate(-25deg); opacity: 0; }
+        }
+        @keyframes flyRight {
+            0%   { transform: translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateX(140%) rotate(25deg); opacity: 0; }
+        }
+        .flashcard.fly-left  { animation: flyLeft 0.4s ease forwards; }
+        .flashcard.fly-right { animation: flyRight 0.4s ease forwards; }
+
         /* ─── 手機版 ─── */
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             .flashcard { height: 450px; }
             .card-title { font-size: 1.8rem; }
             .card-subtitle { font-size: 1.2rem; }
-            .actions { flex-direction: column; }
-            .action-btn { width: 100%; }
+
+            /* 按鈕並排（不再上下疊） */
+            .actions { flex-direction: row; }
+            .action-btn { flex: 1; padding: 0.8rem 0.5rem; font-size: 0.95rem; }
 
             /* 篩選器：全部在上，三個子類別在下，寬度齊平 */
-            .filter-buttons {
-                flex-direction: column;
-                gap: 0.6rem;
-            }
-            .filter-btn-all {
-                width: 100%;
-                padding: 0.6rem 1rem;
-            }
-            .filter-sub-group {
-                width: 100%;
-                gap: 0.4rem;
-            }
+            .filter-buttons { flex-direction: column; gap: 0.6rem; }
+            .filter-btn-all { width: 100%; padding: 0.6rem 1rem; }
+            .filter-sub-group { width: 100%; gap: 0.4rem; }
 
             /* 學習成效 總覽縮小 */
             .stats-summary { gap: 0.6rem; }
@@ -303,26 +324,13 @@
             .stats-title { font-size: 1.5rem; margin-bottom: 1rem; }
             .stats-section h3 { font-size: 1.1rem; }
 
-            /* 學習成效 清單：縮小文字，badge 上下排 */
-            .stats-list-item {
-                padding: 0.7rem 0.6rem;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-            .stats-list-item img {
-                width: 60px; height: 60px;
-                margin-right: 0.7rem;
-            }
+            /* 學習成效 清單 */
+            .stats-list-item { padding: 0.7rem 0.6rem; flex-wrap: wrap; gap: 0.5rem; }
+            .stats-list-item img { width: 60px; height: 60px; margin-right: 0.7rem; }
             .stats-list-item .info { flex: 1; min-width: 0; }
             .stats-list-item .name-en { font-size: 0.88rem; }
             .stats-list-item .name-zh { font-size: 0.78rem; }
-            .stats-list-item .badge {
-                font-size: 0.72rem;
-                padding: 0.3rem 0.7rem;
-                /* 當空間不夠時會自動換行到下面 */
-                flex-shrink: 1;
-                white-space: nowrap;
-            }
+            .stats-list-item .badge { font-size: 0.72rem; padding: 0.3rem 0.7rem; flex-shrink: 1; white-space: nowrap; }
         }
     </style>
 </head>
@@ -363,7 +371,7 @@
                         <span class="filter-count" id="countUnfamiliar">0</span>
                     </button>
                     <button class="filter-btn" data-filter="familiar">
-                        <span class="filter-label">✅ 熟悉了</span>
+                        <span class="filter-label">✅ 熟悲了</span>
                         <span class="filter-count" id="countFamiliar">0</span>
                     </button>
                     <button class="filter-btn" data-filter="unseen">
@@ -377,6 +385,9 @@
         <!-- 卡片 -->
         <div class="card-container">
             <div class="flashcard" id="flashcard">
+                <!-- 滑動標記 -->
+                <div class="swipe-label swipe-label-left"  id="swipeLeft">❌ 還不熟</div>
+                <div class="swipe-label swipe-label-right" id="swipeRight">✅ 熟悲了</div>
                 <div class="card-face card-front">
                     <img id="cardImage" class="card-image" alt="Muscle" style="max-height:90%;margin:0;">
                     <div class="flip-hint">👆 點擊翻轉查看資訊</div>
@@ -400,7 +411,7 @@
         <!-- 熟悲按鈕 -->
         <div class="actions">
             <button class="action-btn btn-unfamiliar" id="btnUnfamiliar">❌ 還不熟</button>
-            <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悉了</button>
+            <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悲了</button>
         </div>
 
         <!-- 導航 -->
@@ -427,7 +438,7 @@
                     <div class="num" id="statsTotal">0</div><div class="label">總題數</div>
                 </div>
                 <div class="stats-card" style="background:linear-gradient(135deg,var(--success),#45a049);">
-                    <div class="num" id="statsFamiliar">0</div><div class="label">已熟悉</div>
+                    <div class="num" id="statsFamiliar">0</div><div class="label">已熟悲</div>
                 </div>
                 <div class="stats-card" style="background:linear-gradient(135deg,var(--secondary),#6d3d39);">
                     <div class="num" id="statsUnfamiliar">0</div><div class="label">還不熟</div>
@@ -578,6 +589,8 @@ function showCard(idx) {
     ).join('');
 
     document.getElementById('flashcard').classList.remove('flipped');
+    document.getElementById('flashcard').style.transform  = '';
+    document.getElementById('flashcard').style.transition = '';
     document.getElementById('btnPrev').disabled = idx === 0;
     document.getElementById('btnNext').disabled = idx === cardQueue.length - 1;
 
@@ -626,8 +639,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSaved();
     loadData();
 
-    // 翻牌
+    // 翻牌（只在沒有拖動的情況下觸發）
+    let _swipeMoved = false;
+    document.getElementById('flashcard').addEventListener('touchstart', () => { _swipeMoved = false; }, { passive: true });
+    document.getElementById('flashcard').addEventListener('touchmove', () => { _swipeMoved = true; }, { passive: true });
     document.getElementById('flashcard').addEventListener('click', e => {
+        if (_swipeMoved) return;  // 拖動過了就不翻
         if (!e.target.classList.contains('action-btn'))
             document.getElementById('flashcard').classList.toggle('flipped');
     });
@@ -680,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else showCard(currentIndex);
     });
 
-    // ✅ 熟悉了
+    // ✅ 熟悲了
     document.getElementById('btnFamiliar').addEventListener('click', () => {
         const card = cardQueue[currentIndex], fn = card['picture file'];
         familiarityData[fn] = 'familiar';
@@ -717,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 清空紀錄
     document.getElementById('btnClear').addEventListener('click', () => {
-        if (!confirm('確定要清空所有紀錄嗎？\n這會把熟悉度和學習統計全部刪掉，從頭來過。')) return;
+        if (!confirm('確定要清空所有紀錄嗎？\n這會把熟悲度和學習統計全部刪掉，從頭來過。')) return;
         familiarityData = {};
         statsData       = {};
         localStorage.removeItem('musculature_familiarity');
@@ -735,6 +752,104 @@ document.addEventListener('DOMContentLoaded', () => {
         applyFilter();
         showCard(0);
     });
+
+    // ─── 觸摸滑動（手機版，交友軟體風格） ───
+    (function initSwipe() {
+        const card      = document.getElementById('flashcard');
+        const labelL    = document.getElementById('swipeLeft');
+        const labelR    = document.getElementById('swipeRight');
+        const THRESHOLD = 80;   // 滑動門檻（px）
+        let startX = 0, startY = 0, curX = 0, isDragging = false, didFlip = false;
+
+        function onStart(x, y) {
+            // 如果卡片正在飛出動畫中，不處理
+            if (card.classList.contains('fly-left') || card.classList.contains('fly-right')) return;
+            startX = x; startY = y; curX = 0; isDragging = true; didFlip = false;
+            card.style.transition = 'none';  // 拖動時關閉 transition，讓它跟手指動
+        }
+
+        function onMove(x, y) {
+            if (!isDragging) return;
+            const dx = x - startX;
+            const dy = y - startY;
+
+            // 如果開始是上下滑動，放棄（讓頁面正常滾動）
+            if (!didFlip && Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 10) {
+                isDragging = false; return;
+            }
+            didFlip = true;
+            curX = dx;
+
+            // 卡片隨手指移動 + 微微旋轉
+            const rot = Math.max(-18, Math.min(18, dx * 0.04));
+            card.style.transform = card.classList.contains('flipped')
+                ? `rotateY(180deg) translateX(${-dx}px) rotate(${-rot}deg)`  // 背面要反
+                : `translateX(${dx}px) rotate(${rot}deg)`;
+
+            // 標記透明度隨滑動距離變化
+            const prog = Math.min(Math.abs(dx) / THRESHOLD, 1);
+            labelL.style.opacity = dx < 0 ? prog : 0;
+            labelR.style.opacity = dx > 0 ? prog : 0;
+        }
+
+        function onEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            labelL.style.opacity = 0;
+            labelR.style.opacity = 0;
+
+            if (curX < -THRESHOLD) {
+                // 滑到左邊夠遠 → 還不熟，飛出
+                card.style.transition = '';
+                card.classList.add('fly-left');
+                card.addEventListener('animationend', () => {
+                    card.classList.remove('fly-left');
+                    card.style.transform = '';
+                    document.getElementById('btnUnfamiliar').click();  // 觸發既有的還不熟 logic
+                }, { once: true });
+            } else if (curX > THRESHOLD) {
+                // 滑到右邊夠遠 → 熟悲了，飛出
+                card.style.transition = '';
+                card.classList.add('fly-right');
+                card.addEventListener('animationend', () => {
+                    card.classList.remove('fly-right');
+                    card.style.transform = '';
+                    document.getElementById('btnFamiliar').click();  // 觸發既有的熟悲 logic
+                }, { once: true });
+            } else {
+                // 沒滑夠遠 → 彈回原位
+                card.style.transition = 'transform 0.35s cubic-bezier(.25,.8,.25,1)';
+                card.style.transform  = card.classList.contains('flipped') ? 'rotateY(180deg)' : '';
+            }
+        }
+
+        // touch 事件
+        card.addEventListener('touchstart', e => {
+            const t = e.touches[0];
+            onStart(t.clientX, t.clientY);
+        }, { passive: true });
+
+        card.addEventListener('touchmove', e => {
+            const t = e.touches[0];
+            if (isDragging && didFlip) e.preventDefault();  // 水平拖動時阻止頁面滾動
+            onMove(t.clientX, t.clientY);
+        }, { passive: false });
+
+        card.addEventListener('touchend', () => onEnd());
+
+        // mouse 事件（桌版測試用）
+        card.addEventListener('mousedown', e => {
+            if (e.button !== 0) return;
+            onStart(e.clientX, e.clientY);
+        });
+        window.addEventListener('mousemove', e => {
+            if (!isDragging) return;
+            onMove(e.clientX, e.clientY);
+        });
+        window.addEventListener('mouseup', () => {
+            if (isDragging) onEnd();
+        });
+    })();
 
     // 鍵盤
     document.addEventListener('keydown', e => {
