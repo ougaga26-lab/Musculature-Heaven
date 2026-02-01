@@ -1,476 +1,491 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Musculature Heaven</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *{margin:0;padding:0;box-sizing:border-box;}
 
-    :root {
-      --primary: #2c5f7c;
-      --secondary: #8b4f4b;
-      --accent: #d4a373;
-      --success: #4caf50;
-      --card: #ffffff;
-      --text: #2a2a2a;
-      --border: #d4cfc4;
+    :root{
+      --primary:#2c5f7c;
+      --secondary:#8b4f4b;
+      --accent:#d4a373;
+      --success:#4caf50;
+      --card:#fff;
+      --text:#2a2a2a;
+      --border:#d4cfc4;
     }
 
-    body {
-      font-family: 'Noto Sans TC', sans-serif;
-      background: linear-gradient(135deg, #f8f6f3 0%, #ebe8e1 100%);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 1rem;
+    body{
+      font-family:'Noto Sans TC',sans-serif;
+      background:linear-gradient(135deg,#f8f6f3 0%, #ebe8e1 100%);
+      color:var(--text);
+      min-height:100vh;
+      padding:1rem;
     }
 
-    .container { max-width: 800px; margin: 0 auto; }
+    .container{max-width:800px;margin:0 auto;}
 
-    /* ─── 標題 ─── */
-    .header { text-align: center; margin-bottom: 0.6rem; } /* ✅ 更緊湊 */
-    h1 {
-      font-family: 'Crimson Pro', serif;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.2rem;
+    /* ───────────────────────── Header ───────────────────────── */
+    .header{text-align:center;margin-bottom:.6rem;}
+    h1{
+      font-family:'Crimson Pro',serif;
+      font-size:2.2rem;
+      font-weight:700;
+      color:var(--primary);
+      margin-bottom:0;
+    }
+    /* ✅ subtitle 移除：不再使用 .subtitle */
+
+    /* ✅ Header 下方：我的學習成效（只在主頁顯示，由 JS 控制） */
+    .stats-entry-top{
+      display:none;
+      justify-content:center;
+      margin:.55rem 0 1rem;
+    }
+    .stats-entry-top .stats-btn{
+      width:100%;
+      max-width:800px;
+      padding:.85rem 1rem;
+      background:var(--primary);
+      color:#fff;
+      border:none;
+      border-radius:14px;
+      font-weight:600;
+      font-size:1rem;
+      cursor:pointer;
+      transition:all .25s ease;
+      box-shadow:0 4px 16px rgba(44,95,124,.25);
+    }
+    .stats-entry-top .stats-btn:hover{background:#1e4a5f;transform:translateY(-1px);}
+
+    /* ───────────────────────── Controls / Filters ───────────────────────── */
+    .controls{
+      background:var(--card);
+      border-radius:14px;
+      padding:.65rem .8rem;
+      margin:.4rem 0 .9rem;
+      box-shadow:0 5px 20px rgba(0,0,0,.08);
+    }
+    .filter-buttons{
+      display:flex;
+      flex-direction:column;
+      gap:.55rem;
+      width:100%;
+    }
+    .filter-sub-group{display:flex;gap:.45rem;width:100%;}
+
+    .filter-btn{
+      flex:1;
+      padding:.42rem .25rem;
+      font-size:.78rem;
+      border:1.5px solid var(--border);
+      border-radius:10px;
+      background:#fff;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.12rem;
+      min-width:0;
+      transition:all .2s ease;
+    }
+    .filter-label{white-space:nowrap;}
+    .filter-count{font-size:.68rem;color:#999;font-weight:600}
+    .filter-btn.active{
+      background:var(--primary);
+      color:#fff;
+      border-color:var(--primary);
+    }
+    .filter-btn.active .filter-count{color:rgba(255,255,255,.7);}
+
+    .filter-btn-all{
+      width:100%;
+      padding:.55rem 1rem;
+      font-size:.95rem;
+      border:2px solid var(--primary);
+      background:rgba(44,95,124,.08);
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:.4rem;
+      transition:all .2s ease;
+    }
+    .filter-btn-all .filter-count{font-size:.8rem;color:rgba(44,95,124,.55);font-weight:700;}
+    .filter-btn-all.active{background:var(--primary);color:#fff;}
+    .filter-btn-all.active .filter-count{color:rgba(255,255,255,.75);}
+
+    /* ───────────────────────── Card ───────────────────────── */
+    .card-container{perspective:1000px;margin-bottom:.85rem;}
+
+    /* 你要的是「外框留白少一點」→ 主要動 padding，而不是硬縮高度 */
+    .flashcard{
+      width:100%;
+      height:470px; /* 保留短一點點的高度 */
+      position:relative;
+      transform-style:preserve-3d;
+      transition:transform .6s;
+      cursor:pointer;
+    }
+    .flashcard.flipped{transform:rotateY(180deg);}
+
+    .card-face{
+      position:absolute;
+      width:100%;
+      height:100%;
+      backface-visibility:hidden;
+      border-radius:18px;
+      box-shadow:0 10px 40px rgba(0,0,0,.15);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+
+      /* ✅ 外框留白少一點（原本 2rem） */
+      padding:1.35rem;
+
+      background:var(--card);
+    }
+    .card-front{background:linear-gradient(135deg,#fff 0%, #f8f6f3 100%);}
+    .card-back{
+      transform:rotateY(180deg);
+      background:linear-gradient(135deg,#f8f6f3 0%, #fff 100%);
+      justify-content:flex-start;
     }
 
-    /* ✅ 我的學習成效（移到標題下方） */
-    .stats-entry-top {
-      display: none;            /* 由 JS 控制：只在主頁顯示 */
-      justify-content: center;
-      margin: 0.6rem 0 1rem;
-    }
-    .stats-entry-top .stats-btn {
-      width: 100%;
-      max-width: 800px;
-      padding: 0.85rem 1rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 14px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 16px rgba(44,95,124,0.25);
-    }
-    .stats-entry-top .stats-btn:hover { background: #1e4a5f; transform: translateY(-1px); }
-
-    /* ─── 篩選器 ─── */
-    .controls {
-      background: var(--card);
-      border-radius: 15px;
-      padding: 0.8rem 1rem;
-      margin-bottom: 0.9rem;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      margin-top: 0.4rem;
-    }
-    .filter-buttons {
-      display: flex;
-      gap: 0.6rem;
-      width: 100%;
-      align-items: center;
-      flex-direction: column;
+    .card-image{
+      max-width:100%;
+      max-height:315px; /* 稍微加一點，補回 padding 變少後的視覺 */
+      border-radius:14px;
+      box-shadow:0 5px 20px rgba(0,0,0,.1);
+      object-fit:contain;
     }
 
-    .filter-sub-group { display: flex; gap: 0.5rem; width: 100%; }
-
-    .filter-btn {
-      padding: 0.45rem 0.35rem;
-      border: 1.5px solid var(--border);
-      background: white;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.12rem;
-      flex: 1;
-      min-width: 0;
+    .card-title{
+      font-family:'Crimson Pro',serif;
+      font-size:1.9rem;
+      font-weight:700;
+      color:var(--primary);
+      text-align:center;
+      margin-bottom:.35rem;
     }
-    .filter-btn .filter-label { font-size: 0.8rem; white-space: nowrap; }
-    .filter-btn .filter-count { font-size: 0.68rem; color: #999; font-weight: 600; }
-    .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-    .filter-btn.active .filter-count { color: rgba(255,255,255,0.7); }
-
-    .filter-btn-all {
-      width: 100%;
-      padding: 0.55rem 1rem;
-      border: 2px solid var(--primary);
-      background: rgba(44,95,124,0.08);
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      transition: all 0.3s ease;
-    }
-    .filter-btn-all .filter-count { font-size: 0.8rem; color: rgba(44,95,124,0.55); font-weight: 700; }
-    .filter-btn-all.active { background: var(--primary); color: white; }
-    .filter-btn-all.active .filter-count { color: rgba(255,255,255,0.75); }
-
-    /* ─── 卡片 ─── */
-    .card-container { perspective: 1000px; margin-bottom: 1rem; }
-    .flashcard {
-      width: 100%;
-      height: 470px;           /* ✅ 原 500 → 470（短一點點） */
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.6s;
-      cursor: pointer;
-    }
-    .flashcard.flipped { transform: rotateY(180deg); }
-
-    .card-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      background: var(--card);
-    }
-    .card-front { background: linear-gradient(135deg, #fff 0%, #f8f6f3 100%); }
-    .card-back  { transform: rotateY(180deg); background: linear-gradient(135deg, #f8f6f3 0%, #fff 100%); }
-
-    .card-image {
-      max-width: 100%;
-      max-height: 300px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      object-fit: contain;
+    .card-subtitle{
+      font-size:1.2rem;
+      color:var(--secondary);
+      text-align:center;
+      font-weight:500;
     }
 
-    .card-title {
-      font-family: 'Crimson Pro', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary);
-      text-align: center;
-      margin-bottom: 0.5rem;
+    .card-info{
+      width:100%;
+      text-align:left;
+      overflow-y:auto;
+      max-height:200px;
+      margin-top:.2rem;
     }
-    .card-subtitle { font-size: 1.3rem; color: var(--secondary); text-align: center; font-weight: 500; }
+    .info-item{margin-bottom:1.1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border);}
+    .info-item:last-child{border-bottom:none;margin-bottom:.2rem;padding-bottom:0;}
+    .info-label{font-weight:700;color:var(--primary);margin-bottom:.25rem;font-size:.9rem;}
+    .info-content{color:var(--text);line-height:1.6;white-space:pre-line;font-size:.95rem;}
 
-    .card-info { width: 100%; text-align: left; overflow-y: auto; max-height: 200px; }
-    .info-item { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-    .info-item:last-child { border-bottom: none; }
-    .info-label { font-weight: 700; color: var(--primary); margin-bottom: 0.3rem; font-size: 0.9rem; }
-    .info-content { color: var(--text); line-height: 1.6; white-space: pre-line; font-size: 0.95rem; }
-
-    .flip-hint {
-      position: absolute;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.85rem;
-      color: #999;
-      animation: pulse 2s infinite;
+    .flip-hint{
+      position:absolute;
+      bottom:.8rem;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:.82rem;
+      color:#999;
+      animation:pulse 2s infinite;
     }
-    @keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+    @keyframes pulse{0%,100%{opacity:.55} 50%{opacity:1}}
 
-    /* ─── 熟悉按鈕 ─── */
-    .actions { display: flex; gap: 1rem; justify-content: center; margin-bottom: 0.9rem; }
-    .action-btn {
-      padding: 0.8rem 2rem;
-      border: none;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      flex: 1;
+    /* ───────────────────────── Actions ───────────────────────── */
+    .actions{display:flex;gap:.75rem;margin-bottom:.7rem;}
+    .action-btn{
+      flex:1;
+      padding:.8rem .4rem;
+      border:none;
+      border-radius:50px;
+      font-weight:600;
+      font-size:.98rem;
+      cursor:pointer;
+      transition:all .2s ease;
+      box-shadow:0 5px 15px rgba(0,0,0,.1);
     }
-    .btn-unfamiliar { background: var(--secondary); color: white; }
-    .btn-unfamiliar:hover { background: #6d3d39; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139,79,75,0.3); }
-    .btn-familiar  { background: var(--success); color: white; }
-    .btn-familiar:hover  { background: #45a049; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(76,175,80,0.3); }
+    .btn-unfamiliar{background:var(--secondary);color:#fff}
+    .btn-familiar{background:var(--success);color:#fff}
+    .btn-unfamiliar:hover{background:#6d3d39;transform:translateY(-1px)}
+    .btn-familiar:hover{background:#45a049;transform:translateY(-1px)}
 
-    /* Powered by */
-    .powered-by {
-      margin-top: 1.6rem;
-      font-size: 0.72rem;
-      color: #bbb;
-      letter-spacing: 0.5px;
+    /* ───────────────────────── Empty / Loading ───────────────────────── */
+    .loading{text-align:center;padding:3rem;color:var(--primary);}
+    .spinner{
+      border:4px solid var(--border);
+      border-top:4px solid var(--primary);
+      border-radius:50%;
+      width:40px;height:40px;
+      animation:spin 1s linear infinite;
+      margin:0 auto 1rem;
     }
+    @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 
-    /* ─── Loading ─── */
-    .loading { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--primary); }
-    .spinner {
-      border: 4px solid var(--border);
-      border-top: 4px solid var(--primary);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 1rem;
+    .empty-msg{
+      display:none;
+      text-align:center;
+      padding:4.5rem 2rem;
+      background:var(--card);
+      border-radius:20px;
+      box-shadow:0 10px 40px rgba(0,0,0,.08);
     }
-    @keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+    .empty-msg .emoji{font-size:3rem;margin-bottom:1rem}
+    .empty-msg p{font-size:1.15rem;color:var(--primary);font-weight:600}
+    .empty-msg .sub{font-size:.9rem;color:#999;margin-top:.5rem;font-weight:400}
 
-    /* ─── 空類別訊息 ─── */
-    .empty-msg {
-      display: none;
-      text-align: center;
-      padding: 5rem 2rem;
-      background: var(--card);
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    /* ───────────────────────── Stats Page ───────────────────────── */
+    .stats-page{display:none;}
+    .stats-page-inner{
+      background:var(--card);
+      border-radius:20px;
+      padding:2rem;
+      box-shadow:0 10px 40px rgba(0,0,0,.08);
     }
-    .empty-msg .emoji { font-size: 3rem; margin-bottom: 1rem; }
-    .empty-msg p { font-size: 1.2rem; color: var(--primary); font-weight: 600; }
-    .empty-msg .sub { font-size: 0.9rem; color: #999; margin-top: 0.5rem; font-weight: 400; }
-
-    /* ─── 學習成效頁面 ─── */
-    .stats-page { display: none; }
-    .stats-page-inner {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    .stats-header{margin-bottom:1rem}
+    .nav-btn{
+      padding:.6rem 1.5rem;
+      border:none;
+      border-radius:25px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .2s ease;
     }
-    .stats-header { margin-bottom: 1rem; }
-
-    .nav-btn {
-      padding: 0.6rem 1.5rem;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 25px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    .nav-btn:hover{background:#c9956a;transform:translateY(-1px)}
+    .stats-title{
+      font-family:'Crimson Pro',serif;
+      font-size:2rem;
+      color:var(--primary);
+      margin-bottom:1.5rem;
     }
-    .nav-btn:hover { background: #c9956a; transform: translateY(-2px); }
+    .stats-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;}
+    .stats-card{color:#fff;padding:1.2rem;border-radius:15px;text-align:center;}
+    .stats-card .num{font-size:2.2rem;font-weight:700}
+    .stats-card .label{font-size:.9rem;opacity:.9}
 
-    .stats-title {
-      font-family: 'Crimson Pro', serif;
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-    }
-    .stats-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
-
-    .stats-card { color: white; padding: 1.5rem; border-radius: 15px; text-align: center; }
-    .stats-card .num { font-size: 2.5rem; font-weight: 700; }
-    .stats-card .label { font-size: 0.9rem; opacity: 0.9; }
-
-    .stats-section { margin-bottom: 2.5rem; }
-    .stats-section:last-child { margin-bottom: 0; }
-    .stats-section h3 {
-      font-family: 'Crimson Pro', serif;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--border);
+    .stats-section{margin-bottom:2.2rem}
+    .stats-section:last-child{margin-bottom:0}
+    .stats-section h3{
+      font-family:'Crimson Pro',serif;
+      font-size:1.35rem;
+      margin-bottom:1rem;
+      padding-bottom:.5rem;
+      border-bottom:2px solid var(--border);
     }
 
-    .stats-list-item {
-      display: flex;
-      align-items: center;
-      padding: 0.9rem 1rem;
-      background: white;
-      border-radius: 10px;
-      margin-bottom: 0.5rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    .stats-list-item{
+      display:flex;
+      align-items:center;
+      padding:.85rem 1rem;
+      background:#fff;
+      border-radius:10px;
+      margin-bottom:.5rem;
+      box-shadow:0 2px 10px rgba(0,0,0,.05);
     }
-    .stats-list-item img {
-      width: 75px;
-      height: 75px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-right: 1rem;
-      flex-shrink: 0;
+    .stats-list-item img{
+      width:72px;height:72px;
+      object-fit:cover;
+      border-radius:8px;
+      margin-right:1rem;
+      flex-shrink:0;
     }
-    .stats-list-item .info { flex: 1; min-width: 0; }
-    .stats-list-item .name-en { font-weight: 600; font-size: 1.05rem; color: var(--primary); }
-    .stats-list-item .name-zh { color: var(--secondary); font-size: 0.9rem; }
-    .stats-list-item .badge {
-      color: white;
-      padding: 0.4rem 0.9rem;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      white-space: nowrap;
-      flex-shrink: 0;
+    .stats-list-item .info{flex:1;min-width:0;}
+    .stats-list-item .name-en{font-weight:600;font-size:1.02rem;color:var(--primary)}
+    .stats-list-item .name-zh{color:var(--secondary);font-size:.9rem}
+    .stats-list-item .badge{
+      color:#fff;
+      padding:.38rem .85rem;
+      border-radius:20px;
+      font-weight:600;
+      font-size:.85rem;
+      white-space:nowrap;
+      flex-shrink:0;
     }
-    .stats-empty { text-align: center; color: #999; padding: 1.5rem; }
+    .stats-empty{text-align:center;color:#999;padding:1.2rem}
 
-    .clear-section {
-      margin-top: 2.5rem;
-      text-align: center;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
+    .clear-section{margin-top:2.2rem;text-align:center;padding-top:1.4rem;border-top:1px solid var(--border);}
+    .clear-btn{
+      padding:.7rem 1.8rem;
+      background:transparent;
+      color:#999;
+      border:1.5px solid #ccc;
+      border-radius:25px;
+      font-size:.9rem;
+      font-weight:500;
+      cursor:pointer;
+      transition:all .2s ease;
     }
-    .clear-btn {
-      padding: 0.7rem 1.8rem;
-      background: transparent;
-      color: #999;
-      border: 1.5px solid #ccc;
-      border-radius: 25px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    .clear-btn:hover{color:#c00;border-color:#c00;background:rgba(200,0,0,.04)}
+
+    /* ───────────────────────── Swipe Labels ───────────────────────── */
+    .swipe-label{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      font-weight:800;
+      opacity:0;
+      transition:opacity .15s ease;
+      pointer-events:none;
+      z-index:2;
+      user-select:none;
     }
-    .clear-btn:hover { color: #c00; border-color: #c00; background: rgba(200,0,0,0.04); }
-
-    /* ─── 滑動標記 ─── */
-    .swipe-label {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 3rem;
-      font-weight: 800;
-      opacity: 0;
-      transition: opacity 0.15s ease;
-      pointer-events: none;
-      z-index: 2;
-      user-select: none;
+    .swipe-label-left{
+      left:1.1rem;
+      color:var(--secondary);
+      border:3px solid var(--secondary);
+      padding:.2rem .7rem;
+      border-radius:12px;
+      font-size:1.55rem;
     }
-    .swipe-label-left  { left: 1.2rem; color: var(--secondary); border: 3px solid var(--secondary); padding: 0.2rem 0.7rem; border-radius: 12px; font-size: 1.6rem; }
-    .swipe-label-right { right: 1.2rem; color: var(--success);    border: 3px solid var(--success);    padding: 0.2rem 0.7rem; border-radius: 12px; font-size: 1.6rem; }
-
-    @keyframes flyLeft  { 0%{transform:translateX(0) rotate(0deg);opacity:1} 100%{transform:translateX(-140%) rotate(-25deg);opacity:0} }
-    @keyframes flyRight { 0%{transform:translateX(0) rotate(0deg);opacity:1} 100%{transform:translateX(140%)  rotate(25deg); opacity:0} }
-    .flashcard.fly-left  { animation: flyLeft 0.4s ease forwards; }
-    .flashcard.fly-right { animation: flyRight 0.4s ease forwards; }
-
-    /* ─── 歡迎頁面 ─── */
-    .welcome-page {
-      min-height: calc(100vh - 2rem);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem 1.5rem;
+    .swipe-label-right{
+      right:1.1rem;
+      color:var(--success);
+      border:3px solid var(--success);
+      padding:.2rem .7rem;
+      border-radius:12px;
+      font-size:1.55rem;
     }
-    .welcome-card {
-      background: var(--card);
-      border-radius: 28px;
-      padding: 3rem 2rem 2.5rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 540px;
-      animation: welcomeFadeIn 0.6s ease forwards;
+    @keyframes flyLeft{0%{transform:translateX(0) rotate(0);opacity:1}100%{transform:translateX(-140%) rotate(-25deg);opacity:0}}
+    @keyframes flyRight{0%{transform:translateX(0) rotate(0);opacity:1}100%{transform:translateX(140%) rotate(25deg);opacity:0}}
+    .flashcard.fly-left{animation:flyLeft .4s ease forwards;}
+    .flashcard.fly-right{animation:flyRight .4s ease forwards;}
+
+    /* ───────────────────────── Welcome (滿版、無白框) ───────────────────────── */
+    .welcome-page{
+      min-height:calc(100vh - 2rem);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:2.2rem 1.2rem;
     }
-    @keyframes welcomeFadeIn { 0%{opacity:0;transform:translateY(24px)} 100%{opacity:1;transform:translateY(0)} }
-    .welcome-icon { font-size: 3.2rem; margin-bottom: 0.3rem; animation: iconBounce 1.2s ease infinite alternate; }
-    @keyframes iconBounce { 0%{transform:translateY(0)} 100%{transform:translateY(-6px)} }
-
-    .welcome-title {
-      font-family: 'Noto Sans TC', sans-serif;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 1.4rem;
-      line-height: 1.5;
+    /* ✅ 不要白卡片框：welcome-card 只是透明容器 */
+    .welcome-card{
+      background:transparent;
+      border-radius:0;
+      padding:0;
+      box-shadow:none;
+      width:100%;
+      max-width:680px;
     }
-    .welcome-title .heart { color: #e84c6a; font-size: 1.4rem; }
-    .welcome-title-main {
-      display: block;
-      white-space: nowrap;
-      font-size: clamp(1.1rem, 5.5vw, 1.7rem);
+
+    .welcome-icon{font-size:3.2rem;margin-bottom:.35rem;}
+    .welcome-title{
+      font-weight:700;
+      color:var(--primary);
+      margin-bottom:1.2rem;
+      line-height:1.55;
     }
-    .welcome-title .sparkle { color: var(--accent); }
-
-    .welcome-desc {
-      font-size: 0.95rem;
-      color: #6b6b6b;
-      line-height: 1.8;
-      margin-bottom: 2rem;
+    .welcome-title .heart{color:#e84c6a;font-size:1.35rem;}
+    /* ✅ 取消 nowrap：自然換行 */
+    .welcome-title-main{
+      display:block;
+      font-size:clamp(1.1rem,5.5vw,1.7rem);
     }
-    .welcome-desc .highlight { color: var(--primary); font-weight: 600; }
+    .welcome-title .sparkle{color:var(--accent);}
 
-    .welcome-btn {
-      display: inline-block;
-      padding: 0.85rem 2.4rem;
-      background: linear-gradient(135deg, var(--primary), #1e4a5f);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(44,95,124,0.35);
+    .welcome-desc{
+      font-size:.95rem;
+      color:#6b6b6b;
+      line-height:1.85;
+      margin-bottom:1.8rem;
     }
-    .welcome-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(44,95,124,0.45); }
-    .welcome-btn:active { transform: translateY(0); }
+    .welcome-desc .highlight{color:var(--primary);font-weight:600;}
+    .welcome-btn{
+      display:inline-block;
+      padding:.85rem 2.4rem;
+      background:linear-gradient(135deg,var(--primary),#1e4a5f);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-size:1.05rem;
+      font-weight:600;
+      cursor:pointer;
+      transition:all .25s ease;
+      box-shadow:0 6px 20px rgba(44,95,124,.35);
+    }
+    .welcome-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(44,95,124,.45);}
+    .powered-by{margin-top:1.6rem;font-size:.72rem;color:#bbb;letter-spacing:.5px}
 
-    /* ─── 手機版 ─── */
-    @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
+    /* ───────────────────────── Mobile ───────────────────────── */
+    @media (max-width:768px){
+      h1{font-size:2rem;}
+      .flashcard{height:430px;}
+      .card-face{padding:1.1rem;} /* ✅ 手機外框留白再少一點 */
+      .card-image{max-height:290px;}
+      .card-title{font-size:1.7rem;}
+      .card-subtitle{font-size:1.1rem;}
 
-      .flashcard { height: 430px; } /* ✅ 原 450 → 430（短一點點） */
-      .card-title { font-size: 1.8rem; }
-      .card-subtitle { font-size: 1.2rem; }
+      .controls{padding:.6rem .75rem;margin-bottom:.8rem;}
+      .filter-sub-group{gap:.4rem;}
+      .filter-btn{padding:.4rem .2rem;font-size:.76rem;}
+      .filter-btn-all{padding:.5rem .9rem;font-size:.92rem;}
 
-      .controls { padding: 0.65rem 0.8rem; margin-bottom: 0.7rem; }
-      .filter-sub-group { gap: 0.4rem; }
-      .filter-btn { padding: 0.4rem 0.25rem; }
-      .filter-btn-all { padding: 0.5rem 0.9rem; font-size: 0.92rem; }
+      .actions{gap:.7rem;}
+      .action-btn{padding:.8rem .45rem;font-size:.95rem;}
 
-      .actions { flex-direction: row; gap: 0.7rem; }
-      .action-btn { padding: 0.8rem 0.5rem; font-size: 0.95rem; }
+      .stats-summary{gap:.6rem;}
+      .stats-card{padding:.9rem .5rem;border-radius:12px;}
+      .stats-card .num{font-size:1.8rem;}
+      .stats-card .label{font-size:.75rem;}
+      .stats-title{font-size:1.5rem;margin-bottom:1rem;}
+      .stats-section h3{font-size:1.1rem;}
 
-      .stats-summary { gap: 0.6rem; }
-      .stats-card { padding: 0.9rem 0.5rem; border-radius: 12px; }
-      .stats-card .num { font-size: 1.8rem; }
-      .stats-card .label { font-size: 0.75rem; }
-      .stats-title { font-size: 1.5rem; margin-bottom: 1rem; }
-      .stats-section h3 { font-size: 1.1rem; }
-
-      .stats-list-item { padding: 0.7rem 0.6rem; flex-wrap: wrap; gap: 0.5rem; }
-      .stats-list-item img { width: 60px; height: 60px; margin-right: 0.7rem; }
-      .stats-list-item .name-en { font-size: 0.88rem; }
-      .stats-list-item .name-zh { font-size: 0.78rem; }
-      .stats-list-item .badge { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+      .stats-list-item{padding:.7rem .6rem;flex-wrap:wrap;gap:.5rem;}
+      .stats-list-item img{width:60px;height:60px;margin-right:.7rem;}
+      .stats-list-item .name-en{font-size:.88rem;}
+      .stats-list-item .name-zh{font-size:.78rem;}
+      .stats-list-item .badge{font-size:.72rem;padding:.3rem .7rem;}
     }
   </style>
 </head>
+
 <body>
   <div class="container">
 
-    <!-- 歡迎頁面 -->
+    <!-- ✅ Welcome Page -->
     <div id="welcomePage" class="welcome-page">
       <div class="welcome-card">
         <div class="welcome-icon">💪</div>
+
         <div class="welcome-title">
           <span class="heart">❤️</span> 你好~<br>
           <span class="welcome-title-main">這裡是肌肉解剖學的<span class="sparkle">複習小天堂</span>💫</span>
         </div>
+
         <p class="welcome-desc">
           希望你可以以<span class="highlight">輕鬆交友</span>的方式<br>
           快速複習解剖學的相關知識<br><br>
           快來試試來尋找你的<span class="highlight">肌命天子</span>吧～
         </p>
+
         <button class="welcome-btn" id="btnStart">開始複習 ›</button>
         <p class="powered-by">Powered by Luga</p>
       </div>
     </div>
 
-    <!-- 標題（✅ subtitle 已移除） -->
-    <div class="header">
+    <!-- ✅ Main Header（welcome 時會被 JS 隱藏） -->
+    <div class="header" id="mainHeader">
       <h1>Musculature Heaven</h1>
     </div>
 
-    <!-- ✅ 我的學習成效：移到標題下方（由 JS 控制顯示） -->
+    <!-- ✅ Stats button under title (only show on main page) -->
     <div class="stats-entry-top" id="statsEntryTop">
       <button class="stats-btn" id="btnStats">📊 我的學習成效</button>
     </div>
@@ -481,16 +496,17 @@
       <p>載入資料中...</p>
     </div>
 
-    <!-- 空類別訊息 -->
+    <!-- Empty message -->
     <div id="emptyMsg" class="empty-msg">
       <div class="emoji">📭</div>
       <p>你還沒有紀錄喔</p>
       <p class="sub">3 秒後自動回到全部...</p>
     </div>
 
-    <!-- 主頁面 -->
+    <!-- ✅ Main App -->
     <div id="app" style="display:none;">
-      <!-- 卡片 -->
+
+      <!-- ✅ Order: 卡片 → Actions → Filters -->
       <div class="card-container">
         <div class="flashcard" id="flashcard">
           <div class="swipe-label swipe-label-left" id="swipeLeft">❌ 還不熟</div>
@@ -502,9 +518,10 @@
           </div>
 
           <div class="card-face card-back">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;width:100%;margin-bottom:1.5rem;">
+            <!-- ✅ 背面上半部：間距縮小（原本 margin-bottom 很大） -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;width:100%;margin-bottom:.9rem;">
               <div style="display:flex;align-items:center;justify-content:center;">
-                <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height:200px;margin:0;">
+                <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height:180px;margin:0;">
               </div>
               <div style="display:flex;flex-direction:column;justify-content:center;">
                 <h2 class="card-title" id="cardTitleEN">Muscle Name</h2>
@@ -518,13 +535,11 @@
         </div>
       </div>
 
-      <!-- 熟悉按鈕 -->
       <div class="actions">
         <button class="action-btn btn-unfamiliar" id="btnUnfamiliar">❌ 還不熟</button>
         <button class="action-btn btn-familiar" id="btnFamiliar">✅ 熟悉了</button>
       </div>
 
-      <!-- 篩選器（你之前要求放在卡片+actions下面） -->
       <div class="controls">
         <div class="filter-buttons">
           <div class="filter-sub-group">
@@ -548,30 +563,38 @@
           </button>
         </div>
       </div>
-    </div>
 
-    <!-- 學習成效頁面 -->
+    </div><!-- /app -->
+
+    <!-- Stats Page -->
     <div id="statsPage" class="stats-page">
       <div class="stats-page-inner">
         <div class="stats-header">
-          <button class="nav-btn" id="btnBackToMain" style="background:var(--accent);">← 返回主頁</button>
+          <button class="nav-btn" id="btnBackToMain">← 返回主頁</button>
         </div>
+
         <h2 class="stats-title">📊 我的學習成效</h2>
+
         <div class="stats-summary">
           <div class="stats-card" style="background:linear-gradient(135deg,var(--primary),#1e4a5f);">
-            <div class="num" id="statsTotal">0</div><div class="label">總題數</div>
+            <div class="num" id="statsTotal">0</div>
+            <div class="label">總題數</div>
           </div>
           <div class="stats-card" style="background:linear-gradient(135deg,var(--success),#45a049);">
-            <div class="num" id="statsFamiliar">0</div><div class="label">已熟悉</div>
+            <div class="num" id="statsFamiliar">0</div>
+            <div class="label">已熟悉</div>
           </div>
           <div class="stats-card" style="background:linear-gradient(135deg,var(--secondary),#6d3d39);">
-            <div class="num" id="statsUnfamiliar">0</div><div class="label">還不熟</div>
+            <div class="num" id="statsUnfamiliar">0</div>
+            <div class="label">還不熟</div>
           </div>
         </div>
+
         <div class="stats-section">
           <h3 style="color:var(--secondary);">❌ 我最常錯的（前 10 名）</h3>
           <div id="mostWrongList"></div>
         </div>
+
         <div class="stats-section">
           <h3 style="color:var(--success);">✅ 我最熟的（前 10 名）</h3>
           <div id="mostCorrectList"></div>
@@ -586,137 +609,166 @@
   </div><!-- /container -->
 
   <script>
-    // ─── 常數 ───
     const GITHUB_USER = 'ougaga26-lab';
     const REPO_NAME   = 'Musculature-Heaven';
     const RAW_BASE    = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/`;
     const CSV_PATH    = 'data/muscles.csv';
     const IMG_PATH    = 'images/';
 
-    // ─── 狀態 ───
     let allCards      = [];
     let cardQueue     = [];
     let currentIndex  = 0;
     let currentFilter = 'all';
-    let familiarityData = {};   // { filename: 'unseen' | 'unfamiliar' | 'familiar' }
-    let statsData       = {};   // { filename: { wrong, correct, nameEN, nameZH, image } }
+    let familiarityData = {};
+    let statsData       = {};
 
-    // ─── 頁面切換 helper ───
-    function showPage(name) {
+    function showPage(name){
       const welcome  = document.getElementById('welcomePage');
       const loading  = document.getElementById('loading');
       const app      = document.getElementById('app');
       const stats    = document.getElementById('statsPage');
+      const header   = document.getElementById('mainHeader');
       const statsTop = document.getElementById('statsEntryTop');
+      const emptyMsg = document.getElementById('emptyMsg');
 
+      // hide all
       welcome.style.display = 'none';
       loading.style.display = 'none';
       app.style.display     = 'none';
       stats.style.display   = 'none';
-      if (statsTop) statsTop.style.display = 'none'; // ✅ 先都隱藏
+      if (emptyMsg) emptyMsg.style.display = 'none';
+      if (header) header.style.display = 'none';
+      if (statsTop) statsTop.style.display = 'none';
 
-      if (name === 'welcome') { welcome.style.display = 'flex'; }
-      else if (name === 'loading') { loading.style.display = 'block'; }
-      else if (name === 'app') {
+      if (name === 'welcome') {
+        welcome.style.display = 'flex';
+        // ✅ welcome 時 header/學習成效都不顯示
+      } else if (name === 'loading') {
+        loading.style.display = 'block';
+        if (header) header.style.display = 'block';
+      } else if (name === 'app') {
         app.style.display = 'block';
-        if (statsTop) statsTop.style.display = 'flex'; // ✅ 只在主頁顯示
+        if (header) header.style.display = 'block';
+        if (statsTop) statsTop.style.display = 'flex';
+      } else if (name === 'stats') {
+        stats.style.display = 'block';
+        if (header) header.style.display = 'block';
       }
-      else if (name === 'stats') { stats.style.display = 'block'; }
     }
 
-    // ─── localStorage ───
-    function loadSaved() {
-      try { familiarityData = JSON.parse(localStorage.getItem('musculature_familiarity')) || {}; } catch(e){}
-      try { statsData       = JSON.parse(localStorage.getItem('musculature_stats'))       || {}; } catch(e){}
+    function loadSaved(){
+      try{ familiarityData = JSON.parse(localStorage.getItem('musculature_familiarity')) || {}; }catch(e){}
+      try{ statsData       = JSON.parse(localStorage.getItem('musculature_stats')) || {}; }catch(e){}
     }
-    function saveSaved() {
+    function saveSaved(){
       localStorage.setItem('musculature_familiarity', JSON.stringify(familiarityData));
-      localStorage.setItem('musculature_stats',       JSON.stringify(statsData));
+      localStorage.setItem('musculature_stats', JSON.stringify(statsData));
     }
 
-    // ─── CSV 解析 ───
-    function parseCSV(text) {
+    function parseCSV(text){
       text = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
-      const lines   = text.split('\n');
+      const lines = text.split('\n');
       const headers = parseCSVLine(lines[0]);
-      const data    = [];
+      const data = [];
       let i = 1;
-      while (i < lines.length) {
-        if (!lines[i].trim()) { i++; continue; }
+
+      while(i < lines.length){
+        if(!lines[i].trim()){ i++; continue; }
+
         let row = lines[i];
-        let qc  = (row.match(/"/g)||[]).length;
-        while (qc % 2 !== 0 && i+1 < lines.length) { i++; row += '\n'+lines[i]; qc = (row.match(/"/g)||[]).length; }
+        let qc = (row.match(/"/g)||[]).length;
+        while(qc % 2 !== 0 && i+1 < lines.length){
+          i++;
+          row += '\n' + lines[i];
+          qc = (row.match(/"/g)||[]).length;
+        }
+
         const vals = parseCSVLine(row);
-        if (vals.length === headers.length) {
+        if(vals.length === headers.length){
           const obj = {};
-          headers.forEach((h,idx) => obj[h] = vals[idx]);
+          headers.forEach((h,idx)=> obj[h]=vals[idx]);
           data.push(obj);
         }
         i++;
       }
       return data;
     }
-    function parseCSVLine(line) {
-      const vals = []; let cur = '', inQ = false;
-      for (let i = 0; i < line.length; i++) {
+
+    function parseCSVLine(line){
+      const vals = [];
+      let cur = '';
+      let inQ = false;
+
+      for(let i=0;i<line.length;i++){
         const ch = line[i];
-        if (ch==='"') { if (inQ && line[i+1]==='"') { cur+='"'; i++; } else inQ=!inQ; }
-        else if (ch===',' && !inQ) { vals.push(cur.trim()); cur=''; }
-        else cur += ch;
+        if(ch === '"'){
+          if(inQ && line[i+1] === '"'){ cur+='"'; i++; }
+          else inQ = !inQ;
+        }else if(ch === ',' && !inQ){
+          vals.push(cur.trim());
+          cur = '';
+        }else{
+          cur += ch;
+        }
       }
       vals.push(cur.trim());
       return vals;
     }
 
-    // ─── 載入 ───
-    async function loadData() {
-      try {
-        const res  = await fetch(RAW_BASE + CSV_PATH);
+    async function loadData(){
+      try{
+        const res = await fetch(RAW_BASE + CSV_PATH);
         const text = await res.text();
-        allCards   = parseCSV(text);
+        allCards = parseCSV(text);
 
-        // 新卡片預設 unseen
-        allCards.forEach(c => { if (!familiarityData[c['picture file']]) familiarityData[c['picture file']] = 'unseen'; });
+        allCards.forEach(c=>{
+          const fn = c['picture file'];
+          if(!familiarityData[fn]) familiarityData[fn] = 'unseen';
+        });
 
         applyFilter();
         updateProgress();
         showCard(0);
-
-        document.getElementById('loading').style.display = 'none';
         showPage('app');
-      } catch(err) {
-        document.getElementById('loading').innerHTML = `<p style="color:#c00;">載入失敗！</p><p style="font-size:.9rem;margin-top:.5rem;">${err.message}</p>`;
+      }catch(err){
+        const loading = document.getElementById('loading');
+        loading.innerHTML = `<p style="color:#c00;">載入失敗！</p><p style="font-size:.9rem;margin-top:.5rem;">${err.message}</p>`;
       }
     }
 
-    // ─── 篩選 ───
-    function applyFilter() {
-      const filtered = currentFilter === 'all'
-        ? [...allCards]
-        : allCards.filter(c => familiarityData[c['picture file']] === currentFilter);
-      cardQueue    = shuffleArray(filtered);
-      currentIndex = 0;
-    }
-    function shuffleArray(arr) {
+    function shuffleArray(arr){
       const a = [...arr];
-      for (let i = a.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+      }
       return a;
     }
 
-    // 複習插入（每 7 張後再出現）— 只在「全部」模式觸發
-    function insertReviewCard(card) {
+    function applyFilter(){
+      const filtered = currentFilter === 'all'
+        ? [...allCards]
+        : allCards.filter(c => familiarityData[c['picture file']] === currentFilter);
+
+      cardQueue = shuffleArray(filtered);
+      currentIndex = 0;
+    }
+
+    function insertReviewCard(card){
       cardQueue.splice(Math.min(currentIndex+7, cardQueue.length), 0, card);
     }
 
-    // ─── 顯示卡片 ───
-    const FALLBACK_IMG = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
+    const FALLBACK_IMG =
+      'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
 
-    function showCard(idx) {
-      if (!cardQueue.length) return;
+    function showCard(idx){
+      if(!cardQueue.length) return;
+
       const card = cardQueue[idx];
-      const url  = RAW_BASE + IMG_PATH + card['picture file'];
+      const fn = card['picture file'];
+      const url = RAW_BASE + IMG_PATH + fn;
 
-      ['cardImage','cardImageBack'].forEach(id => {
+      ['cardImage','cardImageBack'].forEach(id=>{
         const el = document.getElementById(id);
         el.src = url;
         el.onerror = function(){ this.src = FALLBACK_IMG; };
@@ -731,65 +783,78 @@
         ['Action / 動作',      card['Action'],    card['動作']],
         ['Nerve / 神經支配',   card['Nerve'],     card['神經支配']]
       ].map(([label,en,zh]) =>
-        `<div class="info-item"><div class="info-label">${label}</div><div class="info-content">${en||''}\n${zh||''}</div></div>`
+        `<div class="info-item">
+           <div class="info-label">${label}</div>
+           <div class="info-content">${en||''}\n${zh||''}</div>
+         </div>`
       ).join('');
 
-      document.getElementById('flashcard').classList.remove('flipped');
-      document.getElementById('flashcard').style.transform  = '';
-      document.getElementById('flashcard').style.transition = '';
+      const flash = document.getElementById('flashcard');
+      flash.classList.remove('flipped','fly-left','fly-right');
+      flash.style.transform = '';
+      flash.style.transition = '';
 
-      const isFam = familiarityData[card['picture file']] === 'familiar';
-      document.getElementById('btnFamiliar').style.opacity   = isFam ? '1' : '0.5';
-      document.getElementById('btnUnfamiliar').style.opacity = isFam ? '0.5' : '1';
+      const isFam = familiarityData[fn] === 'familiar';
+      document.getElementById('btnFamiliar').style.opacity = isFam ? '1' : '0.55';
+      document.getElementById('btnUnfamiliar').style.opacity = isFam ? '0.55' : '1';
     }
 
-    // ─── 更新篩選器數字 ───
-    function updateProgress() {
+    function updateProgress(){
       const total = allCards.length;
-      const fam   = allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
+      const fam = allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
       const unfam = allCards.filter(c => familiarityData[c['picture file']] === 'unfamiliar').length;
-      document.getElementById('countAll').textContent        = total;
-      document.getElementById('countFamiliar').textContent   = fam;
+
+      document.getElementById('countAll').textContent = total;
+      document.getElementById('countFamiliar').textContent = fam;
       document.getElementById('countUnfamiliar').textContent = unfam;
-      document.getElementById('countUnseen').textContent     = total - fam - unfam;
+      document.getElementById('countUnseen').textContent = total - fam - unfam;
     }
 
-    // ─── 學習成效頁面 ───
-    function showStatsPage() {
+    function showStatsPage(){
       showPage('stats');
 
-      document.getElementById('statsTotal').textContent      = allCards.length;
-      document.getElementById('statsFamiliar').textContent   = allCards.filter(c => familiarityData[c['picture file']]==='familiar').length;
-      document.getElementById('statsUnfamiliar').textContent = allCards.filter(c => familiarityData[c['picture file']]==='unfamiliar').length;
+      document.getElementById('statsTotal').textContent = allCards.length;
+      document.getElementById('statsFamiliar').textContent =
+        allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
+      document.getElementById('statsUnfamiliar').textContent =
+        allCards.filter(c => familiarityData[c['picture file']] === 'unfamiliar').length;
 
       const renderList = (id, key, label, bg) => {
-        const list = Object.values(statsData).filter(s=>s[key]>0).sort((a,b)=>b[key]-a[key]).slice(0,10);
+        const list = Object.values(statsData)
+          .filter(s => s[key] > 0)
+          .sort((a,b)=> b[key]-a[key])
+          .slice(0,10);
+
         document.getElementById(id).innerHTML = list.length
           ? list.map(item => `
-            <div class="stats-list-item">
-              <img src="${RAW_BASE}${IMG_PATH}${item.image}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2275%22 height=%2275%22><rect width=%2275%22 height=%2275%22 fill=%22%23ddd%22/></svg>'">
-              <div class="info"><div class="name-en">${item.nameEN}</div><div class="name-zh">${item.nameZH}</div></div>
-              <div class="badge" style="background:${bg};">${label} ${item[key]} 次</div>
-            </div>`).join('')
+              <div class="stats-list-item">
+                <img src="${RAW_BASE}${IMG_PATH}${item.image}"
+                  onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2275%22 height=%2275%22><rect width=%2275%22 height=%2275%22 fill=%22%23ddd%22/></svg>'">
+                <div class="info">
+                  <div class="name-en">${item.nameEN}</div>
+                  <div class="name-zh">${item.nameZH}</div>
+                </div>
+                <div class="badge" style="background:${bg};">${label} ${item[key]} 次</div>
+              </div>
+            `).join('')
           : '<p class="stats-empty">還沒有紀錄</p>';
       };
-      renderList('mostWrongList',   'wrong',   '錯誤', 'var(--secondary)');
-      renderList('mostCorrectList', 'correct', '正確', 'var(--success)');
+
+      renderList('mostWrongList','wrong','錯誤','var(--secondary)');
+      renderList('mostCorrectList','correct','正確','var(--success)');
     }
 
-    // ─── 事件監聽 ───
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', ()=>{
       loadSaved();
-      showPage('welcome'); // ✅ 確保一開始顯示歡迎頁
+      showPage('welcome');
 
-      // 開始複習
-      document.getElementById('btnStart').addEventListener('click', () => {
-        if (allCards.length === 0) {
+      document.getElementById('btnStart').addEventListener('click', ()=>{
+        if(allCards.length === 0){
           showPage('loading');
           loadData();
-        } else {
+        }else{
           currentFilter = 'all';
-          document.querySelectorAll('.filter-btn-all, .filter-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.filter-btn-all,.filter-btn').forEach(b=>b.classList.remove('active'));
           document.querySelector('[data-filter="all"]').classList.add('active');
           applyFilter();
           showCard(0);
@@ -797,28 +862,24 @@
         }
       });
 
-      // 翻牌 click
-      document.getElementById('flashcard').addEventListener('click', e => {
-        if (window._swipeEndedAsDrag) { window._swipeEndedAsDrag = false; return; }
+      document.getElementById('flashcard').addEventListener('click', ()=>{
+        if(window._swipeEndedAsDrag){ window._swipeEndedAsDrag = false; return; }
         document.getElementById('flashcard').classList.toggle('flipped');
       });
 
-      // 篩選器
-      const allBtns = document.querySelectorAll('.filter-btn-all, .filter-btn');
-      allBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+      const allBtns = document.querySelectorAll('.filter-btn-all,.filter-btn');
+      allBtns.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
           const f = btn.dataset.filter;
 
-          // 子類別為空 → 訊息 + 3秒導回
-          if (f !== 'all') {
+          if(f !== 'all'){
             const cnt = allCards.filter(c => familiarityData[c['picture file']] === f).length;
-            if (cnt === 0) {
+            if(cnt === 0){
               document.getElementById('app').style.display = 'none';
               document.getElementById('emptyMsg').style.display = 'block';
-              document.getElementById('statsEntryTop').style.display = 'none';
-              setTimeout(() => {
+              setTimeout(()=>{
                 document.getElementById('emptyMsg').style.display = 'none';
-                allBtns.forEach(b => b.classList.remove('active'));
+                allBtns.forEach(b=>b.classList.remove('active'));
                 document.querySelector('[data-filter="all"]').classList.add('active');
                 currentFilter = 'all';
                 applyFilter();
@@ -829,7 +890,7 @@
             }
           }
 
-          allBtns.forEach(b => b.classList.remove('active'));
+          allBtns.forEach(b=>b.classList.remove('active'));
           btn.classList.add('active');
           currentFilter = f;
           applyFilter();
@@ -837,146 +898,171 @@
         });
       });
 
-      // ❌ 還不熟
-      document.getElementById('btnUnfamiliar').addEventListener('click', () => {
-        const card = cardQueue[currentIndex], fn = card['picture file'];
+      document.getElementById('btnUnfamiliar').addEventListener('click', ()=>{
+        const card = cardQueue[currentIndex];
+        const fn = card['picture file'];
         familiarityData[fn] = 'unfamiliar';
-        if (!statsData[fn]) statsData[fn] = { wrong:0, correct:0, nameEN: card['name (EN)'], nameZH: card['name (CN)'], image: fn };
+
+        if(!statsData[fn]){
+          statsData[fn] = {
+            wrong:0, correct:0,
+            nameEN: card['name (EN)'],
+            nameZH: card['name (CN)'],
+            image: fn
+          };
+        }
         statsData[fn].wrong++;
-        saveSaved(); updateProgress();
 
-        if (currentFilter === 'all') insertReviewCard(card);
+        saveSaved();
+        updateProgress();
 
-        if (currentIndex < cardQueue.length-1) { currentIndex++; showCard(currentIndex); }
+        if(currentFilter === 'all') insertReviewCard(card);
+
+        if(currentIndex < cardQueue.length-1){ currentIndex++; showCard(currentIndex); }
         else showCard(currentIndex);
       });
 
-      // ✅ 熟悉了
-      document.getElementById('btnFamiliar').addEventListener('click', () => {
-        const card = cardQueue[currentIndex], fn = card['picture file'];
+      document.getElementById('btnFamiliar').addEventListener('click', ()=>{
+        const card = cardQueue[currentIndex];
+        const fn = card['picture file'];
         familiarityData[fn] = 'familiar';
-        if (!statsData[fn]) statsData[fn] = { wrong:0, correct:0, nameEN: card['name (EN)'], nameZH: card['name (CN)'], image: fn };
-        statsData[fn].correct++;
-        saveSaved(); updateProgress();
 
-        if (currentIndex < cardQueue.length-1) { currentIndex++; showCard(currentIndex); }
+        if(!statsData[fn]){
+          statsData[fn] = {
+            wrong:0, correct:0,
+            nameEN: card['name (EN)'],
+            nameZH: card['name (CN)'],
+            image: fn
+          };
+        }
+        statsData[fn].correct++;
+
+        saveSaved();
+        updateProgress();
+
+        if(currentIndex < cardQueue.length-1){ currentIndex++; showCard(currentIndex); }
         else showCard(currentIndex);
       });
 
-      // 學習成效（按鈕在 header 下方）
       document.getElementById('btnStats').addEventListener('click', showStatsPage);
-      document.getElementById('btnBackToMain').addEventListener('click', () => showPage('app'));
+      document.getElementById('btnBackToMain').addEventListener('click', ()=> showPage('app'));
 
-      // 清空紀錄
-      document.getElementById('btnClear').addEventListener('click', () => {
-        if (!confirm('確定要清空所有紀錄嗎？\n這會把熟悉度和學習統計全部刪掉，從頭來過。')) return;
+      document.getElementById('btnClear').addEventListener('click', ()=>{
+        if(!confirm('確定要清空所有紀錄嗎？\n這會把熟悉度和學習統計全部刪掉，從頭來過。')) return;
+
         familiarityData = {};
-        statsData       = {};
+        statsData = {};
         localStorage.removeItem('musculature_familiarity');
         localStorage.removeItem('musculature_stats');
-        allCards.forEach(c => { familiarityData[c['picture file']] = 'unseen'; });
+
+        allCards.forEach(c => familiarityData[c['picture file']] = 'unseen');
         saveSaved();
         updateProgress();
         showPage('welcome');
       });
 
-      // ─── 觸摸滑動 ───
-      (function initSwipe() {
-        const card      = document.getElementById('flashcard');
-        const labelL    = document.getElementById('swipeLeft');
-        const labelR    = document.getElementById('swipeRight');
+      // Swipe
+      (function initSwipe(){
+        const card = document.getElementById('flashcard');
+        const labelL = document.getElementById('swipeLeft');
+        const labelR = document.getElementById('swipeRight');
         const THRESHOLD = 80;
-        const DRAG_MIN  = 12;
+        const DRAG_MIN = 12;
 
-        let startX = 0, startY = 0, curX = 0;
-        let state = 'idle';
+        let startX=0,startY=0,curX=0;
+        let state='idle';
         window._swipeEndedAsDrag = false;
 
-        function onStart(x, y) {
-          if (card.classList.contains('fly-left') || card.classList.contains('fly-right')) return;
-          startX = x; startY = y; curX = 0;
-          state = 'deciding';
+        function onStart(x,y){
+          if(card.classList.contains('fly-left') || card.classList.contains('fly-right')) return;
+          startX=x;startY=y;curX=0;
+          state='deciding';
           window._swipeEndedAsDrag = false;
         }
 
-        function onMove(x, y) {
-          if (state === 'idle' || state === 'cancelled') return;
-
+        function onMove(x,y){
+          if(state==='idle' || state==='cancelled') return;
           const dx = x - startX;
           const dy = y - startY;
 
-          if (state === 'deciding') {
+          if(state==='deciding'){
             const dist = Math.sqrt(dx*dx + dy*dy);
-            if (dist < DRAG_MIN) return;
-
-            if (Math.abs(dy) >= Math.abs(dx)) { state = 'cancelled'; return; }
-            state = 'dragging-h';
-            card.style.transition = 'none';
+            if(dist < DRAG_MIN) return;
+            if(Math.abs(dy) >= Math.abs(dx)){ state='cancelled'; return; }
+            state='dragging-h';
+            card.style.transition='none';
           }
 
           curX = dx;
-          const rot = Math.max(-18, Math.min(18, dx * 0.04));
+          const rot = Math.max(-18, Math.min(18, dx*0.04));
           card.style.transform = card.classList.contains('flipped')
             ? `rotateY(180deg) translateX(${-dx}px) rotate(${-rot}deg)`
             : `translateX(${dx}px) rotate(${rot}deg)`;
 
-          const prog = Math.min(Math.abs(dx) / THRESHOLD, 1);
+          const prog = Math.min(Math.abs(dx)/THRESHOLD, 1);
           labelL.style.opacity = dx < 0 ? prog : 0;
           labelR.style.opacity = dx > 0 ? prog : 0;
         }
 
-        function onEnd() {
-          if (state === 'idle' || state === 'cancelled') { state = 'idle'; return; }
-          if (state === 'deciding') { state = 'idle'; return; }
+        function onEnd(){
+          if(state==='idle' || state==='cancelled'){ state='idle'; return; }
+          if(state==='deciding'){ state='idle'; return; }
 
-          state = 'idle';
+          state='idle';
           window._swipeEndedAsDrag = true;
           labelL.style.opacity = 0;
           labelR.style.opacity = 0;
 
-          if (curX < -THRESHOLD) {
-            card.style.transition = '';
+          if(curX < -THRESHOLD){
+            card.style.transition='';
             card.classList.add('fly-left');
-            card.addEventListener('animationend', () => {
+            card.addEventListener('animationend', ()=>{
               card.classList.remove('fly-left');
-              card.style.transform = '';
+              card.style.transform='';
               document.getElementById('btnUnfamiliar').click();
-            }, { once: true });
-          } else if (curX > THRESHOLD) {
-            card.style.transition = '';
+            }, { once:true });
+          }else if(curX > THRESHOLD){
+            card.style.transition='';
             card.classList.add('fly-right');
-            card.addEventListener('animationend', () => {
+            card.addEventListener('animationend', ()=>{
               card.classList.remove('fly-right');
-              card.style.transform = '';
+              card.style.transform='';
               document.getElementById('btnFamiliar').click();
-            }, { once: true });
-          } else {
-            card.style.transition = 'transform 0.35s cubic-bezier(.25,.8,.25,1)';
-            card.style.transform  = card.classList.contains('flipped') ? 'rotateY(180deg)' : '';
+            }, { once:true });
+          }else{
+            card.style.transition='transform .35s cubic-bezier(.25,.8,.25,1)';
+            card.style.transform = card.classList.contains('flipped') ? 'rotateY(180deg)' : '';
           }
         }
 
-        card.addEventListener('touchstart', e => onStart(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-
+        card.addEventListener('touchstart', e => onStart(e.touches[0].clientX, e.touches[0].clientY), { passive:true });
         card.addEventListener('touchmove', e => {
-          if (state === 'dragging-h') e.preventDefault();
+          if(state==='dragging-h') e.preventDefault();
           onMove(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: false });
-
-        card.addEventListener('touchend', () => onEnd());
+        }, { passive:false });
+        card.addEventListener('touchend', onEnd);
 
         // mouse
-        let mouseDragging = false;
-        card.addEventListener('mousedown', e => { if (e.button !== 0) return; mouseDragging = true; onStart(e.clientX, e.clientY); });
-        window.addEventListener('mousemove', e => { if (!mouseDragging) return; onMove(e.clientX, e.clientY); });
-        window.addEventListener('mouseup', () => { if (mouseDragging) { mouseDragging = false; onEnd(); } });
+        let mouseDragging=false;
+        card.addEventListener('mousedown', e=>{
+          if(e.button!==0) return;
+          mouseDragging=true;
+          onStart(e.clientX, e.clientY);
+        });
+        window.addEventListener('mousemove', e=>{
+          if(!mouseDragging) return;
+          onMove(e.clientX, e.clientY);
+        });
+        window.addEventListener('mouseup', ()=>{
+          if(mouseDragging){ mouseDragging=false; onEnd(); }
+        });
       })();
 
-      // 鍵盤快捷
-      document.addEventListener('keydown', e => {
-        if (e.key==='ArrowLeft')  { e.preventDefault(); document.getElementById('btnUnfamiliar').click(); }
-        else if (e.key==='ArrowRight') { e.preventDefault(); document.getElementById('btnFamiliar').click(); }
-        else if (e.key===' ') { e.preventDefault(); document.getElementById('flashcard').classList.toggle('flipped'); }
+      // keyboard
+      document.addEventListener('keydown', e=>{
+        if(e.key==='ArrowLeft'){ e.preventDefault(); document.getElementById('btnUnfamiliar').click(); }
+        else if(e.key==='ArrowRight'){ e.preventDefault(); document.getElementById('btnFamiliar').click(); }
+        else if(e.key===' '){ e.preventDefault(); document.getElementById('flashcard').classList.toggle('flipped'); }
       });
     });
   </script>
