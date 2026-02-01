@@ -39,9 +39,7 @@
       color:var(--primary);
       margin-bottom:0;
     }
-    /* ✅ subtitle 移除：不再使用 .subtitle */
 
-    /* ✅ Header 下方：我的學習成效（只在主頁顯示，由 JS 控制） */
     .stats-entry-top{
       display:none;
       justify-content:center;
@@ -122,13 +120,33 @@
     .filter-btn-all.active{background:var(--primary);color:#fff;}
     .filter-btn-all.active .filter-count{color:rgba(255,255,255,.75);}
 
-    /* ───────────────────────── Card ───────────────────────── */
-    .card-container{perspective:1000px;margin-bottom:.85rem;}
+    /* 收藏入口按鈕（全部下面） */
+    .fav-entry-btn{
+      width:100%;
+      padding:.52rem 1rem;
+      font-size:.88rem;
+      border:1.5px solid var(--accent);
+      background:rgba(212,163,115,.08);
+      border-radius:11px;
+      font-weight:600;
+      color:var(--accent);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:.35rem;
+      transition:all .2s ease;
+      margin-top:.1rem;
+    }
+    .fav-entry-btn:hover{background:rgba(212,163,115,.18);}
+    .fav-entry-btn .fav-count{font-size:.75rem;color:var(--accent);opacity:.7;font-weight:600;}
 
-    /* 你要的是「外框留白少一點」→ 主要動 padding，而不是硬縮高度 */
+    /* ───────────────────────── Card ───────────────────────── */
+    .card-container{perspective:1000px;margin-bottom:.85rem;position:relative;}
+
     .flashcard{
       width:100%;
-      height:380px; /* 保留短一點點的高度 */
+      height:380px;
       position:relative;
       transform-style:preserve-3d;
       transition:transform .6s;
@@ -147,10 +165,7 @@
       flex-direction:column;
       justify-content:center;
       align-items:center;
-
-      /* ✅ 外框留白少一點（原本 2rem） */
       padding:1.2rem;
-
       background:var(--card);
     }
     .card-front{background:linear-gradient(135deg,#fff 0%, #f8f6f3 100%);}
@@ -162,7 +177,7 @@
 
     .card-image{
       max-width:100%;
-      max-height:300px; /* 稍微加一點，補回 padding 變少後的視覺 */
+      max-height:300px;
       border-radius:12px;
       box-shadow:0 5px 20px rgba(0,0,0,.1);
       object-fit:contain;
@@ -205,6 +220,29 @@
       animation:pulse 2s infinite;
     }
     @keyframes pulse{0%,100%{opacity:.55} 50%{opacity:1}}
+
+    /* ── 收藏 icon（卡片左上角） */
+    .fav-icon-btn{
+      position:absolute;
+      top:.55rem;
+      left:.55rem;
+      z-index:10;
+      background:rgba(255,255,255,.85);
+      border:none;
+      border-radius:50%;
+      width:2.1rem;
+      height:2.1rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      font-size:1.2rem;
+      box-shadow:0 2px 8px rgba(0,0,0,.18);
+      transition:transform .2s ease, background .2s ease;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .fav-icon-btn:hover{transform:scale(1.12);}
+    .fav-icon-btn.is-fav{background:rgba(255,80,100,.9);}
 
     /* ───────────────────────── Actions ───────────────────────── */
     .actions{display:flex;gap:.75rem;margin-bottom:.7rem;}
@@ -297,7 +335,10 @@
       border-radius:10px;
       margin-bottom:.5rem;
       box-shadow:0 2px 10px rgba(0,0,0,.05);
+      cursor:pointer;
+      transition:background .15s;
     }
+    .stats-list-item:hover{background:#f5f3f0;}
     .stats-list-item img{
       width:72px;height:72px;
       object-fit:cover;
@@ -333,6 +374,27 @@
     }
     .clear-btn:hover{color:#c00;border-color:#c00;background:rgba(200,0,0,.04)}
 
+    /* ───────────────────────── Favorites Page ───────────────────────── */
+    .fav-page{display:none;}
+    .fav-page-inner{
+      background:var(--card);
+      border-radius:20px;
+      padding:2rem;
+      box-shadow:0 10px 40px rgba(0,0,0,.08);
+    }
+    .fav-page-inner .stats-header{margin-bottom:1rem;}
+    .fav-page-inner .stats-title{font-size:1.7rem;margin-bottom:1.2rem;}
+    .fav-list-empty{text-align:center;color:#999;padding:2.5rem 1rem;font-size:.95rem;}
+
+    /* 收藏清單裡的「無紀錄」標記 */
+    .badge-none{
+      color:#999;
+      font-size:.8rem;
+      font-weight:500;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+
     /* ───────────────────────── Swipe Labels ───────────────────────── */
     .swipe-label{
       position:absolute;
@@ -366,7 +428,7 @@
     .flashcard.fly-left{animation:flyLeft .4s ease forwards;}
     .flashcard.fly-right{animation:flyRight .4s ease forwards;}
 
-    /* ───────────────────────── Welcome (滿版、無白框) ───────────────────────── */
+    /* ───────────────────────── Welcome ───────────────────────── */
     .welcome-page{
       min-height:calc(100vh - 2rem);
       display:flex;
@@ -375,7 +437,6 @@
       text-align:center;
       padding:2.2rem 1.2rem;
     }
-    /* ✅ 不要白卡片框：welcome-card 只是透明容器 */
     .welcome-card{
       background:transparent;
       border-radius:0;
@@ -384,7 +445,6 @@
       width:100%;
       max-width:680px;
     }
-
     .welcome-icon{font-size:3.2rem;margin-bottom:.35rem;}
     .welcome-title{
       font-weight:700;
@@ -393,13 +453,11 @@
       line-height:1.55;
     }
     .welcome-title .heart{color:#e84c6a;font-size:1.35rem;}
-    /* ✅ 取消 nowrap：自然換行 */
     .welcome-title-main{
       display:block;
       font-size:clamp(1.1rem,5.5vw,1.7rem);
     }
     .welcome-title .sparkle{color:var(--accent);}
-
     .welcome-desc{
       font-size:.95rem;
       color:#6b6b6b;
@@ -423,11 +481,78 @@
     .welcome-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(44,95,124,.45);}
     .powered-by{margin-top:1.6rem;font-size:.72rem;color:#bbb;letter-spacing:.5px}
 
+    /* ───────────────────────── Detail Popup ───────────────────────── */
+    .popup-overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.45);
+      z-index:500;
+      justify-content:center;
+      align-items:center;
+      padding:1.5rem;
+      -webkit-backdrop-filter:blur(3px);
+      backdrop-filter:blur(3px);
+    }
+    .popup-overlay.open{display:flex;}
+    .popup-card{
+      background:#fff;
+      border-radius:22px;
+      max-width:480px;
+      width:100%;
+      max-height:85vh;
+      overflow-y:auto;
+      padding:1.6rem 1.4rem;
+      box-shadow:0 24px 60px rgba(0,0,0,.2);
+      position:relative;
+      animation:popIn .25s ease;
+    }
+    @keyframes popIn{0%{opacity:0;transform:scale(.92)}100%{opacity:1;transform:scale(1)}}
+    .popup-close{
+      position:absolute;
+      top:.6rem;right:.6rem;
+      background:rgba(0,0,0,.06);
+      border:none;
+      border-radius:50%;
+      width:2rem;height:2rem;
+      font-size:1.1rem;
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      color:#666;
+      transition:background .15s;
+    }
+    .popup-close:hover{background:rgba(0,0,0,.13);}
+    .popup-title-en{
+      font-family:'Crimson Pro',serif;
+      font-size:1.6rem;font-weight:700;
+      color:var(--primary);text-align:center;
+      margin-top:.2rem;
+    }
+    .popup-title-zh{
+      font-size:1rem;color:var(--secondary);
+      text-align:center;font-weight:500;margin-bottom:.7rem;
+    }
+    .popup-img{
+      display:block;
+      max-width:100%;max-height:200px;
+      object-fit:contain;
+      border-radius:12px;
+      box-shadow:0 4px 16px rgba(0,0,0,.1);
+      margin:0 auto .9rem;
+    }
+    .popup-info-item{
+      padding:.6rem 0;
+      border-bottom:1px solid var(--border);
+    }
+    .popup-info-item:last-child{border-bottom:none;}
+    .popup-info-label{font-weight:700;color:var(--primary);font-size:.82rem;margin-bottom:.2rem;}
+    .popup-info-content{color:var(--text);font-size:.88rem;line-height:1.55;white-space:pre-line;}
+
     /* ───────────────────────── Mobile ───────────────────────── */
     @media (max-width:768px){
       h1{font-size:2rem;}
       .flashcard{height:350px;}
-      .card-face{padding:0.9rem;} /* ✅ 手機外框留白再少一點 */
+      .card-face{padding:0.9rem;}
       .card-image{max-height:260px;}
       .card-title{font-size:1.2rem;}
       .card-subtitle{font-size:1.1rem;}
@@ -452,6 +577,9 @@
       .stats-list-item .name-en{font-size:.88rem;}
       .stats-list-item .name-zh{font-size:.78rem;}
       .stats-list-item .badge{font-size:.72rem;padding:.3rem .7rem;}
+
+      .popup-card{padding:1.2rem 1rem;}
+      .popup-title-en{font-size:1.35rem;}
     }
   </style>
 </head>
@@ -459,33 +587,30 @@
 <body>
   <div class="container">
 
-    <!-- ✅ Welcome Page -->
+    <!-- Welcome Page -->
     <div id="welcomePage" class="welcome-page">
       <div class="welcome-card">
         <div class="welcome-icon">💪</div>
-
         <div class="welcome-title">
           <span class="heart">❤️</span> 你好~<br>
           <span class="welcome-title-main">這裡是肌肉解剖學的<span class="sparkle">複習小天堂</span>💫</span>
         </div>
-
         <p class="welcome-desc">
           希望你可以以<span class="highlight">輕鬆交友</span>的方式<br>
           快速複習解剖學的相關知識<br><br>
           快來試試來尋找你的<span class="highlight">肌命天子</span>吧～
         </p>
-
         <button class="welcome-btn" id="btnStart">開始複習 ›</button>
         <p class="powered-by">Powered by Luga</p>
       </div>
     </div>
 
-    <!-- ✅ Main Header（welcome 時會被 JS 隱藏） -->
+    <!-- Main Header -->
     <div class="header" id="mainHeader">
       <h1>Musculature Heaven</h1>
     </div>
 
-    <!-- ✅ Stats button under title (only show on main page) -->
+    <!-- Stats entry -->
     <div class="stats-entry-top" id="statsEntryTop">
       <button class="stats-btn" id="btnStats">📊 我的學習成效</button>
     </div>
@@ -503,10 +628,12 @@
       <p class="sub">3 秒後自動回到全部...</p>
     </div>
 
-    <!-- ✅ Main App -->
+    <!-- Main App -->
     <div id="app" style="display:none;">
 
-      <!-- ✅ Order: 卡片 → Actions → Filters -->
+      <!-- 收藏 icon（浮在卡片外面左上，這樣不受翻轉影響） -->
+      <button class="fav-icon-btn" id="favIconBtn" aria-label="收藏">♡</button>
+
       <div class="card-container">
         <div class="flashcard" id="flashcard">
           <div class="swipe-label swipe-label-left" id="swipeLeft">❌ 還不熟</div>
@@ -518,7 +645,6 @@
           </div>
 
           <div class="card-face card-back">
-            <!-- ✅ 背面上半部：間距縮小（原本 margin-bottom 很大） -->
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem;width:100%;margin-bottom:.55rem;">
               <div style="display:flex;align-items:center;justify-content:center;">
                 <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height:120px;margin:0;">
@@ -528,7 +654,6 @@
                 <p class="card-subtitle" id="cardTitleZH">肌肉名稱</p>
               </div>
             </div>
-
             <div class="card-info" id="cardInfo"></div>
             <div class="flip-hint">👆 點擊翻回正面</div>
           </div>
@@ -561,6 +686,12 @@
             <span>全部</span>
             <span class="filter-count" id="countAll">0</span>
           </button>
+
+          <!-- 收藏入口 -->
+          <button class="fav-entry-btn" id="btnFavEntry">
+            🔖 我的收藏
+            <span class="fav-count" id="favCount"></span>
+          </button>
         </div>
       </div>
 
@@ -572,41 +703,55 @@
         <div class="stats-header">
           <button class="nav-btn" id="btnBackToMain">← 返回主頁</button>
         </div>
-
         <h2 class="stats-title">📊 我的學習成效</h2>
-
         <div class="stats-summary">
           <div class="stats-card" style="background:linear-gradient(135deg,var(--primary),#1e4a5f);">
-            <div class="num" id="statsTotal">0</div>
-            <div class="label">總題數</div>
+            <div class="num" id="statsTotal">0</div><div class="label">總題數</div>
           </div>
           <div class="stats-card" style="background:linear-gradient(135deg,var(--success),#45a049);">
-            <div class="num" id="statsFamiliar">0</div>
-            <div class="label">已熟悉</div>
+            <div class="num" id="statsFamiliar">0</div><div class="label">已熟悉</div>
           </div>
           <div class="stats-card" style="background:linear-gradient(135deg,var(--secondary),#6d3d39);">
-            <div class="num" id="statsUnfamiliar">0</div>
-            <div class="label">還不熟</div>
+            <div class="num" id="statsUnfamiliar">0</div><div class="label">還不熟</div>
           </div>
         </div>
-
         <div class="stats-section">
           <h3 style="color:var(--secondary);">❌ 我最常錯的（前 10 名）</h3>
           <div id="mostWrongList"></div>
         </div>
-
         <div class="stats-section">
           <h3 style="color:var(--success);">✅ 我最熟的（前 10 名）</h3>
           <div id="mostCorrectList"></div>
         </div>
-
         <div class="clear-section">
           <button class="clear-btn" id="btnClear">🗑️ 清空紀錄</button>
         </div>
       </div>
     </div>
 
+    <!-- Favorites Page -->
+    <div id="favPage" class="fav-page">
+      <div class="fav-page-inner">
+        <div class="stats-header">
+          <button class="nav-btn" id="btnFavBack">← 返回主頁</button>
+        </div>
+        <h2 class="stats-title">🔖 我的收藏</h2>
+        <div id="favList"></div>
+      </div>
+    </div>
+
   </div><!-- /container -->
+
+  <!-- Detail Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-card">
+      <button class="popup-close" id="popupClose">✕</button>
+      <div class="popup-title-en" id="popupTitleEN"></div>
+      <div class="popup-title-zh" id="popupTitleZH"></div>
+      <img class="popup-img" id="popupImg" alt="Muscle">
+      <div id="popupInfos"></div>
+    </div>
+  </div>
 
   <script>
     const GITHUB_USER = 'ougaga26-lab';
@@ -619,70 +764,67 @@
     let cardQueue     = [];
     let currentIndex  = 0;
     let currentFilter = 'all';
-    let familiarityData = {};
-    let statsData       = {};
+    let familiarityData = {};   // { fn: 'unseen'|'unfamiliar'|'familiar' }
+    let statsData       = {};   // { fn: { wrong, correct, nameEN, nameZH, image } }
+    let favData         = {};   // { fn: { addedAt } }   收藏時間戳
 
+    // ─── showPage ───
     function showPage(name){
-      const welcome  = document.getElementById('welcomePage');
-      const loading  = document.getElementById('loading');
-      const app      = document.getElementById('app');
-      const stats    = document.getElementById('statsPage');
-      const header   = document.getElementById('mainHeader');
-      const statsTop = document.getElementById('statsEntryTop');
-      const emptyMsg = document.getElementById('emptyMsg');
-
+      const els = {
+        welcome:  document.getElementById('welcomePage'),
+        loading:  document.getElementById('loading'),
+        app:      document.getElementById('app'),
+        stats:    document.getElementById('statsPage'),
+        fav:      document.getElementById('favPage'),
+        header:   document.getElementById('mainHeader'),
+        statsTop: document.getElementById('statsEntryTop'),
+        emptyMsg: document.getElementById('emptyMsg')
+      };
       // hide all
-      welcome.style.display = 'none';
-      loading.style.display = 'none';
-      app.style.display     = 'none';
-      stats.style.display   = 'none';
-      if (emptyMsg) emptyMsg.style.display = 'none';
-      if (header) header.style.display = 'none';
-      if (statsTop) statsTop.style.display = 'none';
+      Object.values(els).forEach(el=>{ if(el) el.style.display='none'; });
 
-      if (name === 'welcome') {
-        welcome.style.display = 'flex';
-        // ✅ welcome 時 header/學習成效都不顯示
-      } else if (name === 'loading') {
-        loading.style.display = 'block';
-        if (header) header.style.display = 'block';
-      } else if (name === 'app') {
-        app.style.display = 'block';
-        if (header) header.style.display = 'block';
-        if (statsTop) statsTop.style.display = 'flex';
-      } else if (name === 'stats') {
-        stats.style.display = 'block';
-        if (header) header.style.display = 'block';
+      if(name==='welcome'){
+        els.welcome.style.display='flex';
+      }else if(name==='loading'){
+        els.loading.style.display='block';
+        els.header.style.display='block';
+      }else if(name==='app'){
+        els.app.style.display='block';
+        els.header.style.display='block';
+        els.statsTop.style.display='flex';
+      }else if(name==='stats'){
+        els.stats.style.display='block';
+        els.header.style.display='block';
+      }else if(name==='fav'){
+        els.fav.style.display='block';
+        els.header.style.display='block';
       }
     }
 
+    // ─── localStorage ───
     function loadSaved(){
       try{ familiarityData = JSON.parse(localStorage.getItem('musculature_familiarity')) || {}; }catch(e){}
-      try{ statsData       = JSON.parse(localStorage.getItem('musculature_stats')) || {}; }catch(e){}
+      try{ statsData       = JSON.parse(localStorage.getItem('musculature_stats'))       || {}; }catch(e){}
+      try{ favData          = JSON.parse(localStorage.getItem('musculature_favs'))        || {}; }catch(e){}
     }
     function saveSaved(){
       localStorage.setItem('musculature_familiarity', JSON.stringify(familiarityData));
-      localStorage.setItem('musculature_stats', JSON.stringify(statsData));
+      localStorage.setItem('musculature_stats',       JSON.stringify(statsData));
+      localStorage.setItem('musculature_favs',        JSON.stringify(favData));
     }
 
+    // ─── CSV ───
     function parseCSV(text){
       text = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
       const lines = text.split('\n');
       const headers = parseCSVLine(lines[0]);
       const data = [];
       let i = 1;
-
       while(i < lines.length){
         if(!lines[i].trim()){ i++; continue; }
-
         let row = lines[i];
         let qc = (row.match(/"/g)||[]).length;
-        while(qc % 2 !== 0 && i+1 < lines.length){
-          i++;
-          row += '\n' + lines[i];
-          qc = (row.match(/"/g)||[]).length;
-        }
-
+        while(qc % 2 !== 0 && i+1 < lines.length){ i++; row += '\n' + lines[i]; qc = (row.match(/"/g)||[]).length; }
         const vals = parseCSVLine(row);
         if(vals.length === headers.length){
           const obj = {};
@@ -693,80 +835,88 @@
       }
       return data;
     }
-
     function parseCSVLine(line){
-      const vals = [];
-      let cur = '';
-      let inQ = false;
-
+      const vals=[]; let cur='',inQ=false;
       for(let i=0;i<line.length;i++){
-        const ch = line[i];
-        if(ch === '"'){
-          if(inQ && line[i+1] === '"'){ cur+='"'; i++; }
-          else inQ = !inQ;
-        }else if(ch === ',' && !inQ){
-          vals.push(cur.trim());
-          cur = '';
-        }else{
-          cur += ch;
-        }
+        const ch=line[i];
+        if(ch==='"'){ if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ; }
+        else if(ch===','&&!inQ){ vals.push(cur.trim()); cur=''; }
+        else cur+=ch;
       }
       vals.push(cur.trim());
       return vals;
     }
 
+    // ─── loadData ───
     async function loadData(){
       try{
-        const res = await fetch(RAW_BASE + CSV_PATH);
+        const res  = await fetch(RAW_BASE + CSV_PATH);
         const text = await res.text();
-        allCards = parseCSV(text);
-
-        allCards.forEach(c=>{
-          const fn = c['picture file'];
-          if(!familiarityData[fn]) familiarityData[fn] = 'unseen';
-        });
-
+        allCards   = parseCSV(text);
+        allCards.forEach(c=>{ if(!familiarityData[c['picture file']]) familiarityData[c['picture file']]='unseen'; });
         applyFilter();
         updateProgress();
+        updateFavBadge();
         showCard(0);
         showPage('app');
       }catch(err){
-        const loading = document.getElementById('loading');
-        loading.innerHTML = `<p style="color:#c00;">載入失敗！</p><p style="font-size:.9rem;margin-top:.5rem;">${err.message}</p>`;
+        document.getElementById('loading').innerHTML =
+          `<p style="color:#c00;">載入失敗！</p><p style="font-size:.9rem;margin-top:.5rem;">${err.message}</p>`;
       }
     }
 
+    // ─── shuffle ───
     function shuffleArray(arr){
-      const a = [...arr];
-      for(let i=a.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [a[i],a[j]]=[a[j],a[i]];
-      }
+      const a=[...arr];
+      for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
       return a;
     }
 
+    // ─── applyFilter ───
     function applyFilter(){
       const filtered = currentFilter === 'all'
         ? [...allCards]
         : allCards.filter(c => familiarityData[c['picture file']] === currentFilter);
-
-      cardQueue = shuffleArray(filtered);
+      cardQueue    = shuffleArray(filtered);
       currentIndex = 0;
     }
 
+    /*
+     * ─── 複習插入（修正版） ───
+     * 當使用者點「還不熟」時，將該張卡插入到隊列中「7張後」的位置。
+     * 但如果隊列裡從當前位置到末尾都是「不熟」的卡，會造成死迴圈。
+     * 修正：插入時確保中間至少穿插一張「非不熟」的卡（unseen / familiar）。
+     * 做法：從 currentIndex+1 開始往後找，跳過連續的 unfamiliar，
+     *       插入位置為 min(第一張非 unfamiliar 之後 + 6, 隊列末尾)。
+     *       如果找不到非 unfamiliar，就不插入（沒別的可穿插了）。
+     */
     function insertReviewCard(card){
-      cardQueue.splice(Math.min(currentIndex+7, cardQueue.length), 0, card);
+      const start = currentIndex + 1;
+      // 找到第一張「不是 unfamiliar」的位置
+      let firstNonUnfam = -1;
+      for(let i = start; i < cardQueue.length; i++){
+        if(familiarityData[cardQueue[i]['picture file']] !== 'unfamiliar'){
+          firstNonUnfam = i;
+          break;
+        }
+      }
+      if(firstNonUnfam === -1) return; // 後面全是 unfamiliar，不插入避免死迴圈
+
+      // 插入點：在第一張非 unfamiliar 之後再隔 6 張（總共穿過 7 張再出現）
+      // 但不超過隊列長度
+      const insertAt = Math.min(firstNonUnfam + 7, cardQueue.length);
+      cardQueue.splice(insertAt, 0, card);
     }
 
-    const FALLBACK_IMG =
-      'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
+    // ─── FALLBACK ───
+    const FALLBACK_IMG = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
 
+    // ─── showCard ───
     function showCard(idx){
       if(!cardQueue.length) return;
-
       const card = cardQueue[idx];
-      const fn = card['picture file'];
-      const url = RAW_BASE + IMG_PATH + fn;
+      const fn   = card['picture file'];
+      const url  = RAW_BASE + IMG_PATH + fn;
 
       ['cardImage','cardImageBack'].forEach(id=>{
         const el = document.getElementById(id);
@@ -783,71 +933,196 @@
         ['Action / 動作',      card['Action'],    card['動作']],
         ['Nerve / 神經支配',   card['Nerve'],     card['神經支配']]
       ].map(([label,en,zh]) =>
-        `<div class="info-item">
-           <div class="info-label">${label}</div>
-           <div class="info-content">${en||''}\n${zh||''}</div>
-         </div>`
+        `<div class="info-item"><div class="info-label">${label}</div><div class="info-content">${en||''}\n${zh||''}</div></div>`
       ).join('');
 
       const flash = document.getElementById('flashcard');
       flash.classList.remove('flipped','fly-left','fly-right');
-      flash.style.transform = '';
+      flash.style.transform  = '';
       flash.style.transition = '';
 
       const isFam = familiarityData[fn] === 'familiar';
-      document.getElementById('btnFamiliar').style.opacity = isFam ? '1' : '0.55';
+      document.getElementById('btnFamiliar').style.opacity   = isFam ? '1' : '0.55';
       document.getElementById('btnUnfamiliar').style.opacity = isFam ? '0.55' : '1';
+
+      // 更新收藏 icon 狀態
+      updateFavIcon(fn);
     }
 
+    // ─── updateProgress ───
     function updateProgress(){
       const total = allCards.length;
-      const fam = allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
+      const fam   = allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
       const unfam = allCards.filter(c => familiarityData[c['picture file']] === 'unfamiliar').length;
-
-      document.getElementById('countAll').textContent = total;
-      document.getElementById('countFamiliar').textContent = fam;
+      document.getElementById('countAll').textContent        = total;
+      document.getElementById('countFamiliar').textContent   = fam;
       document.getElementById('countUnfamiliar').textContent = unfam;
-      document.getElementById('countUnseen').textContent = total - fam - unfam;
+      document.getElementById('countUnseen').textContent     = total - fam - unfam;
     }
 
+    // ─── 收藏 helpers ───
+    function updateFavIcon(fn){
+      const btn = document.getElementById('favIconBtn');
+      if(favData[fn]){
+        btn.classList.add('is-fav');
+        btn.innerHTML = '♥';
+      }else{
+        btn.classList.remove('is-fav');
+        btn.innerHTML = '♡';
+      }
+    }
+    function updateFavBadge(){
+      const count = Object.keys(favData).length;
+      document.getElementById('favCount').textContent = count > 0 ? `(${count})` : '';
+    }
+    function toggleFav(){
+      if(!cardQueue.length) return;
+      const fn = cardQueue[currentIndex]['picture file'];
+      if(favData[fn]){
+        delete favData[fn];
+      }else{
+        favData[fn] = { addedAt: Date.now() };
+      }
+      saveSaved();
+      updateFavIcon(fn);
+      updateFavBadge();
+    }
+
+    // ─── 收藏頁面 ───
+    function showFavPage(){
+      showPage('fav');
+
+      // 從 allCards 裡找到所有在 favData 裡的卡
+      const favCards = allCards.filter(c => favData[c['picture file']]);
+
+      // 排序規則：
+      // 1. 有紀錄的在前，按 wrong 次數降序
+      // 2. wrong 相同時，按 correct 次數升序（correct 最高放最下面）
+      // 3. 無紀錄的放最後，按 addedAt 升序
+      const withStats = [];
+      const noStats   = [];
+
+      favCards.forEach(c => {
+        const fn = c['picture file'];
+        const s  = statsData[fn];
+        if(s && (s.wrong > 0 || s.correct > 0)){
+          withStats.push({ card: c, fn, stats: s });
+        }else{
+          noStats.push({ card: c, fn });
+        }
+      });
+
+      withStats.sort((a,b) => {
+        if(b.stats.wrong !== a.stats.wrong) return b.stats.wrong - a.stats.wrong; // wrong 高的先
+        return a.stats.correct - b.stats.correct; // correct 低的先（高的放最下面）
+      });
+
+      noStats.sort((a,b) => (favData[a.fn].addedAt || 0) - (favData[b.fn].addedAt || 0));
+
+      const sorted = [...withStats, ...noStats];
+
+      if(sorted.length === 0){
+        document.getElementById('favList').innerHTML =
+          '<p class="fav-list-empty">還沒有收藏任何內容哦～<br>看到喜歡的肌肉點左上的 ♡ 收藏吧！</p>';
+        return;
+      }
+
+      document.getElementById('favList').innerHTML = sorted.map(item => {
+        const fn    = item.fn;
+        const card  = item.card;
+        const url   = RAW_BASE + IMG_PATH + fn;
+        const s     = statsData[fn];
+        const hasRecord = s && (s.wrong > 0 || s.correct > 0);
+
+        let badgeHTML;
+        if(hasRecord){
+          badgeHTML = `<span class="badge" style="background:var(--secondary);">錯 ${s.wrong} 次</span>`;
+        }else{
+          badgeHTML = `<span class="badge-none">無紀錄</span>`;
+        }
+
+        return `
+          <div class="stats-list-item" data-fn="${fn}">
+            <img src="${url}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2275%22 height=%2275%22><rect width=%2275%22 height=%2275%22 fill=%22%23ddd%22/></svg>'">
+            <div class="info">
+              <div class="name-en">${card['name (EN)'] || ''}</div>
+              <div class="name-zh">${card['name (CN)'] || ''}</div>
+            </div>
+            ${badgeHTML}
+          </div>`;
+      }).join('');
+
+      // 點擊清單項目開啟 popup
+      document.querySelectorAll('#favList .stats-list-item').forEach(el => {
+        el.addEventListener('click', () => openPopup(el.dataset.fn));
+      });
+    }
+
+    // ─── Stats 頁面 ───
     function showStatsPage(){
       showPage('stats');
 
-      document.getElementById('statsTotal').textContent = allCards.length;
-      document.getElementById('statsFamiliar').textContent =
-        allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
-      document.getElementById('statsUnfamiliar').textContent =
-        allCards.filter(c => familiarityData[c['picture file']] === 'unfamiliar').length;
+      document.getElementById('statsTotal').textContent     = allCards.length;
+      document.getElementById('statsFamiliar').textContent   = allCards.filter(c => familiarityData[c['picture file']]==='familiar').length;
+      document.getElementById('statsUnfamiliar').textContent = allCards.filter(c => familiarityData[c['picture file']]==='unfamiliar').length;
 
       const renderList = (id, key, label, bg) => {
-        const list = Object.values(statsData)
-          .filter(s => s[key] > 0)
-          .sort((a,b)=> b[key]-a[key])
-          .slice(0,10);
-
+        const list = Object.values(statsData).filter(s=>s[key]>0).sort((a,b)=>b[key]-a[key]).slice(0,10);
         document.getElementById(id).innerHTML = list.length
           ? list.map(item => `
-              <div class="stats-list-item">
-                <img src="${RAW_BASE}${IMG_PATH}${item.image}"
-                  onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2275%22 height=%2275%22><rect width=%2275%22 height=%2275%22 fill=%22%23ddd%22/></svg>'">
-                <div class="info">
-                  <div class="name-en">${item.nameEN}</div>
-                  <div class="name-zh">${item.nameZH}</div>
-                </div>
+              <div class="stats-list-item" data-fn="${item.image}" style="cursor:pointer;">
+                <img src="${RAW_BASE}${IMG_PATH}${item.image}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2275%22 height=%2275%22><rect width=%2275%22 height=%2275%22 fill=%22%23ddd%22/></svg>'">
+                <div class="info"><div class="name-en">${item.nameEN}</div><div class="name-zh">${item.nameZH}</div></div>
                 <div class="badge" style="background:${bg};">${label} ${item[key]} 次</div>
-              </div>
-            `).join('')
+              </div>`).join('')
           : '<p class="stats-empty">還沒有紀錄</p>';
-      };
 
-      renderList('mostWrongList','wrong','錯誤','var(--secondary)');
-      renderList('mostCorrectList','correct','正確','var(--success)');
+        // 點擊開啟 popup
+        document.querySelectorAll(`#${id} .stats-list-item`).forEach(el => {
+          el.addEventListener('click', () => openPopup(el.dataset.fn));
+        });
+      };
+      renderList('mostWrongList',   'wrong',   '錯誤', 'var(--secondary)');
+      renderList('mostCorrectList', 'correct', '正確', 'var(--success)');
     }
 
+    // ─── Detail Popup ───
+    function openPopup(fn){
+      const card = allCards.find(c => c['picture file'] === fn);
+      if(!card) return;
+
+      const url = RAW_BASE + IMG_PATH + fn;
+      document.getElementById('popupTitleEN').textContent = card['name (EN)'] || '';
+      document.getElementById('popupTitleZH').textContent = card['name (CN)'] || '';
+
+      const img = document.getElementById('popupImg');
+      img.src = url;
+      img.onerror = function(){ this.src = FALLBACK_IMG; };
+
+      document.getElementById('popupInfos').innerHTML = [
+        ['Origin / 起始點',    card['Origin'],    card['起始點']],
+        ['Insertion / 結束點', card['Insertion'], card['結束點']],
+        ['Action / 動作',      card['Action'],    card['動作']],
+        ['Nerve / 神經支配',   card['Nerve'],     card['神經支配']]
+      ].map(([label,en,zh]) =>
+        `<div class="popup-info-item">
+           <div class="popup-info-label">${label}</div>
+           <div class="popup-info-content">${en||''}\n${zh||''}</div>
+         </div>`
+      ).join('');
+
+      document.getElementById('popupOverlay').classList.add('open');
+    }
+    function closePopup(){
+      document.getElementById('popupOverlay').classList.remove('open');
+    }
+
+    // ═══════════════════════ DOMContentLoaded ═══════════════════════
     document.addEventListener('DOMContentLoaded', ()=>{
       loadSaved();
       showPage('welcome');
 
+      // ── btnStart ──
       document.getElementById('btnStart').addEventListener('click', ()=>{
         if(allCards.length === 0){
           showPage('loading');
@@ -856,177 +1131,156 @@
           currentFilter = 'all';
           document.querySelectorAll('.filter-btn-all,.filter-btn').forEach(b=>b.classList.remove('active'));
           document.querySelector('[data-filter="all"]').classList.add('active');
-          applyFilter();
-          showCard(0);
-          showPage('app');
+          applyFilter(); showCard(0); showPage('app');
         }
       });
 
+      // ── 翻牌 click ──
       document.getElementById('flashcard').addEventListener('click', ()=>{
         if(window._swipeEndedAsDrag){ window._swipeEndedAsDrag = false; return; }
         document.getElementById('flashcard').classList.toggle('flipped');
       });
 
+      // ── 收藏 icon 點擊（阻止冒泡，避免觸發翻牌） ──
+      document.getElementById('favIconBtn').addEventListener('click', e => {
+        e.stopPropagation();
+        toggleFav();
+      });
+
+      // ── 篩選器 ──
       const allBtns = document.querySelectorAll('.filter-btn-all,.filter-btn');
       allBtns.forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const f = btn.dataset.filter;
-
           if(f !== 'all'){
             const cnt = allCards.filter(c => familiarityData[c['picture file']] === f).length;
             if(cnt === 0){
               document.getElementById('app').style.display = 'none';
+              document.getElementById('statsEntryTop').style.display = 'none';
               document.getElementById('emptyMsg').style.display = 'block';
               setTimeout(()=>{
                 document.getElementById('emptyMsg').style.display = 'none';
                 allBtns.forEach(b=>b.classList.remove('active'));
                 document.querySelector('[data-filter="all"]').classList.add('active');
                 currentFilter = 'all';
-                applyFilter();
-                showCard(0);
-                showPage('app');
+                applyFilter(); showCard(0); showPage('app');
               }, 3000);
               return;
             }
           }
-
           allBtns.forEach(b=>b.classList.remove('active'));
           btn.classList.add('active');
           currentFilter = f;
-          applyFilter();
-          showCard(0);
+          applyFilter(); showCard(0);
         });
       });
 
+      // ── 還不熟 ──
       document.getElementById('btnUnfamiliar').addEventListener('click', ()=>{
         const card = cardQueue[currentIndex];
-        const fn = card['picture file'];
+        const fn   = card['picture file'];
         familiarityData[fn] = 'unfamiliar';
-
-        if(!statsData[fn]){
-          statsData[fn] = {
-            wrong:0, correct:0,
-            nameEN: card['name (EN)'],
-            nameZH: card['name (CN)'],
-            image: fn
-          };
-        }
+        if(!statsData[fn]) statsData[fn] = { wrong:0, correct:0, nameEN:card['name (EN)'], nameZH:card['name (CN)'], image:fn };
         statsData[fn].wrong++;
-
-        saveSaved();
-        updateProgress();
-
+        saveSaved(); updateProgress();
         if(currentFilter === 'all') insertReviewCard(card);
-
         if(currentIndex < cardQueue.length-1){ currentIndex++; showCard(currentIndex); }
         else showCard(currentIndex);
       });
 
+      // ── 熟悉了 ──
       document.getElementById('btnFamiliar').addEventListener('click', ()=>{
         const card = cardQueue[currentIndex];
-        const fn = card['picture file'];
+        const fn   = card['picture file'];
         familiarityData[fn] = 'familiar';
-
-        if(!statsData[fn]){
-          statsData[fn] = {
-            wrong:0, correct:0,
-            nameEN: card['name (EN)'],
-            nameZH: card['name (CN)'],
-            image: fn
-          };
-        }
+        if(!statsData[fn]) statsData[fn] = { wrong:0, correct:0, nameEN:card['name (EN)'], nameZH:card['name (CN)'], image:fn };
         statsData[fn].correct++;
-
-        saveSaved();
-        updateProgress();
-
+        saveSaved(); updateProgress();
         if(currentIndex < cardQueue.length-1){ currentIndex++; showCard(currentIndex); }
         else showCard(currentIndex);
       });
 
+      // ── 學習成效 ──
       document.getElementById('btnStats').addEventListener('click', showStatsPage);
       document.getElementById('btnBackToMain').addEventListener('click', ()=> showPage('app'));
 
-      document.getElementById('btnClear').addEventListener('click', ()=>{
-        if(!confirm('確定要清空所有紀錄嗎？\n這會把熟悉度和學習統計全部刪掉，從頭來過。')) return;
+      // ── 收藏頁 ──
+      document.getElementById('btnFavEntry').addEventListener('click', showFavPage);
+      document.getElementById('btnFavBack').addEventListener('click', ()=> showPage('app'));
 
+      // ── 清空紀錄 ──
+      document.getElementById('btnClear').addEventListener('click', ()=>{
+        if(!confirm('確定要清空所有紀錄嗎？\n這會把熟悉度和學習統計全部刪掉，從頭來過。\n（收藏不會被刪除）')) return;
         familiarityData = {};
         statsData = {};
         localStorage.removeItem('musculature_familiarity');
         localStorage.removeItem('musculature_stats');
-
         allCards.forEach(c => familiarityData[c['picture file']] = 'unseen');
-        saveSaved();
-        updateProgress();
+        saveSaved(); updateProgress();
         showPage('welcome');
       });
 
-      // Swipe
+      // ── Popup 關閉 ──
+      document.getElementById('popupClose').addEventListener('click', closePopup);
+      document.getElementById('popupOverlay').addEventListener('click', e => {
+        if(e.target === document.getElementById('popupOverlay')) closePopup();
+      });
+
+      // ─── Swipe ───
       (function initSwipe(){
-        const card = document.getElementById('flashcard');
+        const card   = document.getElementById('flashcard');
         const labelL = document.getElementById('swipeLeft');
         const labelR = document.getElementById('swipeRight');
         const THRESHOLD = 80;
-        const DRAG_MIN = 12;
+        const DRAG_MIN  = 12;
 
         let startX=0,startY=0,curX=0;
         let state='idle';
         window._swipeEndedAsDrag = false;
 
         function onStart(x,y){
-          if(card.classList.contains('fly-left') || card.classList.contains('fly-right')) return;
-          startX=x;startY=y;curX=0;
+          if(card.classList.contains('fly-left')||card.classList.contains('fly-right')) return;
+          startX=x; startY=y; curX=0;
           state='deciding';
           window._swipeEndedAsDrag = false;
         }
-
         function onMove(x,y){
-          if(state==='idle' || state==='cancelled') return;
-          const dx = x - startX;
-          const dy = y - startY;
-
+          if(state==='idle'||state==='cancelled') return;
+          const dx=x-startX, dy=y-startY;
           if(state==='deciding'){
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            if(dist < DRAG_MIN) return;
-            if(Math.abs(dy) >= Math.abs(dx)){ state='cancelled'; return; }
+            if(Math.sqrt(dx*dx+dy*dy)<DRAG_MIN) return;
+            if(Math.abs(dy)>=Math.abs(dx)){ state='cancelled'; return; }
             state='dragging-h';
             card.style.transition='none';
           }
-
-          curX = dx;
-          const rot = Math.max(-18, Math.min(18, dx*0.04));
+          curX=dx;
+          const rot=Math.max(-18,Math.min(18,dx*0.04));
           card.style.transform = card.classList.contains('flipped')
             ? `rotateY(180deg) translateX(${-dx}px) rotate(${-rot}deg)`
             : `translateX(${dx}px) rotate(${rot}deg)`;
-
-          const prog = Math.min(Math.abs(dx)/THRESHOLD, 1);
-          labelL.style.opacity = dx < 0 ? prog : 0;
-          labelR.style.opacity = dx > 0 ? prog : 0;
+          const prog=Math.min(Math.abs(dx)/THRESHOLD,1);
+          labelL.style.opacity = dx<0 ? prog : 0;
+          labelR.style.opacity = dx>0 ? prog : 0;
         }
-
         function onEnd(){
-          if(state==='idle' || state==='cancelled'){ state='idle'; return; }
+          if(state==='idle'||state==='cancelled'){ state='idle'; return; }
           if(state==='deciding'){ state='idle'; return; }
-
           state='idle';
           window._swipeEndedAsDrag = true;
-          labelL.style.opacity = 0;
-          labelR.style.opacity = 0;
+          labelL.style.opacity=0; labelR.style.opacity=0;
 
           if(curX < -THRESHOLD){
             card.style.transition='';
             card.classList.add('fly-left');
             card.addEventListener('animationend', ()=>{
-              card.classList.remove('fly-left');
-              card.style.transform='';
+              card.classList.remove('fly-left'); card.style.transform='';
               document.getElementById('btnUnfamiliar').click();
             }, { once:true });
           }else if(curX > THRESHOLD){
             card.style.transition='';
             card.classList.add('fly-right');
             card.addEventListener('animationend', ()=>{
-              card.classList.remove('fly-right');
-              card.style.transform='';
+              card.classList.remove('fly-right'); card.style.transform='';
               document.getElementById('btnFamiliar').click();
             }, { once:true });
           }else{
@@ -1035,34 +1289,25 @@
           }
         }
 
-        card.addEventListener('touchstart', e => onStart(e.touches[0].clientX, e.touches[0].clientY), { passive:true });
-        card.addEventListener('touchmove', e => {
+        card.addEventListener('touchstart', e=>onStart(e.touches[0].clientX,e.touches[0].clientY), {passive:true});
+        card.addEventListener('touchmove', e=>{
           if(state==='dragging-h') e.preventDefault();
-          onMove(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive:false });
+          onMove(e.touches[0].clientX,e.touches[0].clientY);
+        }, {passive:false});
         card.addEventListener('touchend', onEnd);
 
-        // mouse
         let mouseDragging=false;
-        card.addEventListener('mousedown', e=>{
-          if(e.button!==0) return;
-          mouseDragging=true;
-          onStart(e.clientX, e.clientY);
-        });
-        window.addEventListener('mousemove', e=>{
-          if(!mouseDragging) return;
-          onMove(e.clientX, e.clientY);
-        });
-        window.addEventListener('mouseup', ()=>{
-          if(mouseDragging){ mouseDragging=false; onEnd(); }
-        });
+        card.addEventListener('mousedown', e=>{ if(e.button!==0)return; mouseDragging=true; onStart(e.clientX,e.clientY); });
+        window.addEventListener('mousemove', e=>{ if(!mouseDragging)return; onMove(e.clientX,e.clientY); });
+        window.addEventListener('mouseup', ()=>{ if(mouseDragging){mouseDragging=false; onEnd();} });
       })();
 
-      // keyboard
+      // ── keyboard ──
       document.addEventListener('keydown', e=>{
         if(e.key==='ArrowLeft'){ e.preventDefault(); document.getElementById('btnUnfamiliar').click(); }
         else if(e.key==='ArrowRight'){ e.preventDefault(); document.getElementById('btnFamiliar').click(); }
         else if(e.key===' '){ e.preventDefault(); document.getElementById('flashcard').classList.toggle('flipped'); }
+        else if(e.key==='Escape') closePopup();
       });
     });
   </script>
