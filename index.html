@@ -14,7 +14,6 @@
 <!-- LINE / Facebook / Twitter fallback -->
 <meta name="twitter:card" content="summary_large_image">
 
-
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -491,6 +490,66 @@
     .welcome-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(44,95,124,.45);}
     .powered-by{margin-top:1.6rem;font-size:.72rem;color:#bbb;letter-spacing:.5px}
 
+    /* ───────────────────────── 密碼輸入（Welcome 頁面）───── */
+    .pass-wrap{
+      margin-top:1.6rem;
+      width:100%;
+      max-width:300px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .pass-label{
+      display:block;
+      font-size:.82rem;
+      color:#c0392b;
+      font-weight:600;
+      margin-bottom:.45rem;
+    }
+    .pass-row{
+      display:flex;
+      gap:.5rem;
+    }
+    .pass-input{
+      flex:1;
+      padding:.6rem .75rem;
+      border:1.5px solid var(--border);
+      border-radius:10px;
+      font-size:.95rem;
+      font-family:'Noto Sans TC',sans-serif;
+      outline:none;
+      transition:border-color .2s;
+      background:#fff;
+    }
+    .pass-input:focus{border-color:var(--primary);}
+    .pass-input.shake{animation:shake .4s ease;}
+    @keyframes shake{
+      0%,100%{transform:translateX(0)}
+      20%{transform:translateX(-6px)}
+      40%{transform:translateX(6px)}
+      60%{transform:translateX(-4px)}
+      80%{transform:translateX(4px)}
+    }
+    .pass-btn{
+      padding:.6rem 1rem;
+      background:var(--primary);
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      font-size:.9rem;
+      font-weight:600;
+      cursor:pointer;
+      white-space:nowrap;
+      transition:background .2s;
+    }
+    .pass-btn:hover{background:#1e4a5f;}
+    .pass-error{
+      margin-top:.5rem;
+      font-size:.78rem;
+      color:#c0392b;
+      min-height:1rem;
+      text-align:center;
+    }
+
     /* ───────────────────────── Detail Popup ───────────────────────── */
     .popup-overlay{
       display:none;
@@ -628,7 +687,19 @@
           快速複習解剖學的相關知識<br><br>
           快來試試來尋找你的<span class="highlight">肌命天子</span>吧～
         </p>
-        <button class="welcome-btn" id="btnStart">開始複習 ›</button>
+
+        <!-- 密碼輸入 -->
+        <div class="pass-wrap">
+          <span class="pass-label">請輸入密碼</span>
+          <div class="pass-row">
+            <input class="pass-input" id="passInput" type="password" placeholder="••••••••" autocomplete="off">
+            <button class="pass-btn" id="passBtnConfirm">確認</button>
+          </div>
+          <div class="pass-error" id="passError"></div>
+        </div>
+
+        <!-- 開始複習（驗證通過後才出現） -->
+        <button class="welcome-btn" id="btnStart" style="display:none;">開始複習 ›</button>
         <p class="powered-by">Powered by Luga</p>
       </div>
     </div>
@@ -783,9 +854,7 @@
   </div>
 
   <script>
-    const GITHUB_USER = 'ougaga26-lab';
-    const REPO_NAME   = 'Musculature-Heaven';
-    const RAW_BASE    = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main/`;
+    const RAW_BASE    = '';           // 用相對路徑，不經過 raw.githubusercontent
     const CSV_PATH    = 'data/muscles.csv';
     const IMG_PATH    = 'images/';
 
@@ -937,6 +1006,9 @@
       cardQueue.splice(insertAt, 0, card);
     }
 
+    // ─── imgURL helper（處理空格、括號等特殊字元）───
+    function imgURL(fn){ return IMG_PATH + fn.split('/').map(encodeURIComponent).join('/'); }
+
     // ─── FALLBACK ───
     const FALLBACK_IMG = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="%23ddd"/><text x="150" y="100" text-anchor="middle" fill="%23999" font-size="16">圖片載入失敗</text></svg>';
 
@@ -945,7 +1017,7 @@
       if(!cardQueue.length) return;
       const card = cardQueue[idx];
       const fn   = card['picture file'];
-      const url  = RAW_BASE + IMG_PATH + fn;
+      const url  = imgURL(fn);
 
       ['cardImage','cardImageBack'].forEach(id=>{
         const el = document.getElementById(id);
@@ -1059,7 +1131,7 @@
       document.getElementById('favList').innerHTML = sorted.map(item => {
         const fn    = item.fn;
         const card  = item.card;
-        const url   = RAW_BASE + IMG_PATH + fn;
+        const url   = imgURL(fn);
         const s     = statsData[fn];
         const hasRecord = s && (s.wrong > 0 || s.correct > 0);
 
@@ -1100,7 +1172,7 @@
         document.getElementById(id).innerHTML = list.length
           ? list.map(item => `
               <div class="stats-list-item" data-fn="${item.image}" style="cursor:pointer;">
-                <img src="${RAW_BASE}${IMG_PATH}${item.image}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2275%22 height=%2275%22><rect width=%2275%22 height=%2275%22 fill=%22%23ddd%22/></svg>'">
+                <img src="${imgURL(item.image)}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2275%22 height=%2275%22><rect width=%2275%22 height=%2275%22 fill=%22%23ddd%22/></svg>'">
                 <div class="info"><div class="name-en">${item.nameEN}</div><div class="name-zh">${item.nameZH}</div></div>
                 <div class="badge" style="background:${bg};">${label} ${item[key]} 次</div>
               </div>`).join('')
@@ -1123,7 +1195,7 @@
       if(!card) return;
       currentPopupFn = fn;
 
-      const url = RAW_BASE + IMG_PATH + fn;
+      const url = imgURL(fn);
       document.getElementById('popupTitleEN').textContent = card['name (EN)'] || '';
       document.getElementById('popupTitleZH').textContent = card['name (CN)'] || '';
 
@@ -1165,7 +1237,65 @@
       loadSaved();
       showPage('welcome');
 
-      // ── btnStart ──
+      // ── 密碼驗證 ──
+      // 預設密碼 luga2025 的 SHA-256：09e2e453a838a61821c418e476d8d2d54c51107d0116ac2ad3ec5d6481df6066
+      const PASS_HASH = '09e2e453a838a61821c418e476d8d2d54c51107d0116ac2ad3ec5d6481df6066';
+      let passTrials = 0;
+
+      async function hashString(str){
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+        return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+      }
+
+      async function checkPass(){
+        const input = document.getElementById('passInput');
+        const error = document.getElementById('passError');
+        const val   = input.value.trim();
+
+        if(!val){
+          error.textContent = '密碼不能為空';
+          input.classList.add('shake');
+          setTimeout(()=> input.classList.remove('shake'), 400);
+          return;
+        }
+
+        const h = await hashString(val);
+        if(h === PASS_HASH){
+          // ✅ 正確
+          error.textContent = '';
+          input.style.display = 'none';
+          document.getElementById('passBtnConfirm').style.display = 'none';
+          document.querySelector('.pass-label').style.display = 'none';
+          document.getElementById('btnStart').style.display = 'inline-block';
+          passTrials = 0;
+        }else{
+          // ❌ 錯誤
+          passTrials++;
+          input.classList.add('shake');
+          setTimeout(()=> input.classList.remove('shake'), 400);
+
+          if(passTrials >= 5){
+            error.textContent = '嘗試次數過多，請等待 5 秒後再試。';
+            input.disabled = true;
+            document.getElementById('passBtnConfirm').disabled = true;
+            setTimeout(()=>{
+              input.disabled = false;
+              document.getElementById('passBtnConfirm').disabled = false;
+              passTrials = 0;
+              error.textContent = '';
+              input.value = '';
+            }, 5000);
+          }else{
+            error.textContent = `密碼錯誤，請再試（剩餘 ${5 - passTrials} 次）`;
+          }
+          input.value = '';
+        }
+      }
+
+      document.getElementById('passBtnConfirm').addEventListener('click', checkPass);
+      document.getElementById('passInput').addEventListener('keydown', e=>{
+        if(e.key === 'Enter') checkPass();
+      });
       document.getElementById('btnStart').addEventListener('click', ()=>{
         if(allCards.length === 0){
           showPage('loading');
