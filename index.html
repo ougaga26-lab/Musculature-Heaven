@@ -156,7 +156,7 @@
         @keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
 
         /* ─── 熟悉按鈕 ─── */
-        .actions { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
+        .actions { display: flex; gap: 1rem; justify-content: center; margin-bottom: 5rem; /* 留給固定底部 bar 的空間 */ }
         .action-btn {
             padding: 0.8rem 2rem; border: none; border-radius: 50px;
             font-weight: 600; font-size: 1rem; cursor: pointer;
@@ -175,13 +175,53 @@
             cursor: pointer; transition: all 0.3s ease;
         }
         .nav-btn:hover { background: #c9956a; transform: translateY(-2px); }
-        .stats-btn-wrap { text-align: center; margin-top: 1.5rem; }
-        .stats-btn {
-            padding: 0.8rem 2rem; background: var(--primary); color: white;
-            border: none; border-radius: 25px; font-weight: 600; font-size: 1rem;
+
+        /* ─── 學習成效按鈕（已移到固定底部） ─── */
+        .nav-btn {
+            padding: 0.6rem 1.5rem; background: var(--accent); color: white;
+            border: none; border-radius: 25px; font-weight: 600;
             cursor: pointer; transition: all 0.3s ease;
         }
-        .stats-btn:hover { background: #1e4a5f; transform: translateY(-2px); }
+        .nav-btn:hover { background: #c9956a; transform: translateY(-2px); }
+
+        /* 固定底部 bar */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            padding: 0.7rem 1rem 1rem;
+            background: rgba(248,246,243,0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .bottom-bar .stats-btn {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0.8rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(44,95,124,0.25);
+        }
+        .bottom-bar .stats-btn:hover {
+            background: #1e4a5f;
+            transform: translateY(-1px);
+        }
+
+        /* Powered by */
+        .powered-by {
+            margin-top: 1.6rem;
+            font-size: 0.72rem;
+            color: #bbb;
+            letter-spacing: 0.5px;
+        }
 
         /* ─── Loading ─── */
         .loading { text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--primary); }
@@ -304,10 +344,10 @@
         .welcome-card {
             background: var(--card);
             border-radius: 28px;
-            padding: 3rem 2.5rem 2.5rem;
+            padding: 3rem 2rem 2.5rem;
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            max-width: 460px;
             width: 100%;
+            max-width: 540px;
             animation: welcomeFadeIn 0.6s ease forwards;
         }
         @keyframes welcomeFadeIn {
@@ -324,14 +364,19 @@
             100% { transform: translateY(-6px); }
         }
         .welcome-title {
-            font-family: 'Crimson Pro', serif;
-            font-size: 1.9rem;
+            font-family: 'Noto Sans TC', sans-serif;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 1.4rem;
-            line-height: 1.35;
+            line-height: 1.5;
         }
-        .welcome-title .heart { color: #e84c6a; }
+        .welcome-title .heart { color: #e84c6a; font-size: 1.4rem; }
+        /* 「這裡是肌肉解剖學的複習小天堂💫」這一行：不斷行，隨螢幕縮放，桌版限制上限 */
+        .welcome-title-main {
+            display: block;
+            white-space: nowrap;
+            font-size: clamp(1.1rem, 5.5vw, 1.7rem);  /* 手機小 → 桌版最多 1.7rem */
+        }
         .welcome-title .sparkle { color: var(--accent); }
         .welcome-desc {
             font-size: 0.95rem;
@@ -407,7 +452,7 @@
             <div class="welcome-icon">💪</div>
             <div class="welcome-title">
                 <span class="heart">❤️</span> 你好~<br>
-                這裡是肌肉解剖學的<span class="sparkle">複習小天堂</span>💫
+                <span class="welcome-title-main">這裡是肌肉解剖學的<span class="sparkle">複習小天堂</span>💫</span>
             </div>
             <p class="welcome-desc">
                 希望你可以以<span class="highlight">輕鬆交友</span>的方式<br>
@@ -415,6 +460,7 @@
                 快來試試來尋找你的<span class="highlight">肌命天子</span>吧～
             </p>
             <button class="welcome-btn" id="btnStart">開始複習 ›</button>
+            <p class="powered-by">Powered by Luga</p>
         </div>
     </div>
 
@@ -495,10 +541,6 @@
             <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悉了</button>
         </div>
 
-        <!-- 學習成效按鈕（唯一一個，放在最下面） -->
-        <div class="stats-btn-wrap">
-            <button class="stats-btn" id="btnStats">📊 我的學習成效</button>
-        </div>
     </div>
 
     <!-- 學習成效頁面 -->
@@ -537,6 +579,11 @@
 
 </div><!-- /container -->
 
+<!-- 固定底部：學習成效按鈕（只在主頁面時顯示） -->
+<div class="bottom-bar" id="bottomBar" style="display:none;">
+    <button class="stats-btn" id="btnStats">📊 我的學習成效</button>
+</div>
+
 <script>
 // ─── 常數 ───
 const GITHUB_USER = 'ougaga26-lab';
@@ -552,6 +599,26 @@ let currentIndex  = 0;
 let currentFilter = 'all';
 let familiarityData = {};   // { filename: 'unseen' | 'unfamiliar' | 'familiar' }
 let statsData       = {};   // { filename: { wrong, correct, nameEN, nameZH, image } }
+
+// ─── 頁面切換 helper（同時管理 bottomBar 顯示） ───
+function showPage(name) {
+    const welcome = document.getElementById('welcomePage');
+    const loading = document.getElementById('loading');
+    const app     = document.getElementById('app');
+    const stats   = document.getElementById('statsPage');
+    const bar     = document.getElementById('bottomBar');
+
+    welcome.style.display = 'none';
+    loading.style.display = 'none';
+    app.style.display     = 'none';
+    stats.style.display   = 'none';
+    bar.style.display     = 'none';
+
+    if (name === 'welcome') { welcome.style.display = 'block'; }
+    else if (name === 'loading') { loading.style.display = 'block'; }
+    else if (name === 'app')     { app.style.display = 'block';  bar.style.display = 'block'; }
+    else if (name === 'stats')   { stats.style.display = 'block'; }
+}
 
 // ─── localStorage ───
 function loadSaved() {
@@ -612,7 +679,7 @@ async function loadData() {
         showCard(0);
 
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('app').style.display     = 'block';
+        showPage('app');
     } catch(err) {
         document.getElementById('loading').innerHTML = `<p style="color:#c00;">載入失敗！</p><p style="font-size:.9rem;margin-top:.5rem;">${err.message}</p>`;
     }
@@ -685,8 +752,7 @@ function updateProgress() {
 
 // ─── 學習成效頁面 ───
 function showStatsPage() {
-    document.getElementById('app').style.display       = 'none';
-    document.getElementById('statsPage').style.display = 'block';
+    showPage('stats');
 
     document.getElementById('statsTotal').textContent     = allCards.length;
     document.getElementById('statsFamiliar').textContent   = allCards.filter(c => familiarityData[c['picture file']]==='familiar').length;
@@ -714,11 +780,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 進來先顯示歡迎頁（不先載入數據，節省網路）
     // 點「開始複習」之後才開始載入；若是清空紀錄後回來，數據已在內存中直接進入
     document.getElementById('btnStart').addEventListener('click', () => {
-        document.getElementById('welcomePage').style.display = 'none';
-
         if (allCards.length === 0) {
             // 第一次進來，還沒載入數據
-            document.getElementById('loading').style.display = 'block';
+            showPage('loading');
             loadData();
         } else {
             // 清空紀錄後從歡迎頁重新進入，數據已在內存
@@ -727,7 +791,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('[data-filter="all"]').classList.add('active');
             applyFilter();
             showCard(0);
-            document.getElementById('app').style.display = 'block';
+            showPage('app');
         }
     });
 
@@ -750,15 +814,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cnt = allCards.filter(c => familiarityData[c['picture file']] === f).length;
                 if (cnt === 0) {
                     document.getElementById('app').style.display     = 'none';
+                    document.getElementById('bottomBar').style.display = 'none';
                     document.getElementById('emptyMsg').style.display = 'block';
                     setTimeout(() => {
                         document.getElementById('emptyMsg').style.display = 'none';
-                        document.getElementById('app').style.display     = 'block';
                         allBtns.forEach(b => b.classList.remove('active'));
                         document.querySelector('[data-filter="all"]').classList.add('active');
                         currentFilter = 'all';
                         applyFilter();
                         showCard(0);
+                        showPage('app');
                     }, 3000);
                     return;
                 }
@@ -802,8 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 學習成效
     document.getElementById('btnStats').addEventListener('click', showStatsPage);
     document.getElementById('btnBackToMain').addEventListener('click', () => {
-        document.getElementById('statsPage').style.display = 'none';
-        document.getElementById('app').style.display     = 'block';
+        showPage('app');
     });
 
     // 清空紀錄
@@ -813,14 +877,10 @@ document.addEventListener('DOMContentLoaded', () => {
         statsData       = {};
         localStorage.removeItem('musculature_familiarity');
         localStorage.removeItem('musculature_stats');
-        // 重新初始化全部為 unseen
         allCards.forEach(c => { familiarityData[c['picture file']] = 'unseen'; });
         saveSaved();
         updateProgress();
-        // 導回歡迎頁（下次點開始複習會重新 applyFilter + showCard）
-        document.getElementById('statsPage').style.display  = 'none';
-        document.getElementById('app').style.display        = 'none';
-        document.getElementById('welcomePage').style.display = 'block';
+        showPage('welcome');
     });
 
     // ─── 觸摸滑動 ───
