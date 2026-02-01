@@ -445,31 +445,76 @@
     </div>
 
     <!-- 主頁面 -->
-    <div id="app" style="display:none;">
-        <!-- ✅ 篩選器：子類別在上、全部在下 -->
-        <div class="controls">
-            <div class="filter-buttons">
-                <div class="filter-sub-group">
-                    <button class="filter-btn" data-filter="unfamiliar">
-                        <span class="filter-label">❌ 還不熟</span>
-                        <span class="filter-count" id="countUnfamiliar">0</span>
-                    </button>
-                    <button class="filter-btn" data-filter="familiar">
-                        <span class="filter-label">✅ 熟悉了</span>
-                        <span class="filter-count" id="countFamiliar">0</span>
-                    </button>
-                    <button class="filter-btn" data-filter="unseen">
-                        <span class="filter-label">👀 還沒看</span>
-                        <span class="filter-count" id="countUnseen">0</span>
-                    </button>
-                </div>
+<div id="app" style="display:none;">
 
-                <button class="filter-btn-all active" data-filter="all">
-                    <span>全部</span>
-                    <span class="filter-count" id="countAll">0</span>
-                </button>
-            </div>
+  <!-- 卡片 -->
+  <div class="card-container">
+    <div class="flashcard" id="flashcard">
+      <!-- 滑動標記 -->
+      <div class="swipe-label swipe-label-left"  id="swipeLeft">❌ 還不熟</div>
+      <div class="swipe-label swipe-label-right" id="swipeRight">✅ 熟悉了</div>
+
+      <div class="card-face card-front">
+        <img id="cardImage" class="card-image" alt="Muscle" style="max-height:90%;margin:0;">
+        <div class="flip-hint">👆 點擊翻轉查看資訊</div>
+      </div>
+
+      <div class="card-face card-back">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;width:100%;margin-bottom:1.5rem;">
+          <div style="display:flex;align-items:center;justify-content:center;">
+            <img id="cardImageBack" class="card-image" alt="Muscle" style="max-height:200px;margin:0;">
+          </div>
+          <div style="display:flex;flex-direction:column;justify-content:center;">
+            <h2 class="card-title" id="cardTitleEN">Muscle Name</h2>
+            <p class="card-subtitle" id="cardTitleZH">肌肉名稱</p>
+          </div>
         </div>
+
+        <div class="card-info" id="cardInfo"></div>
+        <div class="flip-hint">👆 點擊翻回正面</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 大顆熟悉按鈕 -->
+  <div class="actions">
+    <button class="action-btn btn-unfamiliar" id="btnUnfamiliar">❌ 還不熟</button>
+    <button class="action-btn btn-familiar"   id="btnFamiliar">✅ 熟悉了</button>
+  </div>
+
+  <!-- ✅ 篩選器：搬到這裡（卡片 + actions 下面，學習成效上面） -->
+  <div class="controls">
+    <div class="filter-buttons">
+
+      <div class="filter-sub-group">
+        <button class="filter-btn" data-filter="unfamiliar">
+          <span class="filter-label">❌ 還不熟</span>
+          <span class="filter-count" id="countUnfamiliar">0</span>
+        </button>
+        <button class="filter-btn" data-filter="familiar">
+          <span class="filter-label">✅ 熟悉了</span>
+          <span class="filter-count" id="countFamiliar">0</span>
+        </button>
+        <button class="filter-btn" data-filter="unseen">
+          <span class="filter-label">👀 還沒看</span>
+          <span class="filter-count" id="countUnseen">0</span>
+        </button>
+      </div>
+
+      <button class="filter-btn-all active" data-filter="all">
+        <span>全部</span>
+        <span class="filter-count" id="countAll">0</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- 我的學習成效（在最下面） -->
+  <div class="stats-entry">
+    <button class="stats-btn" id="btnStats">📊 我的學習成效</button>
+  </div>
+
+</div>
 
         <!-- 卡片 -->
         <div class="card-container">
