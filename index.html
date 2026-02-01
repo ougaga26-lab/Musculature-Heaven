@@ -522,6 +522,24 @@
       transition:background .15s;
     }
     .popup-close:hover{background:rgba(0,0,0,.13);}
+    /* popup 裡的收藏 icon（左上） */
+    .popup-fav-btn{
+      position:absolute;
+      top:.6rem;left:.6rem;
+      background:rgba(255,255,255,.85);
+      border:none;
+      border-radius:50%;
+      width:2rem;height:2rem;
+      font-size:1.15rem;
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 2px 8px rgba(0,0,0,.15);
+      transition:transform .2s ease, background .2s ease;
+      color:#999;
+      z-index:2;
+    }
+    .popup-fav-btn:hover{transform:scale(1.1);}
+    .popup-fav-btn.is-fav{background:rgba(255,80,100,.9);color:#fff;}
     .popup-title-en{
       font-family:'Crimson Pro',serif;
       font-size:1.6rem;font-weight:700;
@@ -745,6 +763,7 @@
   <!-- Detail Popup -->
   <div class="popup-overlay" id="popupOverlay">
     <div class="popup-card">
+      <button class="popup-fav-btn" id="popupFavBtn" aria-label="收藏">♡</button>
       <button class="popup-close" id="popupClose">✕</button>
       <div class="popup-title-en" id="popupTitleEN"></div>
       <div class="popup-title-zh" id="popupTitleZH"></div>
@@ -1087,9 +1106,12 @@
     }
 
     // ─── Detail Popup ───
+    let currentPopupFn = null;   // 當前開啟的 popup 對應哪張卡
+
     function openPopup(fn){
       const card = allCards.find(c => c['picture file'] === fn);
       if(!card) return;
+      currentPopupFn = fn;
 
       const url = RAW_BASE + IMG_PATH + fn;
       document.getElementById('popupTitleEN').textContent = card['name (EN)'] || '';
@@ -1111,10 +1133,21 @@
          </div>`
       ).join('');
 
+      // 設定 popup 收藏 icon 狀態
+      const favBtn = document.getElementById('popupFavBtn');
+      if(favData[fn]){
+        favBtn.classList.add('is-fav');
+        favBtn.innerHTML = '♥';
+      }else{
+        favBtn.classList.remove('is-fav');
+        favBtn.innerHTML = '♡';
+      }
+
       document.getElementById('popupOverlay').classList.add('open');
     }
     function closePopup(){
       document.getElementById('popupOverlay').classList.remove('open');
+      currentPopupFn = null;
     }
 
     // ═══════════════════════ DOMContentLoaded ═══════════════════════
@@ -1224,6 +1257,36 @@
       document.getElementById('popupClose').addEventListener('click', closePopup);
       document.getElementById('popupOverlay').addEventListener('click', e => {
         if(e.target === document.getElementById('popupOverlay')) closePopup();
+      });
+
+      // popup 裡的收藏 icon
+      document.getElementById('popupFavBtn').addEventListener('click', ()=>{
+        if(!currentPopupFn) return;
+        const fn = currentPopupFn;
+        const favBtn = document.getElementById('popupFavBtn');
+
+        if(favData[fn]){
+          // 取消收藏
+          delete favData[fn];
+          favBtn.classList.remove('is-fav');
+          favBtn.innerHTML = '♡';
+        }else{
+          // 加入收藏
+          favData[fn] = { addedAt: Date.now() };
+          favBtn.classList.add('is-fav');
+          favBtn.innerHTML = '♥';
+        }
+        saveSaved();
+        updateFavBadge();
+
+        // 如果當前在看收藏頁，刷新清單
+        if(document.getElementById('favPage').style.display !== 'none'){
+          showFavPage();
+        }
+        // 如果當前在看主頁卡片，也更新主頁的收藏 icon
+        if(cardQueue.length && cardQueue[currentIndex]['picture file'] === fn){
+          updateFavIcon(fn);
+        }
       });
 
       // ─── Swipe ───
