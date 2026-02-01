@@ -70,23 +70,44 @@
         .filter-buttons {
             display: flex;
             gap: 0.5rem;
+            width: 100%;
+            justify-content: center;
         }
 
         .filter-btn {
-            padding: 0.6rem 1.2rem;
+            padding: 0.6rem 1rem;
             border: 2px solid var(--border);
             background: white;
-            border-radius: 25px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s ease;
             font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            flex: 1;
+        }
+
+        .filter-btn .filter-label {
+            font-size: 0.9rem;
+        }
+
+        .filter-btn .filter-count {
+            font-size: 0.75rem;
+            color: #999;
+            font-weight: 600;
         }
 
         .filter-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
+        }
+
+        .filter-btn.active .filter-count {
+            color: rgba(255,255,255,0.8);
         }
 
         .progress-info {
@@ -373,13 +394,22 @@
         <div id="app" style="display: none;">
             <div class="controls">
                 <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">全部</button>
-                    <button class="filter-btn" data-filter="unfamiliar">不熟悉</button>
-                    <button class="filter-btn" data-filter="familiar">已熟悉</button>
-                </div>
-                <div class="progress-info">
-                    <span>進度：</span>
-                    <strong id="familiarCount">0</strong> / <span id="totalCount">0</span>
+                    <button class="filter-btn active" data-filter="all">
+                        <span class="filter-label">全部</span>
+                        <span class="filter-count" id="countAll">0</span>
+                    </button>
+                    <button class="filter-btn" data-filter="unfamiliar">
+                        <span class="filter-label">不熟悲</span>
+                        <span class="filter-count" id="countUnfamiliar">0</span>
+                    </button>
+                    <button class="filter-btn" data-filter="familiar">
+                        <span class="filter-label">已熟悲</span>
+                        <span class="filter-count" id="countFamiliar">0</span>
+                    </button>
+                    <button class="filter-btn" data-filter="unseen">
+                        <span class="filter-label">還沒看</span>
+                        <span class="filter-count" id="countUnseen">0</span>
+                    </button>
                 </div>
             </div>
 
@@ -414,9 +444,6 @@
 
             <div class="navigation">
                 <button class="nav-btn" id="btnPrev">← 上一張</button>
-                <div class="card-counter">
-                    <span id="currentIndex">1</span> / <span id="totalCards">0</span>
-                </div>
                 <button class="nav-btn" id="btnNext">下一張 →</button>
             </div>
             
@@ -504,6 +531,9 @@
 
         // 改進的 CSV 解析（處理欄位中的換行）
         function parseCSV(text) {
+            // 先統一換行符號，清除 \r
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            
             const lines = text.split('\n');
             const headers = parseCSVLine(lines[0]);
             
@@ -586,7 +616,7 @@
                 allCards.forEach(card => {
                     const filename = card['picture file'];
                     if (!familiarityData[filename]) {
-                        familiarityData[filename] = 'unfamiliar';
+                        familiarityData[filename] = 'unseen';
                     }
                 });
                 
@@ -622,7 +652,6 @@
             cardQueue = shuffleArray([...filtered]);
             currentIndex = 0;
             
-            document.getElementById('totalCards').textContent = cardQueue.length;
         }
 
         // 洗牌演算法
@@ -640,7 +669,6 @@
             // 在當前位置後的第 3 張插入
             const insertPosition = Math.min(currentIndex + 3, cardQueue.length);
             cardQueue.splice(insertPosition, 0, card);
-            document.getElementById('totalCards').textContent = cardQueue.length;
         }
 
         // 顯示卡片
@@ -690,7 +718,6 @@
             `;
             
             document.getElementById('cardInfo').innerHTML = infoHTML;
-            document.getElementById('currentIndex').textContent = index + 1;
             
             // 重置翻牌狀態
             document.getElementById('flashcard').classList.remove('flipped');
@@ -712,11 +739,17 @@
             }
         }
 
-        // 更新進度
+        // 更新進度（四個篩選器的數字）
         function updateProgress() {
-            const familiarCount = Object.values(familiarityData).filter(v => v === 'familiar').length;
-            document.getElementById('familiarCount').textContent = familiarCount;
-            document.getElementById('totalCount').textContent = allCards.length;
+            const total = allCards.length;
+            const familiar = allCards.filter(c => familiarityData[c['picture file']] === 'familiar').length;
+            const unfamiliar = allCards.filter(c => familiarityData[c['picture file']] === 'unfamiliar').length;
+            const unseen = total - familiar - unfamiliar;
+
+            document.getElementById('countAll').textContent = total;
+            document.getElementById('countFamiliar').textContent = familiar;
+            document.getElementById('countUnfamiliar').textContent = unfamiliar;
+            document.getElementById('countUnseen').textContent = unseen;
         }
 
         // 事件監聽
@@ -799,7 +832,7 @@
                 if (currentIndex > 0) {
                     // 預設標記為不熟悉
                     const currentCard = cardQueue[currentIndex];
-                    if (!familiarityData[currentCard['picture file']] || familiarityData[currentCard['picture file']] === 'unfamiliar') {
+                    if (familiarityData[currentCard['picture file']] === 'unseen') {
                         familiarityData[currentCard['picture file']] = 'unfamiliar';
                         saveFamiliarityData();
                         updateProgress();
@@ -814,7 +847,7 @@
                 if (currentIndex < cardQueue.length - 1) {
                     // 預設標記為不熟悉
                     const currentCard = cardQueue[currentIndex];
-                    if (!familiarityData[currentCard['picture file']] || familiarityData[currentCard['picture file']] === 'unfamiliar') {
+                    if (familiarityData[currentCard['picture file']] === 'unseen') {
                         familiarityData[currentCard['picture file']] = 'unfamiliar';
                         saveFamiliarityData();
                         updateProgress();
